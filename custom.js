@@ -10,17 +10,17 @@
     
     // CUSTOM LINK
     $('.smoothscroll').click(function(){
-      var el = $(this).attr('href');
-      var elWrapped = $(el);
-      var header_height = $('.navbar').height();
+      const el = $(this).attr('href');
+      const elWrapped = $(el);
+      const header_height = $('.navbar').height();
   
       scrollToDiv(elWrapped,header_height);
       return false;
   
       function scrollToDiv(element,navheight){
-        var offset = element.offset();
-        var offsetTop = offset.top;
-        var totalScroll = offsetTop-navheight;
+        const offset = element.offset();
+        const offsetTop = offset.top;
+        const totalScroll = offsetTop-navheight;
   
         $('body,html').animate({
         scrollTop: totalScroll

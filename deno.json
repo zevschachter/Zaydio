@@ -4,6 +4,14 @@
   },
   "compilerOptions": {
     "lib": ["deno.window"]
+  },
+  "lint": {
+    "exclude": [
+      "jquery.min.js",
+      "modernizr.js",
+      "jquery.sticky.js",
+      "bootstrap.bundle.min.js"
+    ]
   }
 }
 
