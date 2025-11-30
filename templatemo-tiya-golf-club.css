@@ -531,11 +531,14 @@ strong {
 }
 
 .navbar .dropdown-item {
-  display: inline-block;
+  display: block;
   color: var(--p-color);
   font-size: var(--menu-font-size);
   font-weight: var(--font-weight-medium);
   position: relative;
+  padding: 8px 20px;
+  text-decoration: none;
+  width: 100%;
 }
 
 .navbar .dropdown-item.active, 
