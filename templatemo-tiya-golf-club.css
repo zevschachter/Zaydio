@@ -775,7 +775,7 @@ strong {
 .about-section::after {
   content: '';
   position: absolute;
-  top: 120px;
+  top: 132px;
   left: 0;
   right: 0;
   bottom: 0;
