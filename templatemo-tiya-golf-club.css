@@ -762,6 +762,11 @@ video.navbar-brand-image {
 -----------------------------------------*/
 .about-section {
   padding-bottom: 70px;
+  background-image: url('dangthatsacooldawg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
 
 .member-block-image-wrap {
