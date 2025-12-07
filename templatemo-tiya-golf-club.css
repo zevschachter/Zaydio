@@ -462,21 +462,13 @@ strong {
   color: var(--white-color);
 }
 
-.navbar .navbar-brand-image:not(video) {
+.navbar .navbar-brand-image {
   filter: brightness(0) invert(1);
 }
 
 .navbar-brand-image {
   width: 48px;
   height: 48px;
-}
-
-video.navbar-brand-image {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  object-fit: cover;
-  filter: none !important;
 }
 
 .navbar-brand-text {
