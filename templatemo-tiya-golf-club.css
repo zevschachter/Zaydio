@@ -754,11 +754,36 @@ strong {
 -----------------------------------------*/
 .about-section {
   padding-bottom: 70px;
+  position: relative;
+}
+
+.about-section .container {
+  position: relative;
+}
+
+.about-section .row:first-child {
+  position: relative;
+  z-index: 2;
+}
+
+.about-section .row:not(:first-child),
+.about-section .row > div:not(:first-child) {
+  position: relative;
+  z-index: 2;
+}
+
+.about-section::after {
+  content: '';
+  position: absolute;
+  top: 120px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image: url('dangthatsacooldawg.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  position: relative;
+  z-index: 1;
 }
 
 .member-block-image-wrap {
