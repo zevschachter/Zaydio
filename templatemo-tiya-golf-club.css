@@ -786,6 +786,36 @@ strong {
   z-index: 1;
 }
 
+.our-story-content {
+  text-align: center;
+}
+
+.our-story-content h3,
+.our-story-content p {
+  color: #555555;
+  text-shadow: 
+    -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+    1px 1px 0 #ffffff,
+    -1px 0 0 #ffffff,
+    1px 0 0 #ffffff,
+    0 -1px 0 #ffffff,
+    0 1px 0 #ffffff;
+}
+
+.our-story-content p strong {
+  text-shadow: 
+    -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+    1px 1px 0 #ffffff,
+    -1px 0 0 #ffffff,
+    1px 0 0 #ffffff,
+    0 -1px 0 #ffffff,
+    0 1px 0 #ffffff;
+}
+
 .member-block-image-wrap {
   border-radius: var(--border-radius-medium);
   position: relative;
