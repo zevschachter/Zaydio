@@ -466,9 +466,22 @@ strong {
   filter: brightness(0) invert(1);
 }
 
+.navbar .navbar-brand-image video,
+.navbar video.navbar-brand-image {
+  filter: none !important;
+}
+
 .navbar-brand-image {
   width: 48px;
   height: 48px;
+}
+
+.navbar-brand-image video,
+video.navbar-brand-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
 }
 
 .navbar-brand-text {
