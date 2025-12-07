@@ -653,8 +653,8 @@ strong {
   position: relative;
   padding-top: 100px;
   padding-bottom: 100px;
-  height: 60vh;
-  min-height: 400px;
+  height: 100vh;
+  min-height: 670px;
   margin-bottom: -90px;
 }
 
