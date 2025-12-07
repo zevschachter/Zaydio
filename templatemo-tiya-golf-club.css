@@ -469,6 +469,9 @@ strong {
 .navbar-brand-image {
   width: 48px;
   height: 48px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  object-fit: contain;
+  padding: 2px;
 }
 
 .navbar-brand-text {
@@ -792,28 +795,11 @@ strong {
 
 .our-story-content h3,
 .our-story-content p {
-  color: #555555;
-  text-shadow: 
-    -1px -1px 0 #ffffff,
-    1px -1px 0 #ffffff,
-    -1px 1px 0 #ffffff,
-    1px 1px 0 #ffffff,
-    -1px 0 0 #ffffff,
-    1px 0 0 #ffffff,
-    0 -1px 0 #ffffff,
-    0 1px 0 #ffffff;
+  color: #ffffff;
 }
 
 .our-story-content p strong {
-  text-shadow: 
-    -1px -1px 0 #ffffff,
-    1px -1px 0 #ffffff,
-    -1px 1px 0 #ffffff,
-    1px 1px 0 #ffffff,
-    -1px 0 0 #ffffff,
-    1px 0 0 #ffffff,
-    0 -1px 0 #ffffff,
-    0 1px 0 #ffffff;
+  color: #ffffff;
 }
 
 .member-block-image-wrap {
