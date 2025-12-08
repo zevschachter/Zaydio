@@ -769,37 +769,9 @@ strong {
   z-index: 2;
 }
 
-.about-section .row:not(:first-child),
-.about-section .row > div:not(:first-child) {
-  position: relative;
-  z-index: 2;
-}
-
-.about-section::after {
-  content: '';
-  position: absolute;
-  top: 145px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('dangthatsacooldawg.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  z-index: 1;
-}
 
 .our-story-content {
   text-align: center;
-}
-
-.our-story-content h3,
-.our-story-content p {
-  color: #ffffff;
-}
-
-.our-story-content p strong {
-  color: #ffffff;
 }
 
 .member-block-image-wrap {
