@@ -1214,6 +1214,11 @@ strong {
   
   .navbar {
     background-color: var(--secondary-color);
+    margin-bottom: 0;
+  }
+  
+  body {
+    background-color: var(--secondary-color);
   }
 
   .navbar-nav .dropdown-menu {
@@ -1238,8 +1243,10 @@ strong {
 
   .hero-section {
     position: relative;
-    top: 82px;
+    top: 0;
+    margin-top: 0;
     margin-bottom: 82px;
+    padding-top: 82px;
   }
 
   .events-listing-section {
