@@ -480,6 +480,14 @@ strong {
   bottom: 5px;
 }
 
+.navbar-brand-text a {
+  color: inherit;
+  text-decoration: none;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
 .navbar-brand-text small {
   display: block;
   font-size: 10px;
