@@ -1204,6 +1204,15 @@ strong {
     font-size: 28px;
   }
 
+  .navbar-brand-image {
+    transform: scale(1.5);
+    transform-origin: left center;
+  }
+
+  .navbar-brand {
+    justify-content: flex-start !important;
+  }
+
   h3 {
     font-size: 22px;
   }
