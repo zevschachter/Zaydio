@@ -463,8 +463,8 @@ strong {
 }
 
 .navbar-brand-image {
-  width: 120px;
-  height: 96px;
+  width: 360px;
+  height: 288px;
   border-radius: 50%;
   object-fit: contain;
   padding: 2px;
