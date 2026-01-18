@@ -1205,7 +1205,7 @@ strong {
   }
 
   .navbar-brand-image {
-    transform: scale(1.5);
+    transform: scale(3);
     transform-origin: left center;
   }
 
