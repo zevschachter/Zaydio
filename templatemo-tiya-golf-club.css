@@ -463,14 +463,16 @@ strong {
 }
 
 .navbar-brand-image {
-  width: 360px;
-  height: 288px;
+  width: 60px;
+  height: 48px;
   border-radius: 50%;
   object-fit: contain;
   padding: 2px;
   margin-top: -12px;
   vertical-align: middle;
   mix-blend-mode: darken;
+  transform: scale(6);
+  transform-origin: left center;
 }
 
 .navbar-brand-text {
