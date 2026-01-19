@@ -1297,12 +1297,28 @@ strong {
     overflow: hidden;
   }
 
+  /* Hide wavy borders on desktop, show on mobile */
+  .wavy-border-purple,
+  .wavy-border-yellow {
+    display: none;
+  }
+
   .about-section {
     background-color: #ffffff !important;
   }
 
   .about-section .our-story-content {
     background-color: transparent;
+  }
+
+  /* Show wavy borders on mobile */
+  .wavy-border-purple,
+  .wavy-border-yellow {
+    display: block !important;
+  }
+
+  section[style*="background-color: #FFD93D"] {
+    padding-top: 80px !important;
   }
 
   .events-listing-section {
