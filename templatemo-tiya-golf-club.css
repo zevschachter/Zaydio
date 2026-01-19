@@ -1321,6 +1321,11 @@ strong {
     padding-top: 80px !important;
   }
 
+  /* Change "Listen to Zaydio" text color to off-white on mobile */
+  .music-section p.text-center {
+    color: #FFF9E6 !important;
+  }
+
   .events-listing-section {
     margin-bottom: 50px;
   }
