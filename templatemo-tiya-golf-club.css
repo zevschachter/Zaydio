@@ -1297,6 +1297,14 @@ strong {
     overflow: hidden;
   }
 
+  .about-section {
+    background-color: #ffffff !important;
+  }
+
+  .about-section .our-story-content {
+    background-color: transparent;
+  }
+
   .events-listing-section {
     margin-bottom: 50px;
   }
