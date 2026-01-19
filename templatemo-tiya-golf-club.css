@@ -1300,7 +1300,8 @@ strong {
   /* Hide wavy borders on desktop, show on mobile */
   .wavy-border-purple,
   .wavy-border-yellow,
-  .wavy-border-purple-top {
+  .wavy-border-purple-top,
+  .purple-border-wrapper {
     display: none;
   }
 
@@ -1315,7 +1316,12 @@ strong {
   /* Show wavy borders on mobile */
   .wavy-border-purple,
   .wavy-border-yellow,
-  .wavy-border-purple-top {
+  .wavy-border-purple-top,
+  .purple-border-wrapper {
+    display: block !important;
+  }
+
+  .purple-border-wrapper svg {
     display: block !important;
   }
 
