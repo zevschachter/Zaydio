@@ -469,6 +469,7 @@ strong {
   object-fit: contain;
   padding: 2px;
   margin-top: -12px;
+  margin-left: -15px;
   vertical-align: middle;
   mix-blend-mode: normal;
   transform: scale(6);
@@ -1211,6 +1212,12 @@ strong {
 
   .navbar-brand {
     justify-content: flex-start !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  .navbar-brand-image {
+    margin-left: -10px !important;
   }
 
   h3 {
