@@ -1299,7 +1299,8 @@ strong {
 
   /* Hide wavy borders on desktop, show on mobile */
   .wavy-border-purple,
-  .wavy-border-yellow {
+  .wavy-border-yellow,
+  .wavy-border-purple-top {
     display: none;
   }
 
@@ -1313,12 +1314,13 @@ strong {
 
   /* Show wavy borders on mobile */
   .wavy-border-purple,
-  .wavy-border-yellow {
+  .wavy-border-yellow,
+  .wavy-border-purple-top {
     display: block !important;
   }
 
   section[style*="background-color: #FFD93D"] {
-    padding-top: 80px !important;
+    padding-top: 150px !important;
   }
 
   /* Change "Listen to Zaydio" text color to off-white on mobile */
