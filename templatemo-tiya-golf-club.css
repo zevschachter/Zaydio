@@ -1271,6 +1271,32 @@ strong {
     padding-top: 82px;
   }
 
+  .hero-section svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .hero-section > svg {
+    top: 0;
+  }
+
+  .hero-section .container + svg {
+    bottom: -1px;
+  }
+
+  section svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+  }
+
+  section[style*="background-color"] {
+    margin-top: 0 !important;
+    overflow: hidden;
+  }
+
   .events-listing-section {
     margin-bottom: 50px;
   }
