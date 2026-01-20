@@ -1217,6 +1217,10 @@ strong {
   }
 
   .navbar-brand-image {
+    margin-left: -20px !important;
+  }
+
+  .navbar-brand-image {
     margin-left: -10px !important;
   }
 
