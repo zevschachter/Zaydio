@@ -1336,6 +1336,11 @@ strong {
     padding-top: 150px !important;
   }
 
+  /* Shrink yellow border to match other border spacing on mobile */
+  .wavy-border-yellow {
+    height: 60px !important;
+  }
+
   /* Change "Listen to Zaydio" text color to off-white on mobile */
   .music-section p.text-center {
     color: #FFF9E6 !important;
