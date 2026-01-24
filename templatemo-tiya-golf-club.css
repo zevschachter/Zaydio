@@ -44,7 +44,18 @@ https://templatemo.com/tm-587-tiya-golf-club
 
 body {
   background-color: var(--white-color);
-  font-family: var(--body-font-family); 
+  font-family: var(--body-font-family);
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+.container,
+.container-fluid {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 
