@@ -58,6 +58,13 @@ html {
   overflow-x: hidden;
 }
 
+/* Hide yellow border above purple on desktop */
+@media screen and (min-width: 992px) {
+  .wavy-border-yellow {
+    display: none !important;
+  }
+}
+
 
 /*---------------------------------------
   TYPOGRAPHY               
@@ -1321,7 +1328,6 @@ strong {
 
   /* Hide wavy borders on desktop, show on mobile */
   .wavy-border-purple,
-  .wavy-border-yellow,
   .wavy-border-purple-top,
   .purple-border-wrapper {
     display: none;
