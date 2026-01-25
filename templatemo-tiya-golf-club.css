@@ -1327,6 +1327,11 @@ strong {
     display: none;
   }
 
+  /* Hide yellow border on desktop */
+  .wavy-border-yellow {
+    display: none !important;
+  }
+
   .about-section {
     background-color: #ffffff !important;
   }
