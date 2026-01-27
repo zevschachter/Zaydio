@@ -1114,6 +1114,26 @@ strong {
 .site-footer .container {
   position: relative;
   z-index: 2;
+  overflow: visible;
+}
+
+.site-footer .row {
+  overflow: visible;
+}
+
+.site-footer .col-lg-6,
+.site-footer .col-lg-4 {
+  overflow: visible;
+}
+
+.site-footer .navbar-brand {
+  overflow: visible;
+  display: block;
+}
+
+.site-footer .navbar-brand-image {
+  overflow: visible;
+  max-width: none;
 }
 
 .site-footer svg {
