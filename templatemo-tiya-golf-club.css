@@ -1402,6 +1402,11 @@ strong {
     display: none !important;
   }
 
+  /* Hide yellow wavy border (removed yellow border 2) */
+  .wavy-border-yellow {
+    display: none !important;
+  }
+
   section[style*="background-color: #FFD93D"] {
     padding-top: 30px !important;
   }
