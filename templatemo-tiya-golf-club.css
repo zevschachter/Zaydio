@@ -495,6 +495,11 @@ strong {
   transform-origin: left center;
   position: relative;
   z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand-image:hover {
+  transform: scale(6.15);
 }
 
 .navbar-brand-text {
@@ -1499,11 +1504,11 @@ p {
 }
 
 /* Smooth image transitions */
-img, video {
+img:not(.navbar-brand-image), video {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-img:hover, video:hover {
+img:not(.navbar-brand-image):hover, video:hover {
   transform: scale(1.02);
 }
 
