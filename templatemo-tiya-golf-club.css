@@ -1381,16 +1381,20 @@ strong {
     background-color: transparent;
   }
 
-  /* Show wavy borders on mobile */
-  .wavy-border-purple,
-  .wavy-border-yellow,
-  .wavy-border-purple-top,
-  .purple-border-wrapper {
+  /* Show only top yellow and purple borders on mobile */
+  .wavy-border-yellow {
     display: block !important;
   }
 
-  .purple-border-wrapper svg {
+  .wavy-border-purple-top {
     display: block !important;
+  }
+
+  /* Hide extra purple borders (left, right, bottom) on mobile */
+  .wavy-purple-bottom,
+  .wavy-purple-left,
+  .wavy-purple-right {
+    display: none !important;
   }
 
   section[style*="background-color: #FFD93D"] {
