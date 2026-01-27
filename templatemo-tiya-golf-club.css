@@ -1403,7 +1403,7 @@ strong {
   }
 
   section[style*="background-color: #FFD93D"] {
-    padding-top: 150px !important;
+    padding-top: 30px !important;
   }
 
   /* Shrink yellow border to match other border spacing on mobile */
