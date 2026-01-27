@@ -1381,16 +1381,21 @@ strong {
     background-color: transparent;
   }
 
-  /* Show only top yellow and purple borders on mobile */
+  /* Show only top yellow border on mobile */
   .wavy-border-yellow {
     display: block !important;
   }
 
-  .wavy-border-purple-top {
+  /* Show purple-border-wrapper but hide all borders inside except top */
+  .purple-border-wrapper {
     display: block !important;
   }
 
-  /* Hide extra purple borders (left, right, bottom) on mobile */
+  /* Show only the top purple border, hide all others */
+  .wavy-purple-top {
+    display: block !important;
+  }
+
   .wavy-purple-bottom,
   .wavy-purple-left,
   .wavy-purple-right {
