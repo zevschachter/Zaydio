@@ -211,6 +211,7 @@ strong {
   -webkit-perspective: 300px;
   -moz-perspective: 300px;
   perspective: 300px;
+  transform-style: preserve-3d;
 }
 .cd-headline.rotate-1 b {
   opacity: 0;
@@ -224,6 +225,9 @@ strong {
   -ms-transform: rotateX(180deg);
   -o-transform: rotateX(180deg);
   transform: rotateX(180deg);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 .cd-headline.rotate-1 b.is-visible {
   opacity: 1;
@@ -232,6 +236,9 @@ strong {
   -ms-transform: rotateX(0deg);
   -o-transform: rotateX(0deg);
   transform: rotateX(0deg);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
   -webkit-animation: cd-rotate-1-in 1.2s;
   -moz-animation: cd-rotate-1-in 1.2s;
   animation: cd-rotate-1-in 1.2s;
@@ -242,9 +249,103 @@ strong {
   -ms-transform: rotateX(180deg);
   -o-transform: rotateX(180deg);
   transform: rotateX(180deg);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   -webkit-animation: cd-rotate-1-out 1.2s;
   -moz-animation: cd-rotate-1-out 1.2s;
   animation: cd-rotate-1-out 1.2s;
+}
+
+/* Simpler animation for desktop - reduces sketchy 3D rendering on larger screens */
+@media screen and (min-width: 768px) {
+  .cd-headline.rotate-1 b.is-visible {
+    -webkit-animation: cd-rotate-1-in-simple 0.8s ease-out;
+    -moz-animation: cd-rotate-1-in-simple 0.8s ease-out;
+    animation: cd-rotate-1-in-simple 0.8s ease-out;
+  }
+  .cd-headline.rotate-1 b.is-hidden {
+    -webkit-animation: cd-rotate-1-out-simple 0.6s ease-in;
+    -moz-animation: cd-rotate-1-out-simple 0.6s ease-in;
+    animation: cd-rotate-1-out-simple 0.6s ease-in;
+  }
+}
+
+@-webkit-keyframes cd-rotate-1-in-simple {
+  0% {
+    -webkit-transform: rotateX(90deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+@-moz-keyframes cd-rotate-1-in-simple {
+  0% {
+    -moz-transform: rotateX(90deg);
+    opacity: 0;
+  }
+  100% {
+    -moz-transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+@keyframes cd-rotate-1-in-simple {
+  0% {
+    -webkit-transform: rotateX(90deg);
+    -moz-transform: rotateX(90deg);
+    -ms-transform: rotateX(90deg);
+    -o-transform: rotateX(90deg);
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    -ms-transform: rotateX(0deg);
+    -o-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes cd-rotate-1-out-simple {
+  0% {
+    -webkit-transform: rotateX(0deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotateX(-90deg);
+    opacity: 0;
+  }
+}
+@-moz-keyframes cd-rotate-1-out-simple {
+  0% {
+    -moz-transform: rotateX(0deg);
+    opacity: 1;
+  }
+  100% {
+    -moz-transform: rotateX(-90deg);
+    opacity: 0;
+  }
+}
+@keyframes cd-rotate-1-out-simple {
+  0% {
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    -ms-transform: rotateX(0deg);
+    -o-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotateX(-90deg);
+    -moz-transform: rotateX(-90deg);
+    -ms-transform: rotateX(-90deg);
+    -o-transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
 }
 
 @-webkit-keyframes cd-rotate-1-in {
@@ -1381,9 +1482,10 @@ strong {
     background-color: transparent;
   }
 
-  /* Show only top yellow border on mobile */
+  /* Hide yellow wavy border on mobile */
   .wavy-border-yellow {
-    display: block !important;
+    display: none !important;
+    height: 60px !important;
   }
 
   /* Show purple-border-wrapper but hide all borders inside except top */
@@ -1402,18 +1504,8 @@ strong {
     display: none !important;
   }
 
-  /* Hide yellow wavy border (removed yellow border 2) */
-  .wavy-border-yellow {
-    display: none !important;
-  }
-
   section[style*="background-color: #FFD93D"] {
     padding-top: 30px !important;
-  }
-
-  /* Shrink yellow border to match other border spacing on mobile */
-  .wavy-border-yellow {
-    height: 60px !important;
   }
 
   /* Change "Listen to Zaydio" text color to off-white on mobile */
@@ -1587,6 +1679,65 @@ video:hover {
   .custom-btn {
     font-size: 12px;
     padding: 4px 12px;
+  }
+}
+
+/* ============================================
+   ALBUM ANNOUNCEMENT SECTION
+   ============================================ */
+
+/* Album cover tilt hover effect */
+.album-announcement div[style*="rotate(-2deg)"]:hover {
+  transform: rotate(0deg) scale(1.03) !important;
+}
+
+/* Streaming button hover effects */
+.album-announcement .btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+}
+
+/* Floating music note animation */
+@keyframes floatNote {
+  0%, 100% { transform: translateY(0) rotate(var(--note-rotate, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--note-rotate, 0deg)); }
+}
+
+.album-announcement span[style*="position: absolute"] {
+  animation: floatNote 3s ease-in-out infinite;
+}
+
+.album-announcement span[style*="position: absolute"]:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.album-announcement span[style*="position: absolute"]:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.album-announcement span[style*="position: absolute"]:nth-child(4) {
+  animation-delay: 1.5s;
+}
+
+.album-announcement span[style*="position: absolute"]:nth-child(5) {
+  animation-delay: 2s;
+}
+
+/* Responsive adjustments for album announcement */
+@media screen and (max-width: 991px) {
+  .album-announcement h2 {
+    font-size: 2.2rem !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .album-announcement h2 {
+    font-size: 1.8rem !important;
+  }
+
+  .album-announcement .btn {
+    padding: 12px 22px !important;
+    font-size: 0.9rem !important;
   }
 }
 
