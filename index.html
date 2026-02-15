@@ -138,7 +138,7 @@ https://templatemo.com/tm-587-tiya-golf-club
             </section>
 
             <!-- Album Announcement Banner -->
-            <section class="album-announcement" style="background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 50%, #FFA34D 100%); padding: 60px 0; position: relative; z-index: 2; overflow: hidden;">
+            <section id="album-announcement" class="album-announcement" style="background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 50%, #FFA34D 100%); padding: 60px 0; position: relative; z-index: 2; overflow: hidden;">
                 <!-- Decorative floating music notes -->
                 <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.1;">
                     <span style="position: absolute; top: 10%; left: 5%; font-size: 3rem; transform: rotate(-15deg);">&#9835;</span>
@@ -245,11 +245,11 @@ https://templatemo.com/tm-587-tiya-golf-club
                     <div class="row">
 
                         <div class="col-lg-12 col-12 text-center mx-auto mb-lg-5 mb-4">
-                            <h2><span>Everybody Sing</span> Album is Out!</h2>
+                            <h2><span>Listen to</span> ZAYDIO</h2>
                         </div>
 
                         <div class="col-lg-8 col-12 mx-auto">
-                            <p class="text-center mb-5">Stream our brand new album on your favorite platform!</p>
+                            <p class="text-center mb-5">Stream Zaydio on all your favorite platforms</p>
 
                             <div class="row justify-content-center">
                                 <div class="col-lg-5 col-md-6 col-12 mb-4 mb-lg-0">
@@ -427,7 +427,7 @@ https://templatemo.com/tm-587-tiya-golf-club
         <!-- Scroll to Music section on page load -->
         <script>
             window.addEventListener('load', function() {
-                var musicSection = document.getElementById('section_3');
+                var musicSection = document.getElementById('album-announcement');
                 if (musicSection) {
                     var navHeight = document.querySelector('.navbar').offsetHeight;
                     var targetTop = musicSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
