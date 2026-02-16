@@ -1225,14 +1225,16 @@ strong {
   overflow: visible;
 }
 
-.site-footer .navbar-brand {
-  overflow: visible;
-  display: block;
+.footer-logo {
+  width: 80px;
+  height: auto;
+  border-radius: 50%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
-.site-footer .navbar-brand-image {
-  overflow: visible;
-  max-width: none;
+.footer-logo:hover {
+  transform: scale(1.1);
 }
 
 .site-footer svg {
@@ -1561,6 +1563,27 @@ strong {
 
   .contact-info-item {
     width: 72%;
+  }
+}
+
+/* Birds image: rounded on desktop, flush with wave on mobile */
+@media screen and (min-width: 992px) {
+  .section-bg-image img[alt="Colorful birds"] {
+    border-radius: 20px !important;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .wave-into-purple {
+    display: none !important;
+  }
+
+  .section-bg-image {
+    padding-top: 40px !important;
+  }
+
+  .section-bg-image img[alt="Colorful birds"] {
+    border-radius: 0 0 20px 20px !important;
   }
 }
 
