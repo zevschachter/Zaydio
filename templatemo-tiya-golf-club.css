@@ -1566,6 +1566,17 @@ strong {
   }
 }
 
+/* Purple video section: smaller on mobile with compact wavy borders */
+@media screen and (max-width: 991px) {
+  .video-purple-section {
+    padding: 12px 8px !important;
+  }
+
+  .video-purple-section video {
+    border-radius: 20px 20px 15px 15px !important;
+  }
+}
+
 /* Birds image: rounded on desktop, flush with wave on mobile */
 @media screen and (min-width: 992px) {
   .section-bg-image img[alt="Colorful birds"] {
