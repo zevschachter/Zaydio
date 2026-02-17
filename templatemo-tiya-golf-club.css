@@ -256,94 +256,91 @@ strong {
   animation: cd-rotate-1-out 1.2s;
 }
 
-/* Simpler animation for desktop - reduces sketchy 3D rendering on larger screens */
+/* Simpler animation for desktop - uses fade+slide instead of 3D to avoid jitter */
 @media screen and (min-width: 768px) {
+  .cd-headline.rotate-1 .cd-words-wrapper {
+    perspective: none;
+    -webkit-perspective: none;
+    -moz-perspective: none;
+  }
+  .cd-headline.rotate-1 b {
+    transform: translateY(20px);
+    -webkit-transform: translateY(20px);
+  }
   .cd-headline.rotate-1 b.is-visible {
-    -webkit-animation: cd-rotate-1-in-simple 0.8s ease-out;
-    -moz-animation: cd-rotate-1-in-simple 0.8s ease-out;
-    animation: cd-rotate-1-in-simple 0.8s ease-out;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -webkit-animation: cd-rotate-1-in-simple 0.6s ease-out;
+    -moz-animation: cd-rotate-1-in-simple 0.6s ease-out;
+    animation: cd-rotate-1-in-simple 0.6s ease-out;
   }
   .cd-headline.rotate-1 b.is-hidden {
-    -webkit-animation: cd-rotate-1-out-simple 0.6s ease-in;
-    -moz-animation: cd-rotate-1-out-simple 0.6s ease-in;
-    animation: cd-rotate-1-out-simple 0.6s ease-in;
+    transform: translateY(-20px);
+    -webkit-transform: translateY(-20px);
+    -webkit-animation: cd-rotate-1-out-simple 0.5s ease-in;
+    -moz-animation: cd-rotate-1-out-simple 0.5s ease-in;
+    animation: cd-rotate-1-out-simple 0.5s ease-in;
   }
 }
 
 @-webkit-keyframes cd-rotate-1-in-simple {
   0% {
-    -webkit-transform: rotateX(90deg);
+    -webkit-transform: translateY(20px);
     opacity: 0;
   }
   100% {
-    -webkit-transform: rotateX(0deg);
+    -webkit-transform: translateY(0);
     opacity: 1;
   }
 }
 @-moz-keyframes cd-rotate-1-in-simple {
   0% {
-    -moz-transform: rotateX(90deg);
+    -moz-transform: translateY(20px);
     opacity: 0;
   }
   100% {
-    -moz-transform: rotateX(0deg);
+    -moz-transform: translateY(0);
     opacity: 1;
   }
 }
 @keyframes cd-rotate-1-in-simple {
   0% {
-    -webkit-transform: rotateX(90deg);
-    -moz-transform: rotateX(90deg);
-    -ms-transform: rotateX(90deg);
-    -o-transform: rotateX(90deg);
-    transform: rotateX(90deg);
+    transform: translateY(20px);
     opacity: 0;
   }
   100% {
-    -webkit-transform: rotateX(0deg);
-    -moz-transform: rotateX(0deg);
-    -ms-transform: rotateX(0deg);
-    -o-transform: rotateX(0deg);
-    transform: rotateX(0deg);
+    transform: translateY(0);
     opacity: 1;
   }
 }
 
 @-webkit-keyframes cd-rotate-1-out-simple {
   0% {
-    -webkit-transform: rotateX(0deg);
+    -webkit-transform: translateY(0);
     opacity: 1;
   }
   100% {
-    -webkit-transform: rotateX(-90deg);
+    -webkit-transform: translateY(-20px);
     opacity: 0;
   }
 }
 @-moz-keyframes cd-rotate-1-out-simple {
   0% {
-    -moz-transform: rotateX(0deg);
+    -moz-transform: translateY(0);
     opacity: 1;
   }
   100% {
-    -moz-transform: rotateX(-90deg);
+    -moz-transform: translateY(-20px);
     opacity: 0;
   }
 }
 @keyframes cd-rotate-1-out-simple {
   0% {
-    -webkit-transform: rotateX(0deg);
-    -moz-transform: rotateX(0deg);
-    -ms-transform: rotateX(0deg);
-    -o-transform: rotateX(0deg);
-    transform: rotateX(0deg);
+    transform: translateY(0);
     opacity: 1;
   }
   100% {
-    -webkit-transform: rotateX(-90deg);
-    -moz-transform: rotateX(-90deg);
-    -ms-transform: rotateX(-90deg);
-    -o-transform: rotateX(-90deg);
-    transform: rotateX(-90deg);
+    transform: translateY(-20px);
     opacity: 0;
   }
 }
@@ -1682,6 +1679,11 @@ a:hover {
 /* Improved card styling in music section */
 .music-section .text-center.p-4 {
   border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.music-section .text-center.p-4:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 }
 
 /* Better video container styling */
