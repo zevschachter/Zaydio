@@ -256,32 +256,7 @@ strong {
   animation: cd-rotate-1-out 1.2s;
 }
 
-/* Simpler animation for desktop - uses fade+slide instead of 3D to avoid jitter */
-@media screen and (min-width: 768px) {
-  .cd-headline.rotate-1 .cd-words-wrapper {
-    perspective: none;
-    -webkit-perspective: none;
-    -moz-perspective: none;
-  }
-  .cd-headline.rotate-1 b {
-    transform: translateY(20px);
-    -webkit-transform: translateY(20px);
-  }
-  .cd-headline.rotate-1 b.is-visible {
-    transform: translateY(0);
-    -webkit-transform: translateY(0);
-    -webkit-animation: cd-rotate-1-in-simple 0.6s ease-out;
-    -moz-animation: cd-rotate-1-in-simple 0.6s ease-out;
-    animation: cd-rotate-1-in-simple 0.6s ease-out;
-  }
-  .cd-headline.rotate-1 b.is-hidden {
-    transform: translateY(-20px);
-    -webkit-transform: translateY(-20px);
-    -webkit-animation: cd-rotate-1-out-simple 0.5s ease-in;
-    -moz-animation: cd-rotate-1-out-simple 0.5s ease-in;
-    animation: cd-rotate-1-out-simple 0.5s ease-in;
-  }
-}
+/* Desktop now uses the same 3D rotateX animation as mobile */
 
 @-webkit-keyframes cd-rotate-1-in-simple {
   0% {
