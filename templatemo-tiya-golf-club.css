@@ -1677,13 +1677,23 @@ a:hover {
 }
 
 /* Improved card styling in music section */
-.music-section .text-center.p-4 {
+.music-section .text-center {
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.music-section .text-center.p-4:hover {
+.music-section .text-center:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+@media screen and (max-width: 767px) {
+  .music-card-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .music-card-title {
+    font-size: 1rem;
+  }
 }
 
 /* Better video container styling */
