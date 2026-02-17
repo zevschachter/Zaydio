@@ -589,7 +589,7 @@ strong {
   padding: 2px;
   vertical-align: middle;
   mix-blend-mode: normal;
-  transform: scale(6);
+  transform: scale(3.5);
   transform-origin: left center;
   position: relative;
   z-index: 100;
@@ -597,7 +597,7 @@ strong {
 }
 
 .navbar-brand-image:hover {
-  transform: scale(6.15);
+  transform: scale(3.65);
 }
 
 .navbar-brand-text {
@@ -1355,20 +1355,13 @@ strong {
   .navbar-brand-image {
     transform: scale(3);
     transform-origin: left center;
+    margin-left: -10px !important;
   }
 
   .navbar-brand {
     justify-content: flex-start !important;
     padding-left: 0 !important;
     margin-left: 0 !important;
-  }
-
-  .navbar-brand-image {
-    margin-left: -20px !important;
-  }
-
-  .navbar-brand-image {
-    margin-left: -10px !important;
   }
 
   h3 {
