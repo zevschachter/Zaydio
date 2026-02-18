@@ -1757,10 +1757,14 @@ a:hover {
 
 @media screen and (max-width: 767px) {
   .music-heading {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   .listen-to-text {
     margin-right: 6px;
+  }
+  .zaydio-wave {
+    display: block;
+    margin-top: 4px;
   }
   .music-subtitle {
     font-size: 1rem;
@@ -1768,6 +1772,16 @@ a:hover {
   .music-note-bounce {
     font-size: 1.2rem;
     margin: 0 4px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .music-heading {
+    font-size: 1.5rem;
+  }
+  .music-note-bounce {
+    font-size: 1rem;
+    margin: 0 2px;
   }
 }
 
