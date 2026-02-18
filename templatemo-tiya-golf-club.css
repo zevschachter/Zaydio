@@ -1663,6 +1663,67 @@ a:hover {
   user-select: none;
 }
 
+/* Music heading animation */
+.music-heading-wrapper {
+  animation: musicFadeSlideIn 0.8s ease-out both;
+}
+
+.music-heading {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.music-subtitle {
+  font-size: 1.15rem;
+  opacity: 0.75;
+  margin-top: 8px;
+  animation: musicFadeSlideIn 0.8s ease-out 0.3s both;
+}
+
+.music-note-bounce {
+  display: inline-block;
+  animation: noteBounce 1.5s ease-in-out infinite;
+  font-size: 1.6rem;
+  margin: 0 8px;
+  color: #e8a000;
+}
+
+.music-note-delay {
+  animation-delay: 0.4s;
+}
+
+@keyframes noteBounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-8px) rotate(-10deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(-5px) rotate(8deg); }
+}
+
+@keyframes musicFadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .music-heading {
+    font-size: 2rem;
+  }
+  .music-subtitle {
+    font-size: 1rem;
+  }
+  .music-note-bounce {
+    font-size: 1.2rem;
+    margin: 0 4px;
+  }
+}
+
 .music-section .text-center:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0,0,0,0.12);
