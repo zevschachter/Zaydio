@@ -1685,8 +1685,10 @@ a:hover {
 }
 
 .listen-to-text {
-  color: #6C5CE7;
+  color: #000000;
   margin-right: 10px;
+  background: linear-gradient(to top, rgba(108, 92, 231, 0.3) 40%, transparent 40%);
+  padding: 0 4px;
 }
 
 .zaydio-wave {
