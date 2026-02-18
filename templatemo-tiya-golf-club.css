@@ -1656,6 +1656,13 @@ a:hover {
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.music-section {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .music-section .text-center:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0,0,0,0.12);
