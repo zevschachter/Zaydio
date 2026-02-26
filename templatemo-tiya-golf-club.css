@@ -1576,9 +1576,16 @@ strong {
   }
 }
 
-/* Apply fade-in to sections on scroll */
-section {
-  animation: fadeInUp 0.6s ease-out;
+/* Scroll-reveal: sections start hidden and animate in when visible */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Enhanced card shadows and hover effects */
@@ -1872,6 +1879,79 @@ video:hover {
   .album-announcement .btn {
     padding: 12px 22px !important;
     font-size: 0.9rem !important;
+  }
+
+  .album-announcement .d-flex.flex-wrap.gap-3 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .album-announcement .d-flex.flex-wrap.gap-3 .btn {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+}
+
+/* Back-to-top floating button */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  color: #fff;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(108, 92, 231, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(78, 205, 196, 0.5);
+}
+
+/* Active nav link indicator */
+.navbar-nav .nav-link.active-section {
+  color: var(--primary-color) !important;
+  font-weight: var(--font-weight-bold);
+}
+
+/* Minimum touch target size for mobile */
+@media screen and (max-width: 991px) {
+  .navbar-nav .nav-link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-btn,
+  .custom-border-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .back-to-top {
+    bottom: 16px;
+    right: 16px;
   }
 }
 

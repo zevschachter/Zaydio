@@ -134,7 +134,7 @@
                                 <iframe 
                                     src="about:blank"
                                     data-src="https://www.youtube.com/embed/SBuM2Wc8-tE?autoplay=1" 
-                                    srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='https://www.youtube.com/embed/SBuM2Wc8-tE?autoplay=1'><img src='https://img.youtube.com/vi/SBuM2Wc8-tE/hqdefault.jpg' alt='Zaydio Video'><span>&#x25BA;</span></a>"
+                                    srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='https://www.youtube.com/embed/SBuM2Wc8-tE?autoplay=1'><img src='https://img.youtube.com/vi/SBuM2Wc8-tE/maxresdefault.jpg' alt='Zaydio Video'><span>&#x25BA;</span></a>"
                                     title="Zaydio Video" 
                                     frameborder="0" 
                                     loading="lazy"
@@ -157,7 +157,7 @@
             </svg>
 
             <!-- Album Announcement Banner -->
-            <section id="album-announcement" class="album-announcement" style="background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 50%, #FFA34D 100%); padding: 60px 0; position: relative; z-index: 2; overflow: hidden;">
+            <section id="album-announcement" class="album-announcement reveal" style="background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 50%, #FFA34D 100%); padding: 60px 0; position: relative; z-index: 2; overflow: hidden;">
                 <!-- Decorative floating music notes -->
                 <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.1;">
                     <span style="position: absolute; top: 10%; left: 5%; font-size: 3rem; transform: rotate(-15deg);">&#9835;</span>
@@ -211,7 +211,7 @@
                 <div class="container-fluid px-lg-5">
                     <div class="row justify-content-center">
                         <div class="col-12" style="overflow: visible;">
-                            <video autoplay loop muted playsinline preload="metadata" aria-label="Zaydio animal adventure video" poster="https://img.youtube.com/vi/SBuM2Wc8-tE/hqdefault.jpg" style="width: 100%; height: auto; border-radius: 50px 50px 30px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: block; object-fit: contain; max-width: 100%; overflow: visible;">
+                            <video autoplay loop muted playsinline preload="metadata" aria-label="Zaydio animal adventure video" style="width: 100%; height: auto; border-radius: 50px 50px 30px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: block; object-fit: contain; max-width: 100%; overflow: visible;">
                                 <source src="thisanimalconglomerateisavibe.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -225,7 +225,7 @@
                 <path fill="#ffffff" d="M0,35L60,38C120,41,240,47,360,50C480,53,600,50,720,44C840,38,960,28,1080,26C1200,24,1320,30,1380,34L1440,38L1440,80L0,80Z"></path>
             </svg>
 
-            <section class="about-section section-padding" id="section_2" style="background-color: #ffffff;">
+            <section class="about-section section-padding reveal" id="section_2" style="background-color: #ffffff;">
                 <div class="container">
                     <div class="row">
 
@@ -258,7 +258,7 @@
             </section>
 
 
-            <section class="music-section section-padding" id="section_3" style="background-color: #FFF9E6;">
+            <section class="music-section section-padding reveal" id="section_3" style="background-color: #FFF9E6;">
                 <div class="container">
                     <div class="row">
 
@@ -341,7 +341,7 @@
                 </svg>
             </div>
 
-            <section class="events-section section-bg section-padding" id="section_4">
+            <section class="events-section section-bg section-padding reveal" id="section_4">
                 <div class="container">
                     <div class="row">
 
@@ -411,7 +411,7 @@
                 <path fill="#6C5CE7" d="M0,64L48,69.3C96,75,192,85,288,90.7C384,96,480,96,576,85.3C672,75,768,53,864,48C960,43,1056,53,1152,64C1248,75,1344,85,1392,90.7L1440,96L1440,120L0,120Z"></path>
             </svg>
 
-            <section class="section-bg-image" style="padding: 60px 0;">
+            <section class="section-bg-image reveal" style="padding: 60px 0;">
 
                 <div class="container">
                     <div class="row align-items-center">
@@ -455,6 +455,8 @@
                 <path fill="#4ECDC4" d="M0,64L48,58.7C96,53,192,43,288,48C384,53,480,75,576,80C672,85,768,75,864,64C960,53,1056,43,1152,42.7C1248,43,1344,53,1392,58.7L1440,64L1440,120L0,120Z"></path>
             </svg>
 
+            <button class="back-to-top" aria-label="Back to top">&uarr;</button>
+
         </main>
 
         <footer class="site-footer" style="background-color: #4ECDC4; padding-top: 60px; padding-bottom: 30px;">
@@ -485,35 +487,96 @@
         <script src="modernizr.js"></script>
         <script src="custom.js"></script>
 
-        <!-- Lazy-load YouTube: swap srcdoc for real player on click -->
         <script>
-            document.addEventListener('click', function(e) {
-                var iframe = e.target.closest('iframe[data-src]');
-                if (!iframe) {
-                    var anchor = e.target.closest('a');
-                    if (anchor) {
-                        iframe = anchor.closest('iframe[data-src]') || anchor.ownerDocument.querySelector('iframe[data-src]');
-                        if (iframe && iframe.parentElement.contains(e.target)) {
+            (function() {
+                // Lazy-load YouTube: swap srcdoc for real player on click
+                document.addEventListener('click', function(e) {
+                    var el = e.target;
+                    while (el && el !== document) {
+                        if (el.tagName === 'IFRAME' && el.getAttribute('data-src')) {
                             e.preventDefault();
-                            iframe.removeAttribute('srcdoc');
-                            iframe.src = iframe.getAttribute('data-src');
-                            iframe.removeAttribute('data-src');
+                            el.removeAttribute('srcdoc');
+                            el.src = el.getAttribute('data-src');
+                            el.removeAttribute('data-src');
+                            return;
                         }
+                        if (el.tagName === 'A' && el.closest('.ratio')) {
+                            var iframe = el.closest('.ratio').querySelector('iframe[data-src]');
+                            if (iframe) {
+                                e.preventDefault();
+                                iframe.removeAttribute('srcdoc');
+                                iframe.src = iframe.getAttribute('data-src');
+                                iframe.removeAttribute('data-src');
+                                return;
+                            }
+                        }
+                        el = el.parentElement;
                     }
-                }
-            }, true);
-        </script>
+                }, true);
 
-        <!-- Scroll to Music section on page load -->
-        <script>
-            window.addEventListener('load', function() {
-                var musicSection = document.getElementById('album-announcement');
-                if (musicSection) {
-                    var navHeight = document.querySelector('.navbar').offsetHeight;
-                    var targetTop = musicSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                    window.scrollTo({ top: targetTop, behavior: 'instant' });
+                // Scroll-reveal: animate sections into view
+                var revealEls = document.querySelectorAll('.reveal');
+                if ('IntersectionObserver' in window) {
+                    var observer = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.12 });
+                    revealEls.forEach(function(el) { observer.observe(el); });
+                } else {
+                    revealEls.forEach(function(el) { el.classList.add('visible'); });
                 }
-            });
+
+                // Back-to-top button
+                var backBtn = document.querySelector('.back-to-top');
+                if (backBtn) {
+                    window.addEventListener('scroll', function() {
+                        if (window.scrollY > 400) {
+                            backBtn.classList.add('show');
+                        } else {
+                            backBtn.classList.remove('show');
+                        }
+                    }, { passive: true });
+                    backBtn.addEventListener('click', function() {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
+
+                // Active nav highlighting on scroll
+                var sections = document.querySelectorAll('section[id]');
+                var navLinks = document.querySelectorAll('.navbar-nav .nav-link.click-scroll');
+                function updateActiveNav() {
+                    var scrollPos = window.scrollY + 120;
+                    sections.forEach(function(section) {
+                        var top = section.offsetTop;
+                        var height = section.offsetHeight;
+                        var id = section.getAttribute('id');
+                        if (scrollPos >= top && scrollPos < top + height) {
+                            navLinks.forEach(function(link) {
+                                link.classList.remove('active-section');
+                                if (link.getAttribute('href') === '#' + id) {
+                                    link.classList.add('active-section');
+                                }
+                            });
+                        }
+                    });
+                }
+                window.addEventListener('scroll', updateActiveNav, { passive: true });
+                updateActiveNav();
+
+                // Scroll to album announcement on page load
+                window.addEventListener('load', function() {
+                    var musicSection = document.getElementById('album-announcement');
+                    if (musicSection) {
+                        var navHeight = document.querySelector('.navbar').offsetHeight;
+                        var targetTop = musicSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                        window.scrollTo({ top: targetTop, behavior: 'instant' });
+                    }
+                });
+            })();
         </script>
 
     </body>
