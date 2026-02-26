@@ -1,14 +1,15 @@
-var CACHE_NAME = 'zaydio-v1';
+var CACHE_NAME = 'zaydio-v2';
 var urlsToCache = [
   '/',
   '/index.html',
   '/templatemo-tiya-golf-club.css',
   '/bootstrap.min.css',
-  '/ZAYDIOLOGO.png',
-  '/Everybody sings album cover.png'
+  '/ZAYDIOLOGO.webp',
+  '/album-cover-square.webp'
 ];
 
 self.addEventListener('install', function(event) {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
       return cache.addAll(urlsToCache);
@@ -18,8 +19,16 @@ self.addEventListener('install', function(event) {
 
 self.addEventListener('fetch', function(event) {
   event.respondWith(
-    caches.match(event.request).then(function(response) {
-      return response || fetch(event.request);
+    fetch(event.request).then(function(response) {
+      if (response && response.status === 200) {
+        var responseClone = response.clone();
+        caches.open(CACHE_NAME).then(function(cache) {
+          cache.put(event.request, responseClone);
+        });
+      }
+      return response;
+    }).catch(function() {
+      return caches.match(event.request);
     })
   );
 });
@@ -34,6 +43,8 @@ self.addEventListener('activate', function(event) {
           return caches.delete(name);
         })
       );
+    }).then(function() {
+      return self.clients.claim();
     })
   );
 });
