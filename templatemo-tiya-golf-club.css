@@ -2018,6 +2018,35 @@ video:hover {
   }
 }
 
+/* Parallax image containers */
+.parallax-wrap {
+  display: block;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.parallax-img {
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+@media screen and (min-width: 992px) {
+  .parallax-img {
+    transform: scale(1.08);
+  }
+}
+
+/* Animated wavy section dividers */
+.wave-animated path {
+  animation: waveShift 6s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes waveShift {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-15px); }
+}
+
 /* Hero floating particles */
 .hero-particles {
   position: absolute;

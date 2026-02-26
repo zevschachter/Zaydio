@@ -40,6 +40,56 @@
         <link href="bootstrap-icons.css" rel="stylesheet">
 
         <link href="templatemo-tiya-golf-club.css" rel="stylesheet">
+
+        <!-- Structured Data for Google Rich Results -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "MusicGroup",
+            "name": "Zaydio",
+            "url": "https://zaydio.com",
+            "image": "https://zaydio.com/ZAYDIOLOGO.png",
+            "description": "Zaydio brings families and friends together through fun adventures, music, and unforgettable moments.",
+            "genre": ["Children's Music", "Family", "Educational"],
+            "sameAs": [
+                "https://www.youtube.com/@zaydioandfriends",
+                "https://open.spotify.com/artist/4fTjSdSh2hpjOECARv9qyF",
+                "https://music.apple.com/us/artist/zaydio/1868898316",
+                "https://www.instagram.com/zaydiofriends",
+                "https://www.tiktok.com/@zaydiofun",
+                "https://www.facebook.com/profile.php?id=61587024265727",
+                "https://linktr.ee/zaydio"
+            ],
+            "album": [
+                {
+                    "@type": "MusicAlbum",
+                    "name": "Everybody Sing",
+                    "datePublished": "2026",
+                    "numTracks": 12,
+                    "url": "https://open.spotify.com/album/3FYu2RhdpG6Cf5FbckfJwp"
+                },
+                {
+                    "@type": "MusicAlbum",
+                    "name": "The New Abc's",
+                    "datePublished": "2026",
+                    "numTracks": 14,
+                    "url": "https://open.spotify.com/album/6rvUo2MgTdx0izM1WTOm3h"
+                }
+            ]
+        }
+        </script>
+
+        <!-- Google Analytics: Replace G-XXXXXXXXXX with your Measurement ID -->
+        <!-- Get yours at https://analytics.google.com -> Admin -> Data Streams -> Web -->
+        <!--
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX');
+        </script>
+        -->
         
     </head>
     
@@ -170,7 +220,7 @@
             </section>
 
             <!-- Wavy transition: yellow into orange -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display: block; width: 100%; height: 50px; background-color: #FFD93D; margin-bottom: -2px;">
+            <svg class="wave-animated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display: block; width: 100%; height: 50px; background-color: #FFD93D; margin-bottom: -2px;">
                 <path fill="#FF8C42" d="M0,40L60,44C120,48,240,56,360,54C480,52,600,40,720,36C840,32,960,36,1080,42C1200,48,1320,56,1380,58L1440,60L1440,80L0,80Z"></path>
             </svg>
 
@@ -190,8 +240,11 @@
                         <div class="col-lg-5 col-md-6 col-12 mb-4 mb-lg-0 text-center">
                             <!-- Album cover with fun white border frame -->
                             <div style="display: inline-block; padding: 10px; background: white; border-radius: 26px; box-shadow: 0 12px 40px rgba(0,0,0,0.25), 0 0 0 4px rgba(255,255,255,0.3); transform: rotate(-2deg); transition: transform 0.3s ease; margin: 10px;">
-                                <img src="Everybody sings album cover.png" alt="Everybody Sings - Zaydio's new family singalong album" loading="lazy"
-                                     width="894" height="889" style="width: 100%; max-width: 350px; border-radius: 18px; display: block;">
+                                <picture>
+                                    <source srcset="Everybody sings album cover.webp" type="image/webp">
+                                    <img src="Everybody sings album cover.png" alt="Everybody Sings - Zaydio's new family singalong album" loading="lazy"
+                                         width="894" height="889" style="width: 100%; max-width: 350px; border-radius: 18px; display: block;">
+                                </picture>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-6 col-12 text-center text-md-start">
@@ -252,7 +305,7 @@
             </section>
 
             <!-- Wavy transition: orange into purple -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display: block; width: 100%; height: 50px; background-color: #FF8C42; margin-top: -2px; margin-bottom: -2px;">
+            <svg class="wave-animated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display: block; width: 100%; height: 50px; background-color: #FF8C42; margin-top: -2px; margin-bottom: -2px;">
                 <path fill="#6C5CE7" d="M0,30L60,34C120,38,240,46,360,48C480,50,600,46,720,40C840,34,960,26,1080,28C1200,30,1320,42,1380,46L1440,50L1440,80L0,80Z"></path>
             </svg>
 
@@ -271,7 +324,7 @@
             </section>
 
             <!-- Wavy transition: purple into white -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display: block; width: 100%; height: 50px; background-color: #6C5CE7; margin-top: -2px; margin-bottom: -1px;">
+            <svg class="wave-animated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display: block; width: 100%; height: 50px; background-color: #6C5CE7; margin-top: -2px; margin-bottom: -1px;">
                 <path fill="#ffffff" d="M0,35L60,38C120,41,240,47,360,50C480,53,600,50,720,44C840,38,960,28,1080,26C1200,24,1320,30,1380,34L1440,38L1440,80L0,80Z"></path>
             </svg>
 
@@ -284,10 +337,10 @@
                         </div>
 
                         <div class="col-lg-12 col-12 mb-5">
-                            <a href="https://www.youtube.com/channel/UCU_PEWtOzrUKXwKnqdmvNRg" target="_blank" rel="noopener noreferrer" style="display: block;">
+                            <a href="https://www.youtube.com/channel/UCU_PEWtOzrUKXwKnqdmvNRg" target="_blank" rel="noopener noreferrer" class="parallax-wrap" style="display: block;">
                                 <picture>
                                     <source srcset="dangthatsacooldawg.webp" type="image/webp">
-                                    <img src="dangthatsacooldawg.png" class="img-fluid" alt="Zaydio outdoor family adventure with friends" loading="lazy" width="3648" height="1312" style="width: 100%; max-width: 100%; border-radius: 20px; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform='scale(1)'">
+                                    <img src="dangthatsacooldawg.png" class="img-fluid parallax-img" alt="Zaydio outdoor family adventure with friends" loading="lazy" width="3648" height="1312" style="width: 100%; max-width: 100%; border-radius: 20px;">
                                 </picture>
                             </a>
                         </div>
@@ -511,10 +564,10 @@
                         </div>
 
                         <div class="col-lg-6 col-12 d-flex align-items-center justify-content-center mt-lg-0" style="position: relative;">
-                            <a href="https://linktr.ee/zaydio" target="_blank" rel="noopener noreferrer">
+                            <a href="https://linktr.ee/zaydio" target="_blank" rel="noopener noreferrer" class="parallax-wrap">
                                 <picture>
                                     <source srcset="coloredbirds.webp" type="image/webp">
-                                    <img src="coloredbirds.png" class="img-fluid" alt="Colorful birds - Visit Zaydio on all platforms" loading="lazy" width="2912" height="1632" style="max-width: 100%; height: auto; border-radius: 0 0 20px 20px; cursor: pointer;">
+                                    <img src="coloredbirds.png" class="img-fluid parallax-img" alt="Colorful birds - Visit Zaydio on all platforms" loading="lazy" width="2912" height="1632" style="max-width: 100%; height: auto; border-radius: 0 0 20px 20px; cursor: pointer;">
                                 </picture>
                             </a>
                         </div>
@@ -525,7 +578,7 @@
             </section>
 
             <!-- Smooth wave: purple into teal -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" style="display: block; width: 100%; height: 80px; background-color: #6C5CE7; margin-top: -2px; margin-bottom: -2px;">
+            <svg class="wave-animated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" style="display: block; width: 100%; height: 80px; background-color: #6C5CE7; margin-top: -2px; margin-bottom: -2px;">
                 <path fill="#4ECDC4" d="M0,64L48,58.7C96,53,192,43,288,48C384,53,480,75,576,80C672,85,768,75,864,64C960,53,1056,43,1152,42.7C1248,43,1344,53,1392,58.7L1440,64L1440,120L0,120Z"></path>
             </svg>
 
@@ -692,6 +745,21 @@
                         }, 500);
                     }, 1200);
                 });
+                // Parallax effect on desktop
+                if (window.innerWidth >= 992) {
+                    var parallaxImgs = document.querySelectorAll('.parallax-img');
+                    window.addEventListener('scroll', function() {
+                        var scrollY = window.scrollY;
+                        parallaxImgs.forEach(function(img) {
+                            var rect = img.getBoundingClientRect();
+                            var center = rect.top + rect.height / 2;
+                            var viewCenter = window.innerHeight / 2;
+                            var offset = (center - viewCenter) * 0.04;
+                            img.style.transform = 'scale(1.08) translateY(' + offset + 'px)';
+                        });
+                    }, { passive: true });
+                }
+
                 // Register service worker for PWA
                 if ('serviceWorker' in navigator) {
                     navigator.serviceWorker.register('/sw.js').catch(function() {});
