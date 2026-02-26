@@ -1864,6 +1864,34 @@ video:hover {
   animation-delay: 2s;
 }
 
+/* Album cover image - fixed proportions */
+.album-cover-frame {
+  display: inline-block;
+  max-width: 260px;
+  padding: 10px;
+  background: white;
+  border-radius: 26px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25), 0 0 0 4px rgba(255,255,255,0.3);
+  transform: rotate(-2deg);
+  transition: transform 0.3s ease;
+  margin: 10px;
+}
+
+.album-cover-img {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  height: auto !important;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 18px;
+  transform: none !important;
+}
+
+.album-cover-img:hover {
+  transform: none !important;
+}
+
 /* Responsive adjustments for album announcement */
 @media screen and (max-width: 991px) {
   .album-announcement h2 {
