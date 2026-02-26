@@ -1904,8 +1904,11 @@ video:hover {
 
 .album-cover-img {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 162px !important;
+  height: 162px !important;
+  max-width: none !important;
+  max-height: none !important;
+  aspect-ratio: 1 / 1 !important;
   border-radius: 18px;
   object-fit: cover;
 }
@@ -1926,6 +1929,8 @@ video:hover {
     filter: blur(8px);
   }
   .album-cover-img {
+    width: 134px !important;
+    height: 134px !important;
     border-radius: 15px;
   }
 }
@@ -1952,6 +1957,8 @@ video:hover {
     filter: blur(6px);
   }
   .album-cover-img {
+    width: 124px !important;
+    height: 124px !important;
     border-radius: 13px;
   }
   .album-announcement h2 {
@@ -1984,6 +1991,8 @@ video:hover {
     border-radius: 16px;
   }
   .album-cover-img {
+    width: 104px !important;
+    height: 104px !important;
     border-radius: 11px;
   }
   .album-announcement h2 {
