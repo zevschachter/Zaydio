@@ -1937,24 +1937,76 @@ video:hover {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 767px) {
+  .album-announcement {
+    padding: 24px 0 !important;
+  }
+  .album-cover-frame {
+    width: 130px;
+    height: 130px;
+    border-radius: 16px;
+    padding: 3px;
+  }
+  .album-cover-frame::before {
+    border-radius: 18px;
+    filter: blur(6px);
+  }
+  .album-cover-img {
+    border-radius: 13px;
+  }
   .album-announcement h2 {
     font-size: 1.8rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .album-announcement p {
+    font-size: 1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .spotify-embed {
+    height: 200px !important;
+  }
+  .album-announcement .row.mt-4,
+  .album-announcement .row.mt-lg-5 {
+    margin-top: 0.75rem !important;
+  }
+  .album-announcement .row.mt-3 {
+    margin-top: 0.5rem !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .album-cover-frame {
+    width: 110px;
+    height: 110px;
+    border-radius: 14px;
+  }
+  .album-cover-frame::before {
+    border-radius: 16px;
+  }
+  .album-cover-img {
+    border-radius: 11px;
+  }
+  .album-announcement h2 {
+    font-size: 1.5rem !important;
+  }
+  .spotify-embed {
+    height: 152px !important;
   }
 
   .album-announcement .btn {
-    padding: 12px 22px !important;
-    font-size: 0.9rem !important;
+    padding: 10px 20px !important;
+    font-size: 0.85rem !important;
   }
 
   .album-announcement .d-flex.flex-wrap.gap-3 {
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem !important;
   }
 
   .album-announcement .d-flex.flex-wrap.gap-3 .btn {
     width: 100%;
-    max-width: 280px;
+    max-width: 260px;
     text-align: center;
   }
 }
