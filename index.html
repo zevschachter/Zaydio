@@ -22,9 +22,10 @@
 
         <title>Zaydio</title>
 
-        <!-- Favicon -->
+        <!-- Favicon & PWA -->
         <link rel="icon" type="image/png" href="ZAYDIOLOGO.png">
         <link rel="apple-touch-icon" href="ZAYDIOLOGO.png">
+        <link rel="manifest" href="manifest.json">
 
         <!-- CSS FILES -->                
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,6 +44,10 @@
     </head>
     
     <body>
+
+        <div id="splash-screen" class="splash-screen">
+            <img src="ZAYDIOLOGO.png" alt="Zaydio" class="splash-logo" width="160" height="160">
+        </div>
 
         <main>
 
@@ -95,6 +100,19 @@
             <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
 
                 <div class="section-overlay"></div>
+
+                <div class="hero-particles" aria-hidden="true">
+                    <span class="particle" style="left:3%;top:15%;animation-duration:6s;animation-delay:0s;">&#9734;</span>
+                    <span class="particle" style="left:12%;top:70%;animation-duration:8s;animation-delay:1.2s;">&#9835;</span>
+                    <span class="particle" style="left:22%;top:30%;animation-duration:7s;animation-delay:0.5s;">&#9734;</span>
+                    <span class="particle" style="left:35%;top:80%;animation-duration:9s;animation-delay:2s;">&#9833;</span>
+                    <span class="particle" style="left:48%;top:20%;animation-duration:6.5s;animation-delay:1s;">&#9835;</span>
+                    <span class="particle" style="left:58%;top:60%;animation-duration:8.5s;animation-delay:3s;">&#9734;</span>
+                    <span class="particle" style="left:70%;top:40%;animation-duration:7.5s;animation-delay:0.8s;">&#9834;</span>
+                    <span class="particle" style="left:82%;top:75%;animation-duration:6s;animation-delay:2.5s;">&#9734;</span>
+                    <span class="particle" style="left:90%;top:25%;animation-duration:9s;animation-delay:1.5s;">&#9835;</span>
+                    <span class="particle" style="left:95%;top:55%;animation-duration:7s;animation-delay:3.5s;">&#9833;</span>
+                </div>
 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#4ECDC4" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path></svg>
 
@@ -642,15 +660,26 @@
                 updateCountdown();
                 setInterval(updateCountdown, 1000);
 
-                // Scroll to album announcement on page load
+                // Splash screen + scroll to album announcement on page load
                 window.addEventListener('load', function() {
-                    var musicSection = document.getElementById('album-announcement');
-                    if (musicSection) {
-                        var navHeight = document.querySelector('.navbar').offsetHeight;
-                        var targetTop = musicSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                        window.scrollTo({ top: targetTop, behavior: 'instant' });
-                    }
+                    var splash = document.getElementById('splash-screen');
+                    setTimeout(function() {
+                        if (splash) splash.classList.add('fade-out');
+                        setTimeout(function() {
+                            if (splash) splash.remove();
+                            var musicSection = document.getElementById('album-announcement');
+                            if (musicSection) {
+                                var navHeight = document.querySelector('.navbar').offsetHeight;
+                                var targetTop = musicSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                                window.scrollTo({ top: targetTop, behavior: 'instant' });
+                            }
+                        }, 500);
+                    }, 1200);
                 });
+                // Register service worker for PWA
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('/sw.js').catch(function() {});
+                }
             })();
         </script>
 
