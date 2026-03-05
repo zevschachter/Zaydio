@@ -1866,41 +1866,51 @@ video:hover {
   animation-delay: 2s;
 }
 
-/* Album cover with morphing rainbow border */
+/* Album cover with spinning rainbow glow */
 .album-cover-frame {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 280px;
   height: 280px;
-  border-radius: 26px;
-  padding: 4px;
-  background: linear-gradient(45deg, #FF3B30, #FF9500, #FFCC00, #34C759, #007AFF, #AF52DE, #FF3B30);
-  background-size: 400% 400%;
-  animation: borderMorph 4s ease-in-out infinite;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.15);
   transition: transform 0.3s ease;
+  overflow: visible;
 }
 
-.album-cover-frame::before {
+.album-cover-frame::before,
+.album-cover-frame::after {
   content: '';
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 24px;
-  background: linear-gradient(45deg, #FF3B30, #FF9500, #FFCC00, #34C759, #007AFF, #AF52DE, #FF3B30);
-  background-size: 400% 400%;
-  animation: borderMorph 4s ease-in-out infinite;
+  inset: -3px;
+  border-radius: 26px;
+  background: conic-gradient(
+    from var(--border-angle, 0deg),
+    #FF3B30, #FF9500, #FFCC00, #34C759,
+    #007AFF, #AF52DE, #FF3B30
+  );
+  animation: spinBorder 3s linear infinite;
   z-index: -1;
-  filter: blur(12px);
-  opacity: 0.6;
 }
 
-@keyframes borderMorph {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.album-cover-frame::after {
+  inset: -6px;
+  border-radius: 28px;
+  filter: blur(14px);
+  opacity: 0.5;
+}
+
+@keyframes spinBorder {
+  to { --border-angle: 360deg; }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
 .album-cover-img {
@@ -1910,7 +1920,7 @@ video:hover {
   max-width: none !important;
   max-height: none !important;
   aspect-ratio: 1 / 1 !important;
-  border-radius: 22px;
+  border-radius: 20px;
   object-fit: cover;
 }
 
@@ -1932,17 +1942,21 @@ video:hover {
   .album-cover-frame {
     width: 220px;
     height: 220px;
-    border-radius: 22px;
-    padding: 4px;
+    border-radius: 20px;
   }
   .album-cover-frame::before {
+    inset: -2px;
+    border-radius: 22px;
+  }
+  .album-cover-frame::after {
+    inset: -5px;
     border-radius: 24px;
-    filter: blur(8px);
+    filter: blur(10px);
   }
   .album-cover-img {
     width: 212px !important;
     height: 212px !important;
-    border-radius: 18px;
+    border-radius: 17px;
   }
   .album-announcement h2 {
     font-size: 1.8rem !important;
@@ -1968,17 +1982,21 @@ video:hover {
   .album-cover-frame {
     width: 200px;
     height: 200px;
-    border-radius: 20px;
-    padding: 4px;
+    border-radius: 18px;
   }
   .album-cover-frame::before {
+    inset: -2px;
+    border-radius: 20px;
+  }
+  .album-cover-frame::after {
+    inset: -4px;
     border-radius: 22px;
     filter: blur(8px);
   }
   .album-cover-img {
     width: 192px !important;
     height: 192px !important;
-    border-radius: 16px;
+    border-radius: 15px;
   }
   .album-announcement h2 {
     font-size: 1.5rem !important;
