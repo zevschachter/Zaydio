@@ -2306,6 +2306,29 @@ video:hover {
   background-clip: text;
 }
 
+.about-title-dance {
+  display: inline-block;
+}
+
+.about-title-dance span {
+  display: inline-block;
+  font-weight: 900;
+  animation: aboutLetterDance 2.5s ease-in-out infinite;
+}
+
+.about-title-dance span:nth-child(1) { color: #0DAB8B; }
+.about-title-dance span:nth-child(2) { color: #0E9B9E; }
+.about-title-dance span:nth-child(3) { color: #2F7FCA; }
+.about-title-dance span:nth-child(4) { color: #5A4FD6; }
+.about-title-dance span:nth-child(5) { color: #7B3FD9; }
+.about-title-dance span:nth-child(6) { color: #9532D1; }
+
+@keyframes aboutLetterDance {
+  0%, 100% { transform: translateY(0); }
+  15% { transform: translateY(-8px); }
+  30% { transform: translateY(0); }
+}
+
 .our-story-card {
   text-align: center;
   background: linear-gradient(135deg, #f8f9ff, #f0fdfa);
@@ -2314,6 +2337,10 @@ video:hover {
   border: 1px solid rgba(78,205,196,0.15);
   box-shadow: 0 8px 30px rgba(0,0,0,0.06);
   position: relative;
+}
+
+.our-story-card p {
+  color: #3a3f47;
 }
 
 .our-story-icon {
