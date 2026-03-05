@@ -93,6 +93,8 @@
     
     <body>
 
+        <a href="#section_1" class="skip-link">Skip to main content</a>
+
         <div id="splash-screen" class="splash-screen">
             <img src="ZAYDIOLOGO.webp" alt="Zaydio" class="splash-logo" width="160" height="160" onerror="this.src='ZAYDIOLOGO.png'">
         </div>
@@ -196,7 +198,7 @@
                         </div>
 
                         <div class="col-lg-6 col-12">
-                            <p class="text-white mb-2" style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; font-weight: 600;">&#9654; Now Playing</p>
+                            <p class="text-white mb-2" style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.85; font-weight: 600;">&#9654; Now Playing</p>
                             <div class="ratio ratio-16x9 mb-3">
                                 <iframe 
                                     src="about:blank"
@@ -251,7 +253,7 @@
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-6 col-12 text-center text-md-start">
-                            <p class="text-white mb-2" style="font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.9; font-weight: 500;">
+                            <p class="text-white mb-2" style="font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.95; font-weight: 500;">
                                 &#127925; New Album Out Now &#127925;
                             </p>
                             <h2 class="text-white mb-3" style="font-size: 2.8rem; font-weight: 700; text-shadow: 2px 3px 6px rgba(0,0,0,0.2); line-height: 1.2;">
@@ -346,7 +348,7 @@
                             <a href="https://www.youtube.com/channel/UCU_PEWtOzrUKXwKnqdmvNRg" target="_blank" rel="noopener noreferrer" class="parallax-wrap" style="display: block;">
                                 <picture>
                                     <source srcset="dangthatsacooldawg.webp" type="image/webp">
-                                    <img src="dangthatsacooldawg.png" class="img-fluid parallax-img" alt="Zaydio outdoor family adventure with friends" loading="lazy" width="3648" height="1312" style="width: 100%; max-width: 100%; border-radius: 20px;">
+                                    <img src="dangthatsacooldawg.png" class="img-fluid parallax-img" alt="Zaydio outdoor family adventure with friends" loading="lazy" width="1920" height="690" style="width: 100%; max-width: 100%; border-radius: 20px;">
                                 </picture>
                             </a>
                         </div>
@@ -479,7 +481,7 @@
                                     <a href="https://www.youtube.com/channel/UCU_PEWtOzrUKXwKnqdmvNRg" target="_blank" rel="noopener noreferrer">
                                         <picture>
                                             <source srcset="numberbackdropforsite.webp" type="image/webp">
-                                            <img src="numberbackdropforsite.png" class="custom-block-image img-fluid" alt="The Numbers Music Video - coming March 2026" loading="lazy" width="2866" height="1596">
+                                            <img src="numberbackdropforsite.png" class="custom-block-image img-fluid" alt="The Numbers Music Video - coming March 2026" loading="lazy" width="1920" height="1069">
                                         </picture>
 
                                         <i class="custom-block-icon bi-link"></i>
@@ -519,7 +521,7 @@
 
                         <div class="col-12 mt-4">
                             <div class="countdown-wrap text-center" style="background: linear-gradient(135deg, rgba(108,92,231,0.15), rgba(78,205,196,0.15)); border-radius: 20px; padding: 30px 20px;">
-                                <p class="mb-2" style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8;">Dropping in</p>
+                                <p class="mb-2" style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.9;">Dropping in</p>
                                 <div id="countdown" class="d-flex justify-content-center gap-3 gap-lg-4 flex-wrap">
                                     <div class="countdown-unit">
                                         <span id="cd-days" class="countdown-number">--</span>
@@ -580,7 +582,7 @@
                             <a href="https://linktr.ee/zaydio" target="_blank" rel="noopener noreferrer" class="parallax-wrap">
                                 <picture>
                                     <source srcset="coloredbirds.webp" type="image/webp">
-                                    <img src="coloredbirds.png" class="img-fluid parallax-img" alt="Colorful birds - Visit Zaydio on all platforms" loading="lazy" width="2912" height="1632" style="max-width: 100%; height: auto; border-radius: 0 0 20px 20px; cursor: pointer;">
+                                    <img src="coloredbirds.png" class="img-fluid parallax-img" alt="Colorful birds - Visit Zaydio on all platforms" loading="lazy" width="1920" height="1076" style="max-width: 100%; height: auto; border-radius: 0 0 20px 20px; cursor: pointer;">
                                 </picture>
                             </a>
                         </div>
@@ -798,6 +800,37 @@
                         sources.forEach(function(s) { s.src = s.getAttribute('data-src'); });
                         v.load();
                         v.play().catch(function() {});
+                    });
+                }
+
+                // Easter egg: confetti burst on album cover click
+                var albumFrame = document.querySelector('.album-cover-frame');
+                if (albumFrame) {
+                    albumFrame.style.cursor = 'pointer';
+                    albumFrame.addEventListener('click', function(e) {
+                        var rect = albumFrame.getBoundingClientRect();
+                        var cx = rect.left + rect.width / 2;
+                        var cy = rect.top + rect.height / 2;
+                        var colors = ['#FF3B30','#FF9500','#FFCC00','#34C759','#007AFF','#AF52DE','#FF6B6B','#4ECDC4'];
+                        var shapes = ['●','★','♪','♫','❤','✦'];
+                        for (var i = 0; i < 30; i++) {
+                            var p = document.createElement('span');
+                            p.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                            p.style.cssText = 'position:fixed;z-index:99999;pointer-events:none;font-size:' +
+                                (12 + Math.random() * 18) + 'px;color:' + colors[Math.floor(Math.random() * colors.length)] +
+                                ';left:' + cx + 'px;top:' + cy + 'px;opacity:1;transition:none;';
+                            document.body.appendChild(p);
+                            var angle = Math.random() * Math.PI * 2;
+                            var dist = 80 + Math.random() * 160;
+                            var dx = Math.cos(angle) * dist;
+                            var dy = Math.sin(angle) * dist - 40;
+                            var dur = 600 + Math.random() * 600;
+                            p.animate([
+                                { transform: 'translate(0,0) scale(1) rotate(0deg)', opacity: 1 },
+                                { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(0.2) rotate(' + (Math.random()*360) + 'deg)', opacity: 0 }
+                            ], { duration: dur, easing: 'cubic-bezier(0.25,0.46,0.45,0.94)' })
+                            .onfinish = (function(el) { return function() { el.remove(); }; })(p);
+                        }
                     });
                 }
 
