@@ -1528,6 +1528,13 @@ strong {
   }
 }
 
+/* Minimize orange-to-purple divider on mobile */
+@media screen and (max-width: 991px) {
+  .wave-orange-purple {
+    height: 16px !important;
+  }
+}
+
 /* Purple video section: smaller on mobile with compact wavy borders */
 @media screen and (max-width: 991px) {
   .video-purple-section {
