@@ -106,7 +106,7 @@
                     </a>
 
                     <div class="d-lg-none ms-auto me-3">
-                        <a class="btn custom-btn custom-border-btn" href="https://www.youtube.com/channel/UCU_PEWtOzrUKXwKnqdmvNRg" target="_blank" rel="noopener noreferrer">Get Started</a>
+                        <a class="btn custom-btn custom-border-btn smoothscroll click-scroll" href="#section_3">Get Started</a>
                     </div>
     
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,7 +137,7 @@
                         </ul>
 
                         <div class="d-none d-lg-block ms-lg-3">
-                            <a class="btn custom-btn custom-border-btn" href="https://www.youtube.com/channel/UCU_PEWtOzrUKXwKnqdmvNRg" target="_blank" rel="noopener noreferrer">Get Started</a>
+                            <a class="btn custom-btn custom-border-btn smoothscroll click-scroll" href="#section_3">Get Started</a>
                         </div>
                     </div>
                 </div>
@@ -323,12 +323,14 @@
                 <path fill="#ffffff" d="M0,35L60,38C120,41,240,47,360,50C480,53,600,50,720,44C840,38,960,28,1080,26C1200,24,1320,30,1380,34L1440,38L1440,80L0,80Z"></path>
             </svg>
 
-            <section class="about-section section-padding reveal" id="section_2" style="background-color: #ffffff;">
-                <div class="container">
+            <section class="about-section section-padding reveal" id="section_2" style="background-color: #ffffff; position: relative; overflow: hidden;">
+                <div class="about-deco-dots" aria-hidden="true"></div>
+                <div class="container" style="position: relative; z-index: 2;">
                     <div class="row">
 
-                        <div class="col-lg-12 col-12 text-center">
-                            <h2 class="mb-lg-5 mb-4">About Zaydio</h2>
+                        <div class="col-lg-12 col-12 text-center mb-4 mb-lg-5">
+                            <p class="about-eyebrow">&#127912; Who We Are</p>
+                            <h2 class="about-title">About <span class="about-title-accent">Zaydio</span></h2>
                         </div>
 
                         <div class="col-lg-12 col-12 mb-5">
@@ -341,20 +343,93 @@
                         </div>
 
                         <div class="col-lg-8 col-12 mx-auto mb-4 mb-lg-0">
-                            <div class="our-story-content">
-                                <h3 class="mb-3">Our Story</h3>
+                            <div class="our-story-card">
+                                <div class="our-story-icon">&#128218;</div>
+                                <h3 class="mb-3" style="font-weight: 700;">Our Story</h3>
 
-                                <p><strong>Creating Memories Together</strong>, Zaydio is all about bringing families and friends together for unforgettable adventures. We believe in the power of shared experiences that create lasting bonds and joyful moments.</p>
+                                <p><strong style="color: var(--primary-color);">Creating Memories Together</strong> &mdash; Zaydio is all about bringing families and friends together for unforgettable adventures. We believe in the power of shared experiences that create lasting bonds and joyful moments.</p>
 
-                                <p>At Zaydio, every day is an opportunity to discover something new, laugh a little more, and create memories that will be treasured forever. Through music, videos, and storytelling, we make learning exciting and entertaining for kids and families alike. Welcome to a world of fun, adventure, education, and togetherness!</p>
+                                <p class="mb-0">At Zaydio, every day is an opportunity to discover something new, laugh a little more, and create memories that will be treasured forever. Through music, videos, and storytelling, we make learning exciting and entertaining for kids and families alike. Welcome to a world of fun, adventure, education, and togetherness!</p>
+                            </div>
+
+                            <div class="about-values-row">
+                                <div class="about-value-chip">&#127925; Music</div>
+                                <div class="about-value-chip">&#127916; Videos</div>
+                                <div class="about-value-chip">&#128218; Learning</div>
+                                <div class="about-value-chip">&#128106; Family</div>
+                                <div class="about-value-chip">&#127881; Fun</div>
                             </div>
                         </div>
-
 
                     </div>
                 </div>
             </section>
 
+            <!-- Watch Our Videos section -->
+            <div style="background-color: #ffffff; margin-bottom: -2px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display: block; width: 100%; height: 60px;">
+                    <path fill="#1a1a2e" d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,45 L1440,80 L0,80 Z"></path>
+                </svg>
+            </div>
+
+            <section class="videos-section reveal" id="section_videos" style="background-color: #1a1a2e; padding: 60px 0; position: relative; overflow: hidden;">
+                <div class="video-bg-glow" aria-hidden="true"></div>
+                <div class="container" style="position: relative; z-index: 2;">
+                    <div class="text-center mb-5">
+                        <p class="videos-eyebrow">&#127916; From Our Channel</p>
+                        <h2 class="videos-title">Watch Our Videos</h2>
+                        <p class="videos-subtitle">Fun family adventures you can enjoy together</p>
+                    </div>
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="video-card">
+                                <div class="ratio ratio-16x9">
+                                    <iframe
+                                        src="about:blank"
+                                        data-src="https://www.youtube.com/embed/SBuM2Wc8-tE?autoplay=1"
+                                        srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:60px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='https://www.youtube.com/embed/SBuM2Wc8-tE?autoplay=1'><img src='https://img.youtube.com/vi/SBuM2Wc8-tE/maxresdefault.jpg' alt='Zaydio Video'><span>&#x25BA;</span></a>"
+                                        title="Zaydio Video"
+                                        frameborder="0"
+                                        loading="lazy"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                        style="border-radius: 16px;">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="video-card">
+                                <div class="ratio ratio-16x9">
+                                    <iframe
+                                        src="about:blank"
+                                        data-src="https://www.youtube.com/embed/rkHAyMdKjG8?autoplay=1"
+                                        srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:60px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='https://www.youtube.com/embed/rkHAyMdKjG8?autoplay=1'><img src='https://img.youtube.com/vi/rkHAyMdKjG8/maxresdefault.jpg' alt='Zaydio Video'><span>&#x25BA;</span></a>"
+                                        title="Zaydio Video 2"
+                                        frameborder="0"
+                                        loading="lazy"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                        style="border-radius: 16px;">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a href="https://www.youtube.com/@zaydioandfriends" target="_blank" rel="noopener noreferrer"
+                           class="btn" style="background: rgba(255,255,255,0.12); color: #fff; border: 2px solid rgba(255,255,255,0.25); padding: 12px 30px; border-radius: 50px; font-weight: 600; transition: all 0.3s ease;">
+                            See All on YouTube &rarr;
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <div style="background-color: #1a1a2e; margin-top: -2px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display: block; width: 100%; height: 60px;">
+                    <path fill="#FFF9E6" d="M0,40 C360,0 720,80 1080,40 C1260,20 1380,30 1440,35 L1440,80 L0,80 Z"></path>
+                </svg>
+            </div>
 
             <section class="music-section section-padding reveal" id="section_3" style="background-color: #FFF9E6;">
                 <div class="container">
