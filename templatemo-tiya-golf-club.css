@@ -1870,9 +1870,9 @@ video:hover {
 .album-cover-frame {
   position: relative;
   display: inline-block;
-  width: 170px;
-  height: 170px;
-  border-radius: 22px;
+  width: 280px;
+  height: 280px;
+  border-radius: 26px;
   padding: 4px;
   background: linear-gradient(45deg, #FF3B30, #FF9500, #FFCC00, #34C759, #007AFF, #AF52DE, #FF3B30);
   background-size: 400% 400%;
@@ -1905,35 +1905,17 @@ video:hover {
 
 .album-cover-img {
   display: block;
-  width: 162px !important;
-  height: 162px !important;
+  width: 272px !important;
+  height: 272px !important;
   max-width: none !important;
   max-height: none !important;
   aspect-ratio: 1 / 1 !important;
-  border-radius: 18px;
+  border-radius: 22px;
   object-fit: cover;
 }
 
 .album-cover-img:hover {
   transform: none !important;
-}
-
-@media screen and (max-width: 480px) {
-  .album-cover-frame {
-    width: 140px;
-    height: 140px;
-    border-radius: 18px;
-    padding: 3px;
-  }
-  .album-cover-frame::before {
-    border-radius: 20px;
-    filter: blur(8px);
-  }
-  .album-cover-img {
-    width: 134px !important;
-    height: 134px !important;
-    border-radius: 15px;
-  }
 }
 
 /* Responsive adjustments for album announcement */
@@ -1945,22 +1927,22 @@ video:hover {
 
 @media screen and (max-width: 767px) {
   .album-announcement {
-    padding: 24px 0 !important;
+    padding: 30px 0 !important;
   }
   .album-cover-frame {
-    width: 130px;
-    height: 130px;
-    border-radius: 16px;
-    padding: 3px;
+    width: 220px;
+    height: 220px;
+    border-radius: 22px;
+    padding: 4px;
   }
   .album-cover-frame::before {
-    border-radius: 18px;
-    filter: blur(6px);
+    border-radius: 24px;
+    filter: blur(8px);
   }
   .album-cover-img {
-    width: 124px !important;
-    height: 124px !important;
-    border-radius: 13px;
+    width: 212px !important;
+    height: 212px !important;
+    border-radius: 18px;
   }
   .album-announcement h2 {
     font-size: 1.8rem !important;
@@ -1984,17 +1966,19 @@ video:hover {
 
 @media screen and (max-width: 480px) {
   .album-cover-frame {
-    width: 110px;
-    height: 110px;
-    border-radius: 14px;
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    padding: 4px;
   }
   .album-cover-frame::before {
-    border-radius: 16px;
+    border-radius: 22px;
+    filter: blur(8px);
   }
   .album-cover-img {
-    width: 104px !important;
-    height: 104px !important;
-    border-radius: 11px;
+    width: 192px !important;
+    height: 192px !important;
+    border-radius: 16px;
   }
   .album-announcement h2 {
     font-size: 1.5rem !important;
