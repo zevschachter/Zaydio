@@ -1,9 +1,7 @@
-var CACHE_NAME = 'zaydio-v2';
+var CACHE_NAME = 'zaydio-v3';
 var urlsToCache = [
   '/',
   '/index.html',
-  '/templatemo-tiya-golf-club.css',
-  '/bootstrap.min.css',
   '/ZAYDIOLOGO.webp',
   '/album-cover-square.webp'
 ];
@@ -18,19 +16,36 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    fetch(event.request).then(function(response) {
-      if (response && response.status === 200) {
-        var responseClone = response.clone();
-        caches.open(CACHE_NAME).then(function(cache) {
-          cache.put(event.request, responseClone);
+  var url = new URL(event.request.url);
+  if (url.pathname.endsWith('.css') || url.pathname.endsWith('.js') || url.pathname === '/' || url.pathname.endsWith('.html')) {
+    event.respondWith(
+      fetch(event.request).then(function(response) {
+        if (response && response.status === 200) {
+          var responseClone = response.clone();
+          caches.open(CACHE_NAME).then(function(cache) {
+            cache.put(event.request, responseClone);
+          });
+        }
+        return response;
+      }).catch(function() {
+        return caches.match(event.request);
+      })
+    );
+  } else {
+    event.respondWith(
+      caches.match(event.request).then(function(cached) {
+        return cached || fetch(event.request).then(function(response) {
+          if (response && response.status === 200) {
+            var responseClone = response.clone();
+            caches.open(CACHE_NAME).then(function(cache) {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return response;
         });
-      }
-      return response;
-    }).catch(function() {
-      return caches.match(event.request);
-    })
-  );
+      })
+    );
+  }
 });
 
 self.addEventListener('activate', function(event) {
