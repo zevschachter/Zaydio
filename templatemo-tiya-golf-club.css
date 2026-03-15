@@ -22,6 +22,7 @@ https://templatemo.com/tm-587-tiya-golf-club
   --link-hover-color:             #FFD93D;
 
   --body-font-family:             'DM Sans', sans-serif;
+  --heading-font-family:          'Baloo 2', cursive;
 
   --h1-font-size:                 42px;
   --h2-font-size:                 36px;
@@ -110,8 +111,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: var(--font-weight-medium);
-  letter-spacing: -1px;
+  font-family: var(--heading-font-family);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.5px;
 }
 
 h1 {
@@ -205,6 +207,10 @@ strong {
 /*---------------------------------------
   ANIMATED HEADLINE               
 -----------------------------------------*/
+.cd-headline {
+  font-family: var(--heading-font-family);
+}
+
 .cd-words-wrapper {
   display: inline-block;
   position: relative;
@@ -481,6 +487,7 @@ strong {
   border: 2px solid transparent;
   border-radius: var(--border-radius-large);
   color: var(--white-color);
+  font-family: var(--heading-font-family);
   font-size: var(--btn-font-size);
   font-weight: var(--font-weight-bold);
   line-height: normal;
@@ -628,6 +635,7 @@ strong {
 .navbar-nav .nav-link {
   display: inline-block;
   color: var(--white-color);
+  font-family: var(--heading-font-family);
   font-size: var(--menu-font-size);
   font-weight: var(--font-weight-medium);
   padding-top: 15px;
@@ -1577,26 +1585,7 @@ strong {
   }
 }
 
-/* Birds image: rounded on desktop, flush with wave on mobile */
-@media screen and (min-width: 992px) {
-  .section-bg-image img[alt="Colorful birds"] {
-    border-radius: 20px !important;
-  }
-}
 
-@media screen and (max-width: 991px) {
-  .wave-into-purple {
-    display: none !important;
-  }
-
-  .section-bg-image {
-    padding-top: 40px !important;
-  }
-
-  .section-bg-image img[alt="Colorful birds"] {
-    border-radius: 0 0 20px 20px !important;
-  }
-}
 
 /* ============================================
    ENHANCED LAYOUT IMPROVEMENTS
@@ -1627,16 +1616,10 @@ strong {
 }
 
 /* Enhanced card shadows and hover effects */
-.music-section .text-center.p-4,
 .custom-block-image-wrap,
 .custom-block-info {
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-.music-section .text-center.p-4:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .custom-block-image-wrap:hover {
@@ -1697,154 +1680,6 @@ a:hover {
 }
 
 /* Improved card styling in music section */
-.music-section .text-center {
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.music-section {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Music heading animation */
-.music-heading-wrapper {
-  animation: musicFadeSlideIn 0.8s ease-out both;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  pointer-events: none;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-.music-heading-wrapper a,
-.music-heading-wrapper ~ div a {
-  pointer-events: auto;
-}
-
-.music-heading {
-  font-size: 3.8rem;
-  font-weight: 800;
-  letter-spacing: 2px;
-}
-
-.listen-to-text {
-  background: linear-gradient(90deg, #00B4D8, #0096C7, #7B5EA7, #6C5CE7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-right: 10px;
-  padding: 0 4px;
-}
-
-.zaydio-wave {
-  display: inline-block;
-}
-
-.zaydio-wave span {
-  display: inline-block;
-  font-weight: 900;
-  animation: letterWave 2.5s ease-in-out infinite;
-}
-
-.zaydio-wave span:nth-child(1) { color: #FF3B30; }
-.zaydio-wave span:nth-child(2) { color: #FF9500; }
-.zaydio-wave span:nth-child(3) { color: #FFCC00; }
-.zaydio-wave span:nth-child(4) { color: #34C759; }
-.zaydio-wave span:nth-child(5) { color: #007AFF; }
-.zaydio-wave span:nth-child(6) { color: #AF52DE; }
-
-@keyframes letterWave {
-  0%, 100% { transform: translateY(0); }
-  15% { transform: translateY(-10px); }
-  30% { transform: translateY(0); }
-}
-
-.music-subtitle {
-  font-size: 1.5rem;
-  opacity: 0.88;
-  margin-top: 10px;
-  letter-spacing: 0.5px;
-  animation: musicFadeSlideIn 0.8s ease-out 0.3s both;
-}
-
-.music-note-bounce {
-  display: inline-block;
-  animation: noteBounce 1.5s ease-in-out infinite;
-  font-size: 1.6rem;
-  margin: 0 8px;
-  color: #e8a000;
-}
-
-.music-note-delay {
-  animation-delay: 0.4s;
-}
-
-@keyframes noteBounce {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-8px) rotate(-10deg); }
-  50% { transform: translateY(0) rotate(0deg); }
-  75% { transform: translateY(-5px) rotate(8deg); }
-}
-
-@keyframes musicFadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .music-heading {
-    font-size: 2.4rem;
-  }
-  .listen-to-text {
-    margin-right: 6px;
-  }
-  .zaydio-wave {
-    display: block;
-    margin-top: 4px;
-  }
-  .music-subtitle {
-    font-size: 1.2rem;
-  }
-  .music-note-bounce {
-    font-size: 1.2rem;
-    margin: 0 4px;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .music-heading {
-    font-size: 2rem;
-  }
-  .music-note-bounce {
-    font-size: 1rem;
-    margin: 0 2px;
-  }
-}
-
-.music-section .text-center:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-}
-
-@media screen and (max-width: 767px) {
-  .music-card-icon {
-    width: 44px;
-    height: 44px;
-  }
-  .music-card-title {
-    font-size: 1rem;
-  }
-}
 
 /* Better video container styling */
 video {
@@ -2245,6 +2080,16 @@ video:hover {
   .footer-social {
     justify-content: center;
   }
+}
+
+.site-footer .btn:hover {
+  background: rgba(255,255,255,0.35) !important;
+  border-color: rgba(255,255,255,0.6) !important;
+  transform: translateY(-2px);
+}
+
+.site-footer img.img-fluid:hover {
+  transform: scale(1.03);
 }
 
 /* Parallax image containers */

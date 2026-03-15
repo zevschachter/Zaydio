@@ -1,4 +1,4 @@
-var CACHE_NAME = 'zaydio-v3';
+var CACHE_NAME = 'zaydio-v4';
 var urlsToCache = [
   '/',
   '/index.html',
