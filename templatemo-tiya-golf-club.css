@@ -1800,6 +1800,42 @@ video:hover {
   animation-delay: 2s;
 }
 
+/* Rainbow wave text animation */
+.rainbow-wave {
+  display: inline-block;
+}
+
+.rainbow-wave span {
+  display: inline-block;
+  font-weight: 900;
+  animation: rainbowLetterWave 2.5s ease-in-out infinite;
+}
+
+.rainbow-wave .rainbow-space {
+  width: 0.3em;
+  animation: none;
+}
+
+.rainbow-wave span:nth-child(1)  { color: #FF3B30; }
+.rainbow-wave span:nth-child(2)  { color: #FF6B30; }
+.rainbow-wave span:nth-child(3)  { color: #FF9500; }
+.rainbow-wave span:nth-child(4)  { color: #FFB800; }
+.rainbow-wave span:nth-child(5)  { color: #FFCC00; }
+.rainbow-wave span:nth-child(6)  { color: #A8D84E; }
+.rainbow-wave span:nth-child(7)  { color: #34C759; }
+.rainbow-wave span:nth-child(8)  { color: #30B0C7; }
+.rainbow-wave span:nth-child(9)  { color: #00B4D8; }
+.rainbow-wave span:nth-child(11) { color: #007AFF; }
+.rainbow-wave span:nth-child(12) { color: #5856D6; }
+.rainbow-wave span:nth-child(13) { color: #AF52DE; }
+.rainbow-wave span:nth-child(14) { color: #FF2D55; }
+
+@keyframes rainbowLetterWave {
+  0%, 100% { transform: translateY(0); }
+  15% { transform: translateY(-8px); }
+  30% { transform: translateY(0); }
+}
+
 /* Album cover with spinning rainbow glow */
 .album-cover-frame {
   position: relative;
