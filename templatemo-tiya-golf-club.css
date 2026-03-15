@@ -1914,21 +1914,22 @@ video:hover {
   .album-cover-frame {
     width: 220px;
     height: 220px;
-    border-radius: 20px;
+    border-radius: 22px;
+    margin: 10px auto;
   }
   .album-cover-frame::before {
-    inset: -2px;
-    border-radius: 22px;
+    inset: -4px;
+    border-radius: 26px;
   }
   .album-cover-frame::after {
-    inset: -5px;
-    border-radius: 24px;
-    filter: blur(10px);
+    inset: -8px;
+    border-radius: 30px;
+    filter: blur(12px);
   }
   .album-cover-img {
-    width: 212px !important;
-    height: 212px !important;
-    border-radius: 17px;
+    width: 208px !important;
+    height: 208px !important;
+    border-radius: 18px;
   }
   .album-announcement h2 {
     font-size: 1.8rem !important;
@@ -1952,23 +1953,24 @@ video:hover {
 
 @media screen and (max-width: 480px) {
   .album-cover-frame {
-    width: 200px;
-    height: 200px;
-    border-radius: 18px;
+    width: 190px;
+    height: 190px;
+    border-radius: 20px;
+    margin: 10px auto;
   }
   .album-cover-frame::before {
-    inset: -2px;
-    border-radius: 20px;
+    inset: -4px;
+    border-radius: 24px;
   }
   .album-cover-frame::after {
-    inset: -4px;
-    border-radius: 22px;
-    filter: blur(8px);
+    inset: -8px;
+    border-radius: 28px;
+    filter: blur(10px);
   }
   .album-cover-img {
-    width: 192px !important;
-    height: 192px !important;
-    border-radius: 15px;
+    width: 178px !important;
+    height: 178px !important;
+    border-radius: 16px;
   }
   .album-announcement h2 {
     font-size: 1.5rem !important;
