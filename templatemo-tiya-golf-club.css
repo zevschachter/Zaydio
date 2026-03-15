@@ -2274,12 +2274,12 @@ video:hover {
   animation: aboutLetterDance 2.5s ease-in-out infinite;
 }
 
-.about-title-dance span:nth-child(1) { color: #0DAB8B; }
-.about-title-dance span:nth-child(2) { color: #0E9B9E; }
-.about-title-dance span:nth-child(3) { color: #2F7FCA; }
-.about-title-dance span:nth-child(4) { color: #5A4FD6; }
-.about-title-dance span:nth-child(5) { color: #7B3FD9; }
-.about-title-dance span:nth-child(6) { color: #9532D1; }
+.about-title-dance span:nth-child(1) { color: #FF3B30; }
+.about-title-dance span:nth-child(2) { color: #FF9500; }
+.about-title-dance span:nth-child(3) { color: #FFCC00; }
+.about-title-dance span:nth-child(4) { color: #34C759; }
+.about-title-dance span:nth-child(5) { color: #007AFF; }
+.about-title-dance span:nth-child(6) { color: #AF52DE; }
 
 @keyframes aboutLetterDance {
   0%, 100% { transform: translateY(0); }
