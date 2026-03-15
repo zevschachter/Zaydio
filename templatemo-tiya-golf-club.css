@@ -2264,28 +2264,49 @@ video:hover {
   background-clip: text;
 }
 
-.about-title-dance {
+.about-title-dance,
+.zaydio-rainbow {
   display: inline-block;
 }
 
-.about-title-dance span {
+.about-title-dance span,
+.zaydio-rainbow span {
   display: inline-block;
   font-weight: 900;
-  animation: aboutLetterDance 2.5s ease-in-out infinite;
+  animation: zaydioLetterWave 2.5s ease-in-out infinite;
 }
 
-.about-title-dance span:nth-child(1) { color: #FF3B30; }
-.about-title-dance span:nth-child(2) { color: #FF9500; }
-.about-title-dance span:nth-child(3) { color: #FFCC00; }
-.about-title-dance span:nth-child(4) { color: #34C759; }
-.about-title-dance span:nth-child(5) { color: #007AFF; }
-.about-title-dance span:nth-child(6) { color: #AF52DE; }
+.about-title-dance span:nth-child(1),
+.zaydio-rainbow span:nth-child(1) { color: #FF3B30; }
+.about-title-dance span:nth-child(2),
+.zaydio-rainbow span:nth-child(2) { color: #FF9500; }
+.about-title-dance span:nth-child(3),
+.zaydio-rainbow span:nth-child(3) { color: #FFCC00; }
+.about-title-dance span:nth-child(4),
+.zaydio-rainbow span:nth-child(4) { color: #34C759; }
+.about-title-dance span:nth-child(5),
+.zaydio-rainbow span:nth-child(5) { color: #007AFF; }
+.about-title-dance span:nth-child(6),
+.zaydio-rainbow span:nth-child(6) { color: #AF52DE; }
 
-@keyframes aboutLetterDance {
+@keyframes zaydioLetterWave {
   0%, 100% { transform: translateY(0); }
   15% { transform: translateY(-8px); }
   30% { transform: translateY(0); }
 }
+
+.zaydio-rainbow-sm span {
+  font-weight: 700;
+  animation: zaydioLetterWave 2.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+.zaydio-rainbow-sm span:nth-child(1) { color: #FF3B30; }
+.zaydio-rainbow-sm span:nth-child(2) { color: #FF9500; }
+.zaydio-rainbow-sm span:nth-child(3) { color: #FFCC00; }
+.zaydio-rainbow-sm span:nth-child(4) { color: #34C759; }
+.zaydio-rainbow-sm span:nth-child(5) { color: #007AFF; }
+.zaydio-rainbow-sm span:nth-child(6) { color: #AF52DE; }
 
 .our-story-card {
   text-align: center;
