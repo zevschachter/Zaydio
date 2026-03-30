@@ -718,9 +718,8 @@
                 if (albumFrame) {
                     albumFrame.style.cursor = 'pointer';
                     albumFrame.addEventListener('click', function(e) {
-                        var rect = albumFrame.getBoundingClientRect();
-                        var cx = rect.left + rect.width / 2;
-                        var cy = rect.top + rect.height / 2;
+                        var cx = e.clientX;
+                        var cy = e.clientY;
                         var colors = ['#FF3B30','#FF9500','#FFCC00','#34C759','#007AFF','#AF52DE','#FF6B6B','#4ECDC4'];
                         var shapes = ['●','★','♪','♫','❤','✦'];
                         for (var i = 0; i < 30; i++) {
