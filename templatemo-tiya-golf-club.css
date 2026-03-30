@@ -2211,7 +2211,7 @@ video:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #6C5CE7 0%, #4ECDC4 40%, #FFD93D 80%, #FF8C42 100%);
+  background: linear-gradient(135deg, #FFD93D 0%, #FF8C42 50%, #FF6B35 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
