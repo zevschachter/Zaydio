@@ -654,19 +654,20 @@
                 updateCountdown();
                 setInterval(updateCountdown, 1000);
 
-                // Splash screen + scroll to album announcement on page load
+                // Instantly position at album announcement before splash fades
+                var albumTarget = document.getElementById('album-announcement');
+                if (albumTarget) {
+                    var navH = document.querySelector('.navbar') ? document.querySelector('.navbar').offsetHeight : 0;
+                    window.scrollTo({ top: albumTarget.offsetTop - navH, behavior: 'instant' });
+                }
+
+                // Splash screen fade-out
                 window.addEventListener('load', function() {
                     var splash = document.getElementById('splash-screen');
                     setTimeout(function() {
                         if (splash) splash.classList.add('fade-out');
                         setTimeout(function() {
                             if (splash) splash.remove();
-                            var musicSection = document.getElementById('album-announcement');
-                            if (musicSection) {
-                                var navHeight = document.querySelector('.navbar').offsetHeight;
-                                var targetTop = musicSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                                window.scrollTo({ top: targetTop, behavior: 'instant' });
-                            }
                         }, 500);
                     }, 1200);
                 });
