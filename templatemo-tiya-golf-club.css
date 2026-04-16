@@ -2300,6 +2300,17 @@ video:hover {
 .burst-shape:nth-child(10) { color: #5856D6; }
 .burst-shape:nth-child(11) { color: #E8225E; }
 .burst-shape:nth-child(12) { color: #1DAA5C; }
+.burst-shape:nth-child(13) { color: #FF9500; }
+.burst-shape:nth-child(14) { color: #34C759; }
+.burst-shape:nth-child(15) { color: #FF3B30; }
+.burst-shape:nth-child(16) { color: #007AFF; }
+.burst-shape:nth-child(17) { color: #FFCC00; }
+.burst-shape:nth-child(18) { color: #AF52DE; }
+
+.burst-outer {
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
 
 @keyframes burstOut {
   0% { opacity: 0; transform: translate(0, 0) scale(0) rotate(0deg); }
