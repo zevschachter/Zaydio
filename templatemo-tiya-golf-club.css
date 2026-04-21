@@ -2277,14 +2277,19 @@ video:hover {
   width: 0;
   height: 0;
   z-index: 1;
+  animation: wheelSpin 20s linear 0.8s infinite;
+}
+
+@keyframes wheelSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .burst-shape {
   position: absolute;
   font-size: 1.8rem;
   opacity: 0;
-  animation: burstOut 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0s) forwards,
-             burstFloat 3s ease-in-out 1s infinite alternate;
+  animation: burstOut 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0s) forwards;
   transform: translate(0, 0) scale(0);
 }
 
@@ -2317,10 +2322,6 @@ video:hover {
   100% { opacity: 0.8; transform: translate(var(--x), var(--y)) scale(1) rotate(var(--r)); }
 }
 
-@keyframes burstFloat {
-  0% { transform: translate(var(--x), var(--y)) scale(1) rotate(var(--r)); }
-  100% { transform: translate(var(--x), calc(var(--y) - 12px)) scale(1.1) rotate(calc(var(--r) + 10deg)); }
-}
 
 @media screen and (max-width: 767px) {
   .splash-logo {
