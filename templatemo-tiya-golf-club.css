@@ -671,6 +671,10 @@ strong {
   display: flex;
 }
 
+.music-nav-item:hover .music-popup {
+  display: flex;
+}
+
 .music-popup-btn {
   display: flex;
   align-items: center;
