@@ -2364,8 +2364,30 @@ video:hover {
 /* Parallax image containers */
 .parallax-wrap {
   display: block;
+  position: relative;
   overflow: hidden;
   border-radius: 20px;
+}
+
+.about-parallax-logo {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  transform: translate(-50%, -50%) scale(0.92);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.parallax-wrap:hover .about-parallax-logo {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .parallax-img {
