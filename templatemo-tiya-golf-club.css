@@ -2160,6 +2160,74 @@ video:hover {
   gap: 16px;
 }
 
+/* Shorts section */
+.shorts-section {
+  padding-bottom: 40px;
+}
+
+.shorts-cta {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.instagram-embed-wrap {
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  position: relative;
+  min-height: 680px;
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.08), rgba(78, 205, 196, 0.08));
+}
+
+.instagram-embed-wrap[aria-busy="true"]::before {
+  content: "Loading latest short...";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #6C5CE7;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.instagram-embed-wrap iframe {
+  display: block;
+  width: 100%;
+  min-height: 680px;
+  border: 0;
+  background-color: #ffffff;
+}
+
+.shorts-social.footer-social {
+  justify-content: center;
+}
+
+.shorts-social .footer-social-link {
+  background-color: rgba(108, 92, 231, 0.12);
+  color: #6C5CE7;
+}
+
+.shorts-social .footer-social-link:hover {
+  background-color: rgba(78, 205, 196, 0.25);
+  color: #3dbdb4;
+}
+
+@media screen and (max-width: 575px) {
+  .instagram-embed-wrap iframe {
+    min-height: 580px;
+  }
+
+  .shorts-cta {
+    font-size: 1rem;
+  }
+}
+
 .footer-social-link {
   display: flex;
   align-items: center;
