@@ -30,8 +30,39 @@ Deno.serve(async (req) => {
 
   if (url.pathname === "/api/latest-reel") {
     const reel = await getLatestReel();
-    return Response.json(reel, {
+    return Response.json({
+      shortcode: reel.shortcode,
+      permalink: reel.permalink,
+      embedUrl: reel.embedUrl,
+      posterUrl: reel.posterUrl,
+      videoSrc: reel.videoUrl ? "/api/latest-reel/video" : undefined,
+    }, {
       headers: {
+        "Cache-Control": "public, max-age=3600",
+      },
+    });
+  }
+
+  if (url.pathname === "/api/latest-reel/video") {
+    const reel = await getLatestReel();
+    if (!reel.videoUrl) {
+      return new Response("Video unavailable", { status: 404 });
+    }
+
+    const videoResponse = await fetch(reel.videoUrl, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; ZaydioSite/1.0)",
+        "Referer": "https://www.instagram.com/",
+      },
+    });
+
+    if (!videoResponse.ok) {
+      return new Response("Failed to fetch video", { status: 502 });
+    }
+
+    return new Response(videoResponse.body, {
+      headers: {
+        "Content-Type": videoResponse.headers.get("Content-Type") || "video/mp4",
         "Cache-Control": "public, max-age=3600",
       },
     });

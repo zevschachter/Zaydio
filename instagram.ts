@@ -5,11 +5,16 @@ export interface LatestReel {
   shortcode: string;
   permalink: string;
   embedUrl: string;
+  videoUrl?: string;
+  posterUrl?: string;
 }
 
-interface InstagramTimelineNode {
+export interface InstagramTimelineNode {
   shortcode?: string;
   product_type?: string;
+  video_url?: string;
+  display_url?: string;
+  thumbnail_src?: string;
 }
 
 interface InstagramProfileUser {
@@ -18,14 +23,25 @@ interface InstagramProfileUser {
   };
 }
 
-export function pickLatestReelShortcode(user: InstagramProfileUser): string | null {
+export function pickLatestReelNode(user: InstagramProfileUser): InstagramTimelineNode | null {
   const edges = user.edge_owner_to_timeline_media?.edges ?? [];
   for (const { node } of edges) {
     if (node?.product_type === "clips" && node.shortcode) {
-      return node.shortcode;
+      return node;
     }
   }
   return null;
+}
+
+export function reelFromNode(node: InstagramTimelineNode): LatestReel {
+  const shortcode = node.shortcode!;
+  return {
+    shortcode,
+    permalink: `https://www.instagram.com/reel/${shortcode}/`,
+    embedUrl: `https://www.instagram.com/reel/${shortcode}/embed`,
+    videoUrl: node.video_url,
+    posterUrl: node.display_url || node.thumbnail_src,
+  };
 }
 
 export function reelFromShortcode(shortcode: string): LatestReel {
@@ -53,10 +69,10 @@ export async function fetchLatestReel(): Promise<LatestReel> {
   }
 
   const payload = await response.json();
-  const shortcode = pickLatestReelShortcode(payload.data.user);
-  if (!shortcode) {
+  const node = pickLatestReelNode(payload.data.user);
+  if (!node) {
     throw new Error("No Instagram reel found in profile timeline");
   }
 
-  return reelFromShortcode(shortcode);
+  return reelFromNode(node);
 }

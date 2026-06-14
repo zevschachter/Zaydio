@@ -2171,19 +2171,19 @@ video:hover {
   color: var(--dark-color);
 }
 
-.instagram-embed-wrap {
+.shorts-video-wrap {
   width: 100%;
-  max-width: 540px;
+  max-width: 360px;
   margin: 0 auto;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   position: relative;
-  min-height: 680px;
-  background: linear-gradient(135deg, rgba(108, 92, 231, 0.08), rgba(78, 205, 196, 0.08));
+  aspect-ratio: 9 / 16;
+  background: #000;
 }
 
-.instagram-embed-wrap[aria-busy="true"]::before {
+.shorts-video-wrap[aria-busy="true"]::before {
   content: "Loading latest short...";
   position: absolute;
   inset: 0;
@@ -2191,17 +2191,61 @@ video:hover {
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  color: #6C5CE7;
-  z-index: 1;
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.85), rgba(78, 205, 196, 0.85));
+  z-index: 2;
   pointer-events: none;
 }
 
-.instagram-embed-wrap iframe {
+.shorts-video-wrap video,
+.shorts-reel-fallback {
   display: block;
   width: 100%;
-  min-height: 680px;
+  height: 100%;
   border: 0;
-  background-color: #ffffff;
+  object-fit: cover;
+  background-color: #000;
+}
+
+.shorts-audio-toggle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 72px;
+  height: 72px;
+  border: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.25s ease;
+  cursor: pointer;
+}
+
+.shorts-audio-toggle:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.shorts-audio-toggle.is-unmuted {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.shorts-video-wrap:hover .shorts-audio-toggle.is-unmuted,
+.shorts-video-wrap:focus-within .shorts-audio-toggle.is-unmuted {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.shorts-audio-icon {
+  display: block;
 }
 
 .shorts-social.footer-social {
@@ -2219,8 +2263,8 @@ video:hover {
 }
 
 @media screen and (max-width: 575px) {
-  .instagram-embed-wrap iframe {
-    min-height: 580px;
+  .shorts-video-wrap {
+    max-width: 100%;
   }
 
   .shorts-cta {
