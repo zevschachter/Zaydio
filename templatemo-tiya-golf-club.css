@@ -2238,8 +2238,7 @@ video:hover {
   pointer-events: none;
 }
 
-.shorts-video-wrap video,
-.shorts-reel-fallback {
+.shorts-video-wrap video {
   display: block;
   width: 100%;
   height: 100%;

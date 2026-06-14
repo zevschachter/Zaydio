@@ -408,15 +408,6 @@
                                         <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                                     </svg>
                                 </button>
-                                <iframe
-                                    id="shorts-reel-fallback"
-                                    class="shorts-reel-fallback"
-                                    allowfullscreen
-                                    scrolling="no"
-                                    loading="lazy"
-                                    title="Zaydio Instagram Short"
-                                    hidden>
-                                </iframe>
                             </div>
 
                             <p class="shorts-cta text-center mt-4 mb-3">Watch <span class="zaydio-rainbow-sm"><span style="animation-delay:0s">Z</span><span style="animation-delay:0.1s">A</span><span style="animation-delay:0.2s">Y</span><span style="animation-delay:0.3s">D</span><span style="animation-delay:0.4s">I</span><span style="animation-delay:0.5s">O</span></span> shorts on your favorite platform!</p>
@@ -741,10 +732,8 @@
                 // Load newest Instagram reel for Shorts section
                 (function loadLatestReel() {
                     var video = document.getElementById('shorts-reel-video');
-                    var fallback = document.getElementById('shorts-reel-fallback');
                     var wrap = document.getElementById('shorts-reel-wrap');
                     var toggle = document.getElementById('shorts-audio-toggle');
-                    var fallbackEmbed = 'https://www.instagram.com/reel/DZkN4AFDXzo/embed';
 
                     if (!video || !wrap) return;
 
@@ -752,12 +741,9 @@
                         wrap.setAttribute('aria-busy', 'false');
                     }
 
-                    function showFallback(embedUrl) {
-                        if (fallback) {
-                            fallback.hidden = false;
-                            fallback.src = embedUrl;
-                        }
-                        video.hidden = true;
+                    function showPosterOnly(posterUrl) {
+                        if (posterUrl) video.poster = posterUrl;
+                        video.removeAttribute('src');
                         if (toggle) toggle.hidden = true;
                         setReady();
                     }
@@ -783,7 +769,7 @@
                     }
 
                     wrap.addEventListener('click', function() {
-                        if (video.hidden) return;
+                        if (!video.src) return;
                         video.muted = !video.muted;
                         updateAudioToggle();
                     });
@@ -794,21 +780,21 @@
                             return response.json();
                         })
                         .then(function(data) {
-                            if (data.videoSrc) {
-                                if (data.posterUrl) video.poster = data.posterUrl;
-                                video.src = data.videoSrc;
-                                video.hidden = false;
-                                if (fallback) fallback.hidden = true;
-                                if (toggle) toggle.hidden = false;
-                                updateAudioToggle();
-                                video.play().catch(function() {});
-                                setReady();
+                            if (data.posterUrl) video.poster = data.posterUrl;
+
+                            if (!data.videoSrc) {
+                                showPosterOnly(data.posterUrl);
                                 return;
                             }
-                            showFallback(data.embedUrl || fallbackEmbed);
+
+                            video.src = data.videoSrc;
+                            if (toggle) toggle.hidden = false;
+                            updateAudioToggle();
+                            video.play().catch(function() {});
+                            setReady();
                         })
                         .catch(function() {
-                            showFallback(fallbackEmbed);
+                            showPosterOnly();
                         });
                 })();
 
