@@ -2165,10 +2165,84 @@ video:hover {
   padding-bottom: 40px;
 }
 
-.shorts-cta {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--dark-color);
+.shorts-heading {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.shorts-heading-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 0 0.85rem;
+  font-family: var(--body-font-family);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+}
+
+.shorts-heading-kicker::before,
+.shorts-heading-kicker::after {
+  content: "";
+  width: 42px;
+  height: 2px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.shorts-heading-kicker::before {
+  background: linear-gradient(90deg, transparent, var(--primary-color));
+}
+
+.shorts-heading-kicker::after {
+  background: linear-gradient(90deg, var(--primary-color), transparent);
+}
+
+.shorts-heading-title {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: clamp(3rem, 8vw, 4.25rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    120deg,
+    var(--secondary-color) 0%,
+    #8B7CF7 28%,
+    var(--primary-color) 62%,
+    #FF8C42 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 8px 18px rgba(108, 92, 231, 0.12));
+}
+
+.shorts-instagram-link-wrap {
+  margin-top: 1.25rem;
+}
+
+.shorts-instagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--heading-font-family);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.shorts-instagram-link:hover {
+  color: #E1306C;
+  transform: translateX(3px);
 }
 
 .shorts-video-wrap {
@@ -2248,27 +2322,28 @@ video:hover {
   display: block;
 }
 
-.shorts-social.footer-social {
-  justify-content: center;
-}
-
-.shorts-social .footer-social-link {
-  background-color: rgba(108, 92, 231, 0.12);
-  color: #6C5CE7;
-}
-
-.shorts-social .footer-social-link:hover {
-  background-color: rgba(78, 205, 196, 0.25);
-  color: #3dbdb4;
-}
-
 @media screen and (max-width: 575px) {
   .shorts-video-wrap {
     max-width: 100%;
   }
 
-  .shorts-cta {
-    font-size: 1rem;
+  .shorts-heading-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    gap: 0.65rem;
+  }
+
+  .shorts-heading-kicker::before,
+  .shorts-heading-kicker::after {
+    width: 28px;
+  }
+
+  .shorts-heading-title {
+    letter-spacing: 0.04em;
+  }
+
+  .shorts-instagram-link {
+    font-size: 0.98rem;
   }
 }
 
