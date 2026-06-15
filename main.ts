@@ -101,7 +101,10 @@ Deno.serve(async (req) => {
   if (url.pathname === "/") {
     const file = await Deno.readFile("./index.html");
     return new Response(file, {
-      headers: { "content-type": "text/html" },
+      headers: {
+        "content-type": "text/html",
+        "Cache-Control": "public, max-age=60, must-revalidate",
+      },
     });
   }
 
