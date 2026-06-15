@@ -2329,7 +2329,7 @@ video:hover {
   display: block;
   width: 100%;
   height: clamp(56px, 8vw, 80px);
-  overflow: visible;
+  overflow: hidden;
   position: relative;
   z-index: 2;
   margin-top: -2px;
@@ -2356,6 +2356,7 @@ video:hover {
 .wave-cream-teal-wrap {
   background-color: #fff9e6;
   margin-bottom: -2px;
+  overflow: hidden;
 }
 
 .wave-cream-teal {
@@ -2365,6 +2366,7 @@ video:hover {
 
 .shorts-about-zone .wave-orange-cream {
   background: transparent;
+  overflow: hidden;
 }
 
 .shorts-about-zone .shorts-section {
@@ -2688,18 +2690,23 @@ video:hover {
 }
 
 /* Animated wavy section dividers */
-.wave-animated {
-  overflow: visible;
-}
-
-.wave-animated path {
-  animation: waveShift 8s ease-in-out infinite alternate;
-  transform-origin: center;
+.wave-shift {
+  transform: scaleX(1.16);
+  transform-origin: center center;
+  animation: waveShift 10s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 @keyframes waveShift {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-12px); }
+  0% { transform: scaleX(1.16) translateX(0); }
+  100% { transform: scaleX(1.16) translateX(-2.5%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-shift {
+    animation: none;
+    transform: scaleX(1.08);
+  }
 }
 
 /* Hero floating particles */
