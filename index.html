@@ -40,7 +40,7 @@
 
         <link href="bootstrap-icons.css?v=5.1" rel="stylesheet">
 
-        <link href="templatemo-tiya-golf-club.css?v=5.1" rel="stylesheet">
+        <link href="templatemo-tiya-golf-club.css?v=5.3" rel="stylesheet">
 
         <!-- Structured Data for Google Rich Results -->
         <script type="application/ld+json">
@@ -274,13 +274,16 @@
             <!-- Yellow fill to cover any gap between hero and album on mobile -->
             <div style="background-color: #FFD93D; margin-top: -2px;"></div>
 
-            <!-- Wavy transition: yellow into orange -->
-            <svg class="wave-animated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display: block; width: 100%; height: 80px; background-color: #FFD93D; margin-bottom: -2px;">
-                <path fill="#FF8C42" d="M0,40L60,44C120,48,240,56,360,54C480,52,600,40,720,36C840,32,960,36,1080,42C1200,48,1320,56,1380,58L1440,60L1440,80L0,80Z"></path>
-            </svg>
+            <!-- Orange zone: album announcement + Spotify embeds -->
+            <div class="orange-music-zone">
+                <div class="orange-music-zone__glow" aria-hidden="true"></div>
 
-            <!-- Album Announcement Banner -->
-            <section id="album-announcement" class="album-announcement reveal" style="background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 50%, #FFA34D 100%); padding: 40px 0; position: relative; z-index: 2; overflow-x: hidden; overflow-y: visible;">
+                <!-- Wavy transition: yellow into orange -->
+                <svg class="wave-animated wave-yellow-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
+                    <path fill="#FF8C42" d="M0,40L60,44C120,48,240,56,360,54C480,52,600,40,720,36C840,32,960,36,1080,42C1200,48,1320,56,1380,58L1440,60L1440,80L0,80Z"></path>
+                </svg>
+
+                <section id="album-announcement" class="album-announcement reveal">
                 <!-- Decorative floating music notes -->
                 <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.1;">
                     <span style="position: absolute; top: 10%; left: 5%; font-size: 3rem; transform: rotate(-15deg);">&#9835;</span>
@@ -336,12 +339,13 @@
 
                     <div id="album-embeds"></div>
                 </div>
-            </section>
+                </section>
 
-            <!-- Wavy transition: orange into purple -->
-            <svg class="wave-animated wave-orange-purple" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display: block; width: 100%; height: 50px; background-color: #FF8C42; margin-top: -2px; margin-bottom: -2px;">
-                <path fill="#6C5CE7" d="M0,30L60,34C120,38,240,46,360,48C480,50,600,46,720,40C840,34,960,26,1080,28C1200,30,1320,42,1380,46L1440,50L1440,80L0,80Z"></path>
-            </svg>
+                <!-- Wavy transition: orange into purple -->
+                <svg class="wave-animated wave-orange-purple" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
+                    <path fill="#6C5CE7" d="M0,30L60,34C120,38,240,46,360,48C480,50,600,46,720,40C840,34,960,26,1080,28C1200,30,1320,42,1380,46L1440,50L1440,80L0,80Z"></path>
+                </svg>
+            </div>
 
             <!-- Video section with purple background and wavy top -->
             <section class="video-purple-section" style="background-color: #6C5CE7; padding: 30px 15px; overflow: visible; position: relative;">
