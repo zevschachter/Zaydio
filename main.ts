@@ -6,9 +6,12 @@ import {
   reelFromShortcode,
   type LatestReel,
 } from "./instagram.ts";
+import { fallbackAlbums, fetchZaydioAlbums, type ZaydioAlbum } from "./albums.ts";
 
 const REEL_CACHE_TTL_MS = 60 * 60 * 1000;
+const ALBUM_CACHE_TTL_MS = 60 * 60 * 1000;
 let reelCache: { data: LatestReel; expiresAt: number } | null = null;
+let albumCache: { data: ZaydioAlbum[]; expiresAt: number } | null = null;
 
 async function getLatestReel(): Promise<LatestReel> {
   const now = Date.now();
@@ -25,8 +28,34 @@ async function getLatestReel(): Promise<LatestReel> {
   }
 }
 
+async function getAlbums() {
+  const now = Date.now();
+  if (albumCache && albumCache.expiresAt > now) {
+    return albumCache.data;
+  }
+
+  try {
+    const data = await fetchZaydioAlbums();
+    albumCache = { data, expiresAt: now + ALBUM_CACHE_TTL_MS };
+    return data;
+  } catch {
+    const data = fallbackAlbums();
+    albumCache = { data, expiresAt: now + ALBUM_CACHE_TTL_MS };
+    return data;
+  }
+}
+
 Deno.serve(async (req) => {
   const url = new URL(req.url);
+
+  if (url.pathname === "/api/albums") {
+    const albums = await getAlbums();
+    return Response.json(albums, {
+      headers: {
+        "Cache-Control": "public, max-age=3600",
+      },
+    });
+  }
 
   if (url.pathname === "/api/latest-reel") {
     const reel = await getLatestReel();

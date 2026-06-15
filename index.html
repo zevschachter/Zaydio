@@ -64,6 +64,13 @@
             "album": [
                 {
                     "@type": "MusicAlbum",
+                    "name": "The New Abc's",
+                    "datePublished": "2026",
+                    "numTracks": 14,
+                    "url": "https://open.spotify.com/album/6rvUo2MgTdx0izM1WTOm3h"
+                },
+                {
+                    "@type": "MusicAlbum",
                     "name": "Everybody Sing",
                     "datePublished": "2026",
                     "numTracks": 12,
@@ -71,10 +78,17 @@
                 },
                 {
                     "@type": "MusicAlbum",
-                    "name": "The New Abc's",
+                    "name": "Sing Along Lullabies",
                     "datePublished": "2026",
                     "numTracks": 14,
-                    "url": "https://open.spotify.com/album/6rvUo2MgTdx0izM1WTOm3h"
+                    "url": "https://open.spotify.com/album/3nq1lapyQTbLU5qoLcsebj"
+                },
+                {
+                    "@type": "MusicAlbum",
+                    "name": "Island Vibes Lullabies",
+                    "datePublished": "2026",
+                    "numTracks": 12,
+                    "url": "https://open.spotify.com/album/1phCU3l6j5z0cujrT5Sqzo"
                 }
             ]
         }
@@ -320,39 +334,7 @@
                         </div>
                     </div>
 
-                    <div class="row mt-4 mt-lg-5">
-                        <div class="col-lg-10 col-12 mx-auto">
-                            <iframe 
-                                class="spotify-embed"
-                                style="border-radius: 12px;" 
-                                src="https://open.spotify.com/embed/album/3FYu2RhdpG6Cf5FbckfJwp?utm_source=generator&theme=0" 
-                                width="100%" 
-                                height="352" 
-                                frameborder="0" 
-                                allowfullscreen="" 
-                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                loading="lazy"
-                                title="Everybody Sings - Zaydio Album Player">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-lg-10 col-12 mx-auto">
-                            <iframe 
-                                class="spotify-embed"
-                                style="border-radius: 12px;" 
-                                src="https://open.spotify.com/embed/album/6rvUo2MgTdx0izM1WTOm3h?utm_source=generator&theme=0" 
-                                width="100%" 
-                                height="352" 
-                                frameborder="0" 
-                                allowfullscreen="" 
-                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                loading="lazy"
-                                title="The New Abc's - Zaydio Album Player">
-                            </iframe>
-                        </div>
-                    </div>
+                    <div id="album-embeds"></div>
                 </div>
             </section>
 
@@ -729,6 +711,47 @@
                 }
                 window.addEventListener('scroll', updateActiveNav, { passive: true });
                 updateActiveNav();
+
+                // Load album previews from Zaydio catalog
+                (function loadAlbumEmbeds() {
+                    var container = document.getElementById('album-embeds');
+                    if (!container) return;
+
+                    function renderAlbums(albums) {
+                        container.innerHTML = '';
+                        albums.forEach(function(album, index) {
+                            var row = document.createElement('div');
+                            row.className = 'row ' + (index === 0 ? 'mt-4 mt-lg-5' : 'mt-3');
+
+                            var col = document.createElement('div');
+                            col.className = 'col-lg-10 col-12 mx-auto';
+
+                            var iframe = document.createElement('iframe');
+                            iframe.className = 'spotify-embed';
+                            iframe.style.borderRadius = '12px';
+                            iframe.src = 'https://open.spotify.com/embed/album/' + album.spotifyId + '?utm_source=generator&theme=0';
+                            iframe.width = '100%';
+                            iframe.height = '352';
+                            iframe.frameBorder = '0';
+                            iframe.allowFullscreen = true;
+                            iframe.loading = 'lazy';
+                            iframe.title = album.name + ' - Zaydio Album Player';
+                            iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+
+                            col.appendChild(iframe);
+                            row.appendChild(col);
+                            container.appendChild(row);
+                        });
+                    }
+
+                    fetch('/api/albums')
+                        .then(function(response) {
+                            if (!response.ok) throw new Error('Failed to load albums');
+                            return response.json();
+                        })
+                        .then(renderAlbums)
+                        .catch(function() {});
+                })();
 
                 // Load newest Instagram reel for Shorts section
                 (function loadLatestReel() {
