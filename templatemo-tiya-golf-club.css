@@ -2421,7 +2421,7 @@ video:hover {
   font-weight: 900;
   color: #6C5CE7;
   animation: shortsLetterPop 2.4s ease-in-out infinite;
-  -webkit-text-stroke: 3px #4ECDC4;
+  -webkit-text-stroke: 3.5px #4ECDC4;
   paint-order: stroke fill;
   text-shadow: 3px 4px 0 rgba(58, 48, 168, 0.35), 4px 6px 10px rgba(0, 0, 0, 0.18);
 }
@@ -2578,7 +2578,7 @@ video:hover {
   }
 
   .shorts-title-dance span {
-    -webkit-text-stroke: 2.5px #4ECDC4;
+    -webkit-text-stroke: 2.9px #4ECDC4;
     text-shadow: 2px 3px 0 rgba(58, 48, 168, 0.3), 3px 5px 8px rgba(0, 0, 0, 0.15);
   }
 
