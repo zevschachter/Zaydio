@@ -2655,6 +2655,11 @@ video:hover {
   border-radius: 20px;
 }
 
+.parallax-wrap.footer-birds-wrap {
+  display: inline-block;
+  vertical-align: top;
+}
+
 .about-parallax-logo {
   border-radius: 50%;
   width: 70px;
