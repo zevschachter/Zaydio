@@ -1,8 +1,8 @@
 /*
 
-TemplateMo 587 Tiya Golf Club
+ZAYDIO
 
-https://templatemo.com/tm-587-tiya-golf-club
+https://zaydio.com
 
 */
 
@@ -886,6 +886,11 @@ strong {
   position: absolute;
   right: 0;
   left: 0;
+  overflow: hidden;
+}
+
+.hero-section .wave-shift {
+  animation-duration: 12s;
 }
 
 .hero-section > svg {
