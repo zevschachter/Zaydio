@@ -70,6 +70,7 @@ check_url "$BASE_URL/" "homepage"
 check_url "$BASE_URL/zaydio.css" "stylesheet"
 check_url "$BASE_URL/sitemap.xml" "sitemap.xml"
 check_url "$BASE_URL/api/albums" "api/albums"
+check_url "$BASE_URL/api/youtube-videos" "api/youtube-videos"
 check_url "$BASE_URL/api/latest-reel" "api/latest-reel"
 
 echo

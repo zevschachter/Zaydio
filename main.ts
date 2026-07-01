@@ -9,11 +9,14 @@ import {
 import { fallbackAlbums, fetchZaydioAlbums, type ZaydioAlbum } from "./albums.ts";
 import { buildSitemapXml } from "./sitemap.ts";
 import { withSecurityHeaders } from "./security_headers.ts";
+import { fallbackVideos, fetchChannelVideos, type YouTubeVideo } from "./youtube.ts";
 
 const REEL_CACHE_TTL_MS = 60 * 60 * 1000;
 const ALBUM_CACHE_TTL_MS = 60 * 60 * 1000;
+const YOUTUBE_CACHE_TTL_MS = 60 * 60 * 1000;
 let reelCache: { data: LatestReel; expiresAt: number } | null = null;
 let albumCache: { data: ZaydioAlbum[]; expiresAt: number } | null = null;
+let youtubeCache: { data: YouTubeVideo[]; expiresAt: number } | null = null;
 
 async function getLatestReel(): Promise<LatestReel> {
   const now = Date.now();
@@ -47,12 +50,38 @@ async function getAlbums() {
   }
 }
 
+async function getYouTubeVideos() {
+  const now = Date.now();
+  if (youtubeCache && youtubeCache.expiresAt > now) {
+    return youtubeCache.data;
+  }
+
+  try {
+    const data = await fetchChannelVideos();
+    youtubeCache = { data, expiresAt: now + YOUTUBE_CACHE_TTL_MS };
+    return data;
+  } catch {
+    const data = fallbackVideos();
+    youtubeCache = { data, expiresAt: now + YOUTUBE_CACHE_TTL_MS };
+    return data;
+  }
+}
+
 Deno.serve(async (req) => {
   const url = new URL(req.url);
 
   if (url.pathname === "/api/albums") {
     const albums = await getAlbums();
     return Response.json(albums, {
+      headers: {
+        "Cache-Control": "public, max-age=3600",
+      },
+    });
+  }
+
+  if (url.pathname === "/api/youtube-videos") {
+    const videos = await getYouTubeVideos();
+    return Response.json(videos, {
       headers: {
         "Cache-Control": "public, max-age=3600",
       },
