@@ -40,7 +40,7 @@
 
         <link href="bootstrap-icons.css?v=5.1" rel="stylesheet">
 
-        <link href="zaydio.css?v=7.3" rel="stylesheet">
+        <link href="zaydio.css?v=7.5" rel="stylesheet">
 
         <!-- Structured Data for Google Rich Results -->
         <script type="application/ld+json">
@@ -147,15 +147,38 @@
     <body>
 
         <div class="music-popup-overlay" id="music-popup-overlay"></div>
-        <div class="music-popup" id="music-popup">
-            <a href="https://open.spotify.com/artist/4fTjSdSh2hpjOECARv9qyF" target="_blank" rel="noopener noreferrer" class="music-popup-btn spotify-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-                Spotify
-            </a>
-            <a href="https://music.apple.com/us/artist/zaydio/1868898316" target="_blank" rel="noopener noreferrer" class="music-popup-btn apple-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 0 0-1.877-.726 10.496 10.496 0 0 0-1.564-.15c-.073-.005-.146-.01-.22-.015H6.117c-.12.01-.24.015-.36.021a8.075 8.075 0 0 0-1.89.283A4.98 4.98 0 0 0 1.15 2.456c-.407.532-.7 1.13-.874 1.782a8.517 8.517 0 0 0-.2 1.553c-.006.088-.012.176-.02.265v11.877c.012.12.02.24.03.36.057.62.163 1.23.378 1.818.478 1.304 1.353 2.27 2.612 2.86a5.06 5.06 0 0 0 1.643.474c.404.06.812.09 1.22.1.093.004.187.012.28.012h11.564c.12-.01.24-.015.36-.02.582-.05 1.156-.145 1.71-.34a4.982 4.982 0 0 0 2.296-1.717c.395-.545.665-1.153.833-1.81.114-.45.17-.91.198-1.374.009-.152.018-.305.027-.457V6.2c-.01-.025-.012-.05-.013-.076zM17.15 17.478c-.003.108-.02.213-.058.313a.676.676 0 0 1-.363.37c-.123.054-.253.076-.387.084a1.16 1.16 0 0 1-.41-.045 3.823 3.823 0 0 1-.532-.204 5.772 5.772 0 0 1-1.202-.763 4.456 4.456 0 0 1-1.066-1.327 4.375 4.375 0 0 1-.445-1.393c-.063-.37-.075-.74-.033-1.112.063-.555.24-1.065.53-1.534a4.4 4.4 0 0 1 .814-.955c.295-.272.618-.505.963-.705l.1-.057c-.01-.077-.02-.152-.03-.228a5.133 5.133 0 0 0-.573-1.746 4.813 4.813 0 0 0-.882-1.117c-.328-.3-.697-.533-1.105-.7a2.352 2.352 0 0 0-.77-.196 1.63 1.63 0 0 0-.553.053c-.246.07-.484.166-.72.266-.267.113-.534.228-.81.316a2.19 2.19 0 0 1-.656.1 2.44 2.44 0 0 1-.662-.112c-.254-.086-.5-.196-.75-.296a3.848 3.848 0 0 0-.59-.2 1.882 1.882 0 0 0-.748-.02 2.77 2.77 0 0 0-.978.34c-.525.3-.963.7-1.326 1.19a5.156 5.156 0 0 0-.857 1.862c-.14.536-.205 1.082-.2 1.637.005.384.05.765.138 1.14.137.59.352 1.148.632 1.68.298.563.65 1.093 1.055 1.583.295.357.62.686.98.977.268.218.558.4.876.53.212.087.43.14.658.14.165 0 .326-.03.483-.082.22-.073.43-.174.64-.276.255-.123.51-.243.78-.33a2.55 2.55 0 0 1 .76-.113c.24.002.477.04.707.11.207.063.407.148.603.24.252.118.5.244.76.347.168.066.34.114.52.13a1.1 1.1 0 0 0 .6-.1c.28-.13.53-.306.76-.51.363-.324.68-.693.955-1.095.205-.298.387-.61.543-.936l.058-.12c-.013-.01-.024-.017-.036-.024z"/></svg>
-                Apple Music
-            </a>
+        <div class="music-popup" id="music-popup" role="dialog" aria-modal="true" aria-labelledby="music-popup-title">
+            <div id="music-popup-albums" class="music-popup-view">
+                <h2 id="music-popup-title" class="music-popup-heading">Browse All Albums</h2>
+                <div id="music-popup-album-grid" class="music-popup-album-grid" aria-live="polite">
+                    <p class="music-popup-loading">Loading albums&hellip;</p>
+                </div>
+                <p class="music-popup-artist-label">Or stream everything on</p>
+                <div class="music-popup-artist-links">
+                    <a href="https://open.spotify.com/artist/4fTjSdSh2hpjOECARv9qyF" target="_blank" rel="noopener noreferrer" class="music-popup-btn spotify-btn music-popup-btn--compact">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                        Spotify
+                    </a>
+                    <a href="https://music.apple.com/us/artist/zaydio/1868898316" target="_blank" rel="noopener noreferrer" class="music-popup-btn apple-btn music-popup-btn--compact">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 0 0-1.877-.726 10.496 10.496 0 0 0-1.564-.15c-.073-.005-.146-.01-.22-.015H6.117c-.12.01-.24.015-.36.021a8.075 8.075 0 0 0-1.89.283A4.98 4.98 0 0 0 1.15 2.456c-.407.532-.7 1.13-.874 1.782a8.517 8.517 0 0 0-.2 1.553c-.006.088-.012.176-.02.265v11.877c.012.12.02.24.03.36.057.62.163 1.23.378 1.818.478 1.304 1.353 2.27 2.612 2.86a5.06 5.06 0 0 0 1.643.474c.404.06.812.09 1.22.1.093.004.187.012.28.012h11.564c.12-.01.24-.015.36-.02.582-.05 1.156-.145 1.71-.34a4.982 4.982 0 0 0 2.296-1.717c.395-.545.665-1.153.833-1.81.114-.45.17-.91.198-1.374.009-.152.018-.305.027-.457V6.2c-.01-.025-.012-.05-.013-.076z"/></svg>
+                        Apple Music
+                    </a>
+                </div>
+            </div>
+            <div id="music-popup-detail" class="music-popup-view" hidden>
+                <button type="button" class="music-popup-back" id="music-popup-back">&larr; All albums</button>
+                <img id="music-popup-album-cover" class="music-popup-album-cover" src="" alt="" width="160" height="160">
+                <h3 id="music-popup-album-title" class="music-popup-album-title"></h3>
+                <p class="music-popup-detail-label">Listen on</p>
+                <a href="#" id="music-popup-spotify" target="_blank" rel="noopener noreferrer" class="music-popup-btn spotify-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                    Spotify
+                </a>
+                <a href="#" id="music-popup-apple" target="_blank" rel="noopener noreferrer" class="music-popup-btn apple-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 0 0-1.877-.726 10.496 10.496 0 0 0-1.564-.15c-.073-.005-.146-.01-.22-.015H6.117c-.12.01-.24.015-.36.021a8.075 8.075 0 0 0-1.89.283A4.98 4.98 0 0 0 1.15 2.456c-.407.532-.7 1.13-.874 1.782a8.517 8.517 0 0 0-.2 1.553c-.006.088-.012.176-.02.265v11.877c.012.12.02.24.03.36.057.62.163 1.23.378 1.818.478 1.304 1.353 2.27 2.612 2.86a5.06 5.06 0 0 0 1.643.474c.404.06.812.09 1.22.1.093.004.187.012.28.012h11.564c.12-.01.24-.015.36-.02.582-.05 1.156-.145 1.71-.34a4.982 4.982 0 0 0 2.296-1.717c.395-.545.665-1.153.833-1.81.114-.45.17-.91.198-1.374.009-.152.018-.305.027-.457V6.2c-.01-.025-.012-.05-.013-.076z"/></svg>
+                    Apple Music
+                </a>
+            </div>
         </div>
 
         <a href="#section_1" class="skip-link">Skip to main content</a>
@@ -407,36 +430,6 @@
                     </div>
 
                     <div id="album-embeds"></div>
-
-                    <div class="browse-albums mt-5">
-                        <h3 class="text-white text-center mb-4">Browse All Albums</h3>
-                        <div class="row g-3 justify-content-center">
-                            <div class="col-md-6 col-lg-3">
-                                <a href="/albums/everybody-sing.html" class="album-card">
-                                    <img src="album-everybody-sing.webp" alt="Everybody Sing kids sing-along album" width="120" height="120" loading="lazy" onerror="this.src='album-everybody-sing.png'">
-                                    <span>Everybody Sing</span>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <a href="/albums/the-new-abcs.html" class="album-card">
-                                    <img src="album-the-new-abcs.webp" alt="The New ABCs educational kids album" width="120" height="120" loading="lazy" onerror="this.src='album-the-new-abcs.png'">
-                                    <span>The New ABCs</span>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <a href="/albums/sing-along-lullabies.html" class="album-card">
-                                    <img src="album-sing-along-lullabies.webp" alt="Sing Along Lullabies bedtime album" width="120" height="120" loading="lazy" onerror="this.src='album-sing-along-lullabies.png'">
-                                    <span>Sing Along Lullabies</span>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <a href="/albums/island-vibes-lullabies.html" class="album-card">
-                                    <img src="album-island-vibes-lullabies.webp" alt="Island Vibes Lullabies relaxing kids music" width="120" height="120" loading="lazy" onerror="this.src='album-island-vibes-lullabies.png'">
-                                    <span>Island Vibes Lullabies</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 </section>
 
@@ -981,13 +974,86 @@
                 var musicToggle = document.getElementById('music-nav-toggle');
                 var musicPopup = document.getElementById('music-popup');
                 var musicOverlay = document.getElementById('music-popup-overlay');
+                var musicAlbumsView = document.getElementById('music-popup-albums');
+                var musicDetailView = document.getElementById('music-popup-detail');
+                var musicAlbumGrid = document.getElementById('music-popup-album-grid');
+                var musicPopupBack = document.getElementById('music-popup-back');
+                var musicPopupCover = document.getElementById('music-popup-album-cover');
+                var musicPopupTitle = document.getElementById('music-popup-album-title');
+                var musicPopupSpotify = document.getElementById('music-popup-spotify');
+                var musicPopupApple = document.getElementById('music-popup-apple');
+                var musicAlbumsCache = null;
+                var appleArtistUrl = 'https://music.apple.com/us/artist/zaydio/1868898316';
+
+                function showMusicAlbumList() {
+                    if (musicAlbumsView) musicAlbumsView.hidden = false;
+                    if (musicDetailView) musicDetailView.hidden = true;
+                }
+
+                function showMusicAlbumDetail(album) {
+                    if (!musicDetailView || !musicPopupTitle || !musicPopupSpotify || !musicPopupApple) return;
+                    if (musicAlbumsView) musicAlbumsView.hidden = true;
+                    musicDetailView.hidden = false;
+                    musicPopupTitle.textContent = album.name;
+                    if (musicPopupCover) {
+                        musicPopupCover.src = album.coverImage;
+                        musicPopupCover.alt = album.name + ' album cover';
+                    }
+                    musicPopupSpotify.href = 'https://open.spotify.com/album/' + album.spotifyId;
+                    musicPopupApple.href = album.appleMusicUrl || appleArtistUrl;
+                }
+
+                function renderMusicAlbumGrid(albums) {
+                    if (!musicAlbumGrid) return;
+                    musicAlbumGrid.innerHTML = '';
+                    albums.forEach(function(album) {
+                        var card = document.createElement('button');
+                        card.type = 'button';
+                        card.className = 'music-popup-album-card';
+                        card.innerHTML =
+                            '<img src="' + album.coverImage + '" alt="' + album.name.replace(/"/g, '&quot;') + '" width="100" height="100" loading="lazy">' +
+                            '<span>' + album.name + '</span>';
+                        card.addEventListener('click', function() {
+                            showMusicAlbumDetail(album);
+                        });
+                        musicAlbumGrid.appendChild(card);
+                    });
+                }
+
+                function loadMusicAlbums() {
+                    if (musicAlbumsCache) {
+                        return Promise.resolve(musicAlbumsCache);
+                    }
+                    return fetch('/api/albums')
+                        .then(function(response) {
+                            if (!response.ok) throw new Error('Failed to load albums');
+                            return response.json();
+                        })
+                        .then(function(albums) {
+                            musicAlbumsCache = albums;
+                            return albums;
+                        });
+                }
+
                 function openMusicPopup() {
+                    showMusicAlbumList();
                     musicPopup.classList.add('active');
                     musicOverlay.classList.add('active');
+                    if (musicAlbumGrid && !musicAlbumsCache) {
+                        musicAlbumGrid.innerHTML = '<p class="music-popup-loading">Loading albums&hellip;</p>';
+                    }
+                    loadMusicAlbums()
+                        .then(renderMusicAlbumGrid)
+                        .catch(function() {
+                            if (musicAlbumGrid) {
+                                musicAlbumGrid.innerHTML = '<p class="music-popup-loading">Could not load albums.</p>';
+                            }
+                        });
                 }
                 function closeMusicPopup() {
                     musicPopup.classList.remove('active');
                     musicOverlay.classList.remove('active');
+                    showMusicAlbumList();
                 }
                 if (musicToggle && musicPopup && musicOverlay) {
                     musicToggle.addEventListener('click', function(e) {
@@ -1000,6 +1066,9 @@
                         }
                     });
                     musicOverlay.addEventListener('click', closeMusicPopup);
+                }
+                if (musicPopupBack) {
+                    musicPopupBack.addEventListener('click', showMusicAlbumList);
                 }
 
                 // Splash screen fade-out

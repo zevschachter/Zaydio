@@ -662,9 +662,121 @@ strong {
   box-shadow: 0 12px 40px rgba(0,0,0,0.25);
   padding: 24px 20px;
   z-index: 1100;
-  min-width: 220px;
+  width: min(92vw, 520px);
+  max-height: min(88vh, 720px);
+  overflow-y: auto;
   flex-direction: column;
+  gap: 12px;
+}
+
+.music-popup-heading {
+  font-family: var(--heading-font-family);
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-align: center;
+  color: #2d3436;
+  margin: 0 0 4px;
+}
+
+.music-popup-album-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.music-popup-album-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #FFF9E6;
+  border: 2px solid rgba(108, 92, 231, 0.15);
+  border-radius: 16px;
+  padding: 14px 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.music-popup-album-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 140, 66, 0.5);
+  box-shadow: 0 8px 20px rgba(108, 92, 231, 0.12);
+}
+
+.music-popup-album-card img {
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.music-popup-album-card span {
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  font-size: 0.88rem;
+  line-height: 1.25;
+  color: #2d3436;
+}
+
+.music-popup-artist-label,
+.music-popup-detail-label {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #636e72;
+  margin: 8px 0 0;
+}
+
+.music-popup-artist-links {
+  display: flex;
   gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.music-popup-btn--compact {
+  padding: 8px 14px;
+  font-size: 0.85rem;
+}
+
+.music-popup-loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #636e72;
+  margin: 0;
+}
+
+.music-popup-back {
+  align-self: flex-start;
+  border: 0;
+  background: none;
+  color: #6C5CE7;
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0;
+  cursor: pointer;
+}
+
+.music-popup-album-cover {
+  display: block;
+  margin: 8px auto 12px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.music-popup-album-title {
+  font-family: var(--heading-font-family);
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #2d3436;
+  margin: 0 0 8px;
+}
+
+.music-popup-view[hidden] {
+  display: none !important;
 }
 
 .music-popup-overlay {

@@ -6,6 +6,7 @@ export interface ZaydioAlbum {
   trackCount: number;
   releaseDate: string;
   appleMusicUrl?: string;
+  coverImage: string;
 }
 
 interface ITunesCollection {
@@ -25,6 +26,20 @@ const SPOTIFY_ALBUM_IDS: Record<string, string> = {
   "island vibes lullabies": "1phCU3l6j5z0cujrT5Sqzo",
 };
 
+const ALBUM_COVER_IMAGES: Record<string, string> = {
+  "the new abcs": "/album-the-new-abcs.webp",
+  "everybody sing": "/album-everybody-sing.webp",
+  "sing along lullabies": "/album-sing-along-lullabies.webp",
+  "island vibes lullabies": "/album-island-vibes-lullabies.webp",
+};
+
+const FALLBACK_APPLE_MUSIC_URLS: Record<string, string> = {
+  "the new abcs": "https://music.apple.com/us/album/the-new-abcs/1868899561",
+  "everybody sing": "https://music.apple.com/us/album/everybody-sing/1874755937",
+  "sing along lullabies": "https://music.apple.com/us/album/sing-along-lullabies/1886542245",
+  "island vibes lullabies": "https://music.apple.com/us/album/island-vibes-lullabies/1895439243",
+};
+
 export function normalizeAlbumName(name: string): string {
   return name
     .toLowerCase()
@@ -36,6 +51,15 @@ export function normalizeAlbumName(name: string): string {
 
 export function spotifyIdForAlbum(name: string): string | undefined {
   return SPOTIFY_ALBUM_IDS[normalizeAlbumName(name)];
+}
+
+export function coverImageForAlbum(name: string): string {
+  return ALBUM_COVER_IMAGES[normalizeAlbumName(name)] ?? "/ZAYDIOLOGO.webp";
+}
+
+function appleMusicUrlForAlbum(name: string, fromApi?: string): string | undefined {
+  if (fromApi) return fromApi.split("?")[0];
+  return FALLBACK_APPLE_MUSIC_URLS[normalizeAlbumName(name)];
 }
 
 export function albumsFromITunesResults(results: ITunesCollection[]): ZaydioAlbum[] {
@@ -52,7 +76,8 @@ export function albumsFromITunesResults(results: ITunesCollection[]): ZaydioAlbu
       spotifyId,
       trackCount: item.trackCount ?? 0,
       releaseDate: item.releaseDate ?? "",
-      appleMusicUrl: item.collectionViewUrl,
+      appleMusicUrl: appleMusicUrlForAlbum(item.collectionName, item.collectionViewUrl),
+      coverImage: coverImageForAlbum(item.collectionName),
     });
   }
 
@@ -85,24 +110,32 @@ export function fallbackAlbums(): ZaydioAlbum[] {
       spotifyId: SPOTIFY_ALBUM_IDS["the new abcs"],
       trackCount: 14,
       releaseDate: "2026-01-07T08:00:00Z",
+      appleMusicUrl: FALLBACK_APPLE_MUSIC_URLS["the new abcs"],
+      coverImage: ALBUM_COVER_IMAGES["the new abcs"],
     },
     {
       name: "Everybody Sing",
       spotifyId: SPOTIFY_ALBUM_IDS["everybody sing"],
       trackCount: 12,
       releaseDate: "2026-01-29T08:00:00Z",
+      appleMusicUrl: FALLBACK_APPLE_MUSIC_URLS["everybody sing"],
+      coverImage: ALBUM_COVER_IMAGES["everybody sing"],
     },
     {
       name: "Sing Along Lullabies",
       spotifyId: SPOTIFY_ALBUM_IDS["sing along lullabies"],
       trackCount: 14,
       releaseDate: "2026-03-11T07:00:00Z",
+      appleMusicUrl: FALLBACK_APPLE_MUSIC_URLS["sing along lullabies"],
+      coverImage: ALBUM_COVER_IMAGES["sing along lullabies"],
     },
     {
       name: "Island Vibes Lullabies",
       spotifyId: SPOTIFY_ALBUM_IDS["island vibes lullabies"],
       trackCount: 12,
       releaseDate: "2026-04-19T07:00:00Z",
+      appleMusicUrl: FALLBACK_APPLE_MUSIC_URLS["island vibes lullabies"],
+      coverImage: ALBUM_COVER_IMAGES["island vibes lullabies"],
     },
   ];
 }
