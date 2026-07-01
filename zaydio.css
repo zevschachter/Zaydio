@@ -826,6 +826,11 @@ strong {
   color: #fff;
 }
 
+.music-popup-btn .music-popup-icon {
+  flex-shrink: 0;
+  display: block;
+}
+
 .music-popup-btn:hover {
   transform: scale(1.04);
   box-shadow: 0 4px 14px rgba(0,0,0,0.15);
