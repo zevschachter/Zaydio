@@ -28,12 +28,12 @@ https://zaydio.com
   --white-color:                  var(--color-white);
   --primary-color:                var(--color-teal);
   --secondary-color:              #6C5CE7;
-  --section-bg-color:             var(--color-teal-light);
-  --custom-btn-bg-color:          var(--color-yellow);
-  --custom-btn-bg-hover-color:    var(--color-yellow-dark);
-  --dark-color:                   var(--color-navy);
-  --p-color:                      var(--color-navy);
-  --link-hover-color:             var(--color-yellow);
+  --section-bg-color:             #FFF9E6;
+  --custom-btn-bg-color:          #FF6B6B;
+  --custom-btn-bg-hover-color:    #FFD93D;
+  --dark-color:                   #2D3436;
+  --p-color:                      #636E72;
+  --link-hover-color:             #FFD93D;
 
   --body-font-family:             'Nunito', sans-serif;
   --heading-font-family:          'Fredoka', sans-serif;
@@ -58,10 +58,8 @@ https://zaydio.com
 }
 
 body {
-  background-color: var(--color-white);
+  background-color: var(--white-color);
   font-family: var(--body-font-family);
-  color: var(--color-navy);
-  line-height: 1.6;
   overflow-x: hidden;
 }
 
@@ -487,38 +485,38 @@ strong {
   CUSTOM BUTTON               
 -----------------------------------------*/
 .custom-btn {
-  background: var(--color-yellow);
+  background: var(--custom-btn-bg-color);
   border: 2px solid transparent;
-  border-radius: 50px;
-  color: var(--color-navy);
+  border-radius: var(--border-radius-large);
+  color: var(--white-color);
   font-family: var(--heading-font-family);
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: var(--btn-font-size);
+  font-weight: var(--font-weight-bold);
   line-height: normal;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  padding: 14px 32px;
+  transition: all 0.3s;
+  padding: 10px 20px;
 }
 
 .custom-btn:hover {
-  background: var(--color-yellow-dark);
-  color: var(--color-navy);
-  transform: scale(1.03);
+  background: var(--custom-btn-bg-hover-color);
+  color: var(--white-color);
+  transform: none;
 }
 
 .custom-border-btn {
   background: transparent;
-  border: 2px solid var(--color-teal);
-  color: var(--color-teal);
-  font-family: var(--body-font-family);
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 12px 28px;
+  border: 2px solid var(--custom-btn-bg-color);
+  color: var(--custom-btn-bg-color);
+  font-family: var(--heading-font-family);
+  font-size: var(--btn-font-size);
+  font-weight: var(--font-weight-bold);
+  padding: 10px 20px;
 }
 
 .custom-border-btn:hover {
-  background: var(--color-teal);
-  border-color: var(--color-teal);
-  color: var(--color-white);
+  background: var(--custom-btn-bg-color);
+  border-color: transparent;
+  color: var(--white-color);
   transform: none;
 }
 
@@ -572,15 +570,14 @@ strong {
 }
 
 .sticky-wrapper.is-sticky .navbar {
-  background-color: var(--color-white);
-  border-bottom: 3px solid var(--color-teal);
+  background-color: rgb(108 92 231);
 }
 
 .navbar {
-  background: var(--color-white);
-  border-bottom: 3px solid var(--color-teal);
+  background: transparent;
   z-index: 99;
-  padding: 16px 32px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .navbar-brand,
@@ -594,7 +591,7 @@ strong {
 
 .navbar .navbar-brand,
 .navbar .navbar-brand:hover {
-  color: var(--color-navy);
+  color: var(--white-color);
 }
 
 .navbar-brand-image {
@@ -645,17 +642,17 @@ strong {
 
 .navbar-nav .nav-link {
   display: inline-block;
-  color: var(--color-navy);
-  font-family: var(--body-font-family);
-  font-size: 1rem;
-  font-weight: 700;
+  color: var(--white-color);
+  font-family: var(--heading-font-family);
+  font-size: var(--menu-font-size);
+  font-weight: var(--font-weight-medium);
   padding-top: 15px;
   padding-bottom: 15px;
 }
 
 .navbar-nav .nav-link.active, 
 .navbar-nav .nav-link:hover {
-  color: var(--color-teal-dark);
+  color: var(--link-hover-color);
 }
 
 .music-nav-item {
@@ -997,25 +994,16 @@ strong {
   HERO        
 -----------------------------------------*/
 .hero-section {
-  background-color: var(--color-teal);
-  background-image: none;
+  background-image: url('bubbles, flowers,a md roses.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   position: relative;
-  padding: 80px 32px 100px;
+  padding-top: 100px;
+  padding-bottom: 100px;
   height: 100vh;
   min-height: 670px;
   margin-bottom: -90px;
-  color: var(--color-white);
-}
-
-.hero-section h1,
-.hero-section .seo-lead,
-.hero-section p {
-  color: var(--color-white);
-}
-
-.hero-section .seo-lead,
-.hero-section p.text-white {
-  color: rgba(255, 255, 255, 0.9);
 }
 
 .hero-50 {
@@ -3632,31 +3620,14 @@ video:hover {
    ZAYDIO DESIGN SYSTEM (global)
    ============================================ */
 
-.hero-particles,
-.story-notes,
-.about-deco-dots,
-.splash-burst,
-.album-announcement > div[style*="pointer-events: none"] {
-  display: none !important;
-}
-
-section.section-hero,
-section.section-album,
-section.section-shorts,
-section.section-about,
-section.section-upcoming,
-section.section-social {
-  padding: 72px 32px;
-}
-
 .seo-page .container,
 .design-container {
   max-width: 1100px;
 }
 
-/* Buttons */
-.btn-primary,
-.custom-btn:not(.custom-border-btn) {
+/* Subpage buttons */
+.seo-page .btn-primary,
+.seo-page .custom-btn:not(.custom-border-btn) {
   background-color: var(--color-yellow);
   color: var(--color-navy);
   font-family: var(--heading-font-family);
@@ -3667,15 +3638,15 @@ section.section-social {
   border: none;
 }
 
-.btn-primary:hover,
-.custom-btn:not(.custom-border-btn):hover {
+.seo-page .btn-primary:hover,
+.seo-page .custom-btn:not(.custom-border-btn):hover {
   background-color: var(--color-yellow-dark);
   color: var(--color-navy);
   transform: scale(1.03);
 }
 
-.btn-secondary,
-.custom-border-btn {
+.seo-page .btn-secondary,
+.seo-page .custom-border-btn {
   background-color: transparent;
   color: var(--color-teal);
   border: 2px solid var(--color-teal);
@@ -3685,8 +3656,8 @@ section.section-social {
   padding: 12px 28px;
 }
 
-.btn-secondary:hover,
-.custom-border-btn:hover {
+.seo-page .btn-secondary:hover,
+.seo-page .custom-border-btn:hover {
   background-color: var(--color-teal);
   color: var(--color-white);
 }
@@ -3745,94 +3716,26 @@ section.section-social {
 .trust-icon-learn { background-color: var(--color-yellow); color: var(--color-navy); }
 .trust-icon-noads { background-color: var(--color-green); color: var(--color-white); }
 
-/* Homepage sections */
-.orange-music-zone.section-album {
-  background: var(--color-white);
-  animation: none;
-  background-size: 100% 100%;
-}
-
-.orange-music-zone.section-album::before,
-.orange-music-zone.section-album::after,
-.orange-music-zone.section-album .orange-music-zone__glow {
-  display: none;
-}
-
-.section-album .album-announcement .text-white,
-.section-album .browse-albums .text-white,
-.section-album .album-announcement h2 a.text-white {
-  color: var(--color-navy) !important;
-}
-
-.section-album .album-announcement p.text-white {
-  color: var(--color-navy) !important;
-  opacity: 0.85;
-}
-
-.shorts-about-zone {
-  background: transparent;
-}
-
-.section-shorts.shorts-section {
-  background-color: var(--color-coral);
-  color: var(--color-white);
-}
-
-.section-shorts .shorts-cta,
-.section-shorts .shorts-heading-title {
-  color: var(--color-white);
-}
-
-.section-shorts .shorts-title-dance span {
-  color: var(--color-white);
-  -webkit-text-stroke: 3px var(--color-coral-dark);
-}
-
-.section-shorts .shorts-social .footer-social-link {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: var(--color-white);
-}
-
-.section-about.about-section {
-  background-color: var(--color-yellow);
-  color: var(--color-navy);
-}
-
-.section-upcoming.events-section {
-  background-color: var(--color-purple) !important;
-  color: var(--color-white);
-}
-
-.section-upcoming h2,
-.section-upcoming .events-title,
-.section-upcoming p {
-  color: var(--color-white);
-}
-
-.section-upcoming .custom-block-date-wrap {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Footer */
-.site-footer {
+/* Subpage footer */
+.site-footer--compact {
   background-color: var(--color-navy) !important;
   color: var(--color-white);
   padding: 48px 32px;
 }
 
-.site-footer a:not(.btn) {
+.site-footer--compact a:not(.btn) {
   color: var(--color-teal);
 }
 
-.site-footer a:not(.btn):hover {
+.site-footer--compact a:not(.btn):hover {
   color: var(--color-yellow);
 }
 
-.footer-nav a {
+.site-footer--compact .footer-nav a {
   color: var(--color-teal);
 }
 
-.footer-nav a:hover {
+.site-footer--compact .footer-nav a:hover {
   color: var(--color-yellow);
   opacity: 1;
 }
