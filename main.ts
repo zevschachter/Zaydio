@@ -7,6 +7,8 @@ import {
   type LatestReel,
 } from "./instagram.ts";
 import { fallbackAlbums, fetchZaydioAlbums, type ZaydioAlbum } from "./albums.ts";
+import { buildSitemapXml } from "./sitemap.ts";
+import { withSecurityHeaders } from "./security_headers.ts";
 
 const REEL_CACHE_TTL_MS = 60 * 60 * 1000;
 const ALBUM_CACHE_TTL_MS = 60 * 60 * 1000;
@@ -97,20 +99,31 @@ Deno.serve(async (req) => {
     });
   }
 
+  if (url.pathname === "/sitemap.xml") {
+    const lastmod = new Date().toISOString().slice(0, 10);
+    return withSecurityHeaders(new Response(buildSitemapXml(lastmod), {
+      headers: {
+        "Content-Type": "application/xml",
+        "Cache-Control": "public, max-age=3600",
+      },
+    }));
+  }
+
   // Serve index.html for root path
   if (url.pathname === "/") {
     const file = await Deno.readFile("./index.html");
-    return new Response(file, {
+    return withSecurityHeaders(new Response(file, {
       headers: {
         "content-type": "text/html",
         "Cache-Control": "public, max-age=60, must-revalidate",
       },
-    });
+    }));
   }
 
   // Serve all other static files
-  return serveDir(req, {
+  const response = await serveDir(req, {
     fsRoot: ".",
     showDirListing: false,
   });
+  return withSecurityHeaders(response);
 });
