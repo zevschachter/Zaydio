@@ -35,8 +35,8 @@ https://zaydio.com
   --p-color:                      #636E72;
   --link-hover-color:             #FFD93D;
 
-  --body-font-family:             'Nunito', sans-serif;
-  --heading-font-family:          'Fredoka', sans-serif;
+  --body-font-family:             'DM Sans', sans-serif;
+  --heading-font-family:          'Baloo 2', cursive;
 
   --h1-font-size:                 42px;
   --h2-font-size:                 36px;
@@ -111,6 +111,14 @@ html {
   TYPOGRAPHY               
 -----------------------------------------*/
 
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--dark-color);
+}
+
 h1,
 h2,
 h3,
@@ -118,18 +126,22 @@ h4,
 h5,
 h6 {
   font-family: var(--heading-font-family);
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--color-navy);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.5px;
 }
 
-h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
-h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
-h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
+h1 {
+  font-size: var(--h1-font-size);
+  font-weight: var(--font-weight-bold);
+}
 
-p {
-  font-size: 1.05rem;
-  font-weight: 400;
+h2 {
+  font-size: var(--h2-font-size);
+  font-weight: var(--font-weight-bold);
+}
+
+h3 {
+  font-size: var(--h3-font-size);
 }
 
 h4 {
@@ -3617,8 +3629,35 @@ video:hover {
 }
 
 /* ============================================
-   ZAYDIO DESIGN SYSTEM (global)
+   ZAYDIO DESIGN SYSTEM (subpages only)
    ============================================ */
+
+.seo-page {
+  font-family: 'Nunito', sans-serif;
+  line-height: 1.6;
+  color: var(--color-navy);
+}
+
+.seo-page h1,
+.seo-page h2,
+.seo-page h3,
+.seo-page h4,
+.seo-page h5,
+.seo-page h6 {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-navy);
+}
+
+.seo-page h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+.seo-page h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+.seo-page h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
+
+.seo-page p {
+  font-size: 1.05rem;
+  font-weight: 400;
+}
 
 .seo-page .container,
 .design-container {
@@ -3630,7 +3669,7 @@ video:hover {
 .seo-page .custom-btn:not(.custom-border-btn) {
   background-color: var(--color-yellow);
   color: var(--color-navy);
-  font-family: var(--heading-font-family);
+  font-family: 'Fredoka', sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
   padding: 14px 32px;
@@ -3662,10 +3701,10 @@ video:hover {
   color: var(--color-white);
 }
 
-.btn-white {
+.seo-page .btn-white {
   background-color: var(--color-white);
   color: var(--color-navy);
-  font-family: var(--heading-font-family);
+  font-family: 'Fredoka', sans-serif;
   font-weight: 700;
   font-size: 1.1rem;
   padding: 14px 32px;
@@ -3673,15 +3712,14 @@ video:hover {
   border: none;
 }
 
-.btn-white:hover {
+.seo-page .btn-white:hover {
   background-color: var(--color-yellow);
   transform: scale(1.03);
 }
 
-/* Cards */
-.card,
-.seo-card,
-.browse-albums .album-card {
+/* Subpage cards */
+.seo-page .card,
+.seo-page .seo-card {
   background-color: var(--color-white);
   border-radius: 20px;
   padding: 28px 24px;
@@ -3689,17 +3727,16 @@ video:hover {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card:hover,
-.seo-card:hover,
-.browse-albums .album-card:hover {
+.seo-page .card:hover,
+.seo-page .seo-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-.card-everybody-sing { border-top: 5px solid var(--color-coral); }
-.card-new-abcs { border-top: 5px solid var(--color-teal); }
-.card-sing-lullabies { border-top: 5px solid var(--color-purple); }
-.card-island-vibes { border-top: 5px solid var(--color-green); }
+.seo-page .card-everybody-sing { border-top: 5px solid var(--color-coral); }
+.seo-page .card-new-abcs { border-top: 5px solid var(--color-teal); }
+.seo-page .card-sing-lullabies { border-top: 5px solid var(--color-purple); }
+.seo-page .card-island-vibes { border-top: 5px solid var(--color-green); }
 
 .trust-card-icon {
   width: 56px;
@@ -3857,4 +3894,20 @@ video:hover {
 .seo-page .seo-hero.page-header:has(.row) .seo-lead {
   margin-left: 0;
   margin-right: 0;
+}
+
+/* Homepage — keep original album card glass on orange zone */
+.orange-music-zone .browse-albums .album-card {
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: none;
+  padding: 20px 16px;
+  color: #fff;
+}
+
+.orange-music-zone .browse-albums .album-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFD93D;
+  box-shadow: none;
 }
