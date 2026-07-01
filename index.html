@@ -40,7 +40,7 @@
 
         <link href="bootstrap-icons.css?v=5.1" rel="stylesheet">
 
-        <link href="zaydio.css?v=7.5" rel="stylesheet">
+        <link href="zaydio.css?v=7.6" rel="stylesheet">
 
         <!-- Structured Data for Google Rich Results -->
         <script type="application/ld+json">
@@ -149,11 +149,13 @@
         <div class="music-popup-overlay" id="music-popup-overlay"></div>
         <div class="music-popup" id="music-popup" role="dialog" aria-modal="true" aria-labelledby="music-popup-title">
             <div id="music-popup-albums" class="music-popup-view">
-                <h2 id="music-popup-title" class="music-popup-heading">Browse All Albums</h2>
-                <div id="music-popup-album-grid" class="music-popup-album-grid" aria-live="polite">
+                <h2 id="music-popup-title" class="music-popup-heading music-popup-mobile-albums">Browse All Albums</h2>
+                <h2 class="music-popup-heading music-popup-desktop-heading">Stream Zaydio</h2>
+                <div id="music-popup-album-grid" class="music-popup-album-grid music-popup-mobile-albums" aria-live="polite">
                     <p class="music-popup-loading">Loading albums&hellip;</p>
                 </div>
-                <p class="music-popup-artist-label">Or stream everything on</p>
+                <p class="music-popup-artist-label music-popup-mobile-albums">Or stream everything on</p>
+                <p class="music-popup-artist-label music-popup-desktop-heading">Listen on</p>
                 <div class="music-popup-artist-links">
                     <a href="https://open.spotify.com/artist/4fTjSdSh2hpjOECARv9qyF" target="_blank" rel="noopener noreferrer" class="music-popup-btn spotify-btn music-popup-btn--compact">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
@@ -430,6 +432,11 @@
                     </div>
 
                     <div id="album-embeds"></div>
+
+                    <div class="browse-albums browse-albums--desktop mt-5">
+                        <h3 class="text-white text-center mb-4">Browse All Albums</h3>
+                        <div id="browse-albums-grid" class="row g-3 justify-content-center"></div>
+                    </div>
                 </div>
                 </section>
 
@@ -835,9 +842,11 @@
                 // Load album previews from Zaydio catalog
                 (function loadAlbumEmbeds() {
                     var container = document.getElementById('album-embeds');
+                    var browseGrid = document.getElementById('browse-albums-grid');
                     if (!container) return;
 
                     function renderAlbums(albums) {
+                        window.zaydioAlbumsCache = albums;
                         container.innerHTML = '';
                         albums.forEach(function(album, index) {
                             var row = document.createElement('div');
@@ -862,6 +871,29 @@
                             row.appendChild(col);
                             container.appendChild(row);
                         });
+
+                        if (browseGrid) {
+                            browseGrid.innerHTML = '';
+                            albums.forEach(function(album) {
+                                var col = document.createElement('div');
+                                col.className = 'col-md-6 col-lg-3';
+
+                                var card = document.createElement('button');
+                                card.type = 'button';
+                                card.className = 'album-card';
+                                card.innerHTML =
+                                    '<img src="' + album.coverImage + '" alt="' + album.name.replace(/"/g, '&quot;') + '" width="120" height="120" loading="lazy">' +
+                                    '<span>' + album.name + '</span>';
+                                card.addEventListener('click', function() {
+                                    if (typeof window.openZaydioAlbumPicker === 'function') {
+                                        window.openZaydioAlbumPicker(album);
+                                    }
+                                });
+
+                                col.appendChild(card);
+                                browseGrid.appendChild(col);
+                            });
+                        }
                     }
 
                     fetch('/api/albums')
@@ -984,6 +1016,11 @@
                 var musicPopupApple = document.getElementById('music-popup-apple');
                 var musicAlbumsCache = null;
                 var appleArtistUrl = 'https://music.apple.com/us/artist/zaydio/1868898316';
+                var desktopAlbumBrowseQuery = window.matchMedia('(min-width: 992px)');
+
+                function isDesktopAlbumBrowse() {
+                    return desktopAlbumBrowseQuery.matches;
+                }
 
                 function showMusicAlbumList() {
                     if (musicAlbumsView) musicAlbumsView.hidden = false;
@@ -1021,7 +1058,8 @@
                 }
 
                 function loadMusicAlbums() {
-                    if (musicAlbumsCache) {
+                    if (musicAlbumsCache || window.zaydioAlbumsCache) {
+                        musicAlbumsCache = musicAlbumsCache || window.zaydioAlbumsCache;
                         return Promise.resolve(musicAlbumsCache);
                     }
                     return fetch('/api/albums')
@@ -1031,15 +1069,27 @@
                         })
                         .then(function(albums) {
                             musicAlbumsCache = albums;
+                            window.zaydioAlbumsCache = albums;
                             return albums;
                         });
                 }
 
-                function openMusicPopup() {
-                    showMusicAlbumList();
+                function openMusicPopup(album) {
                     musicPopup.classList.add('active');
                     musicOverlay.classList.add('active');
-                    if (musicAlbumGrid && !musicAlbumsCache) {
+
+                    if (album) {
+                        showMusicAlbumDetail(album);
+                        return;
+                    }
+
+                    if (isDesktopAlbumBrowse()) {
+                        showMusicAlbumList();
+                        return;
+                    }
+
+                    showMusicAlbumList();
+                    if (musicAlbumGrid && !musicAlbumsCache && !window.zaydioAlbumsCache) {
                         musicAlbumGrid.innerHTML = '<p class="music-popup-loading">Loading albums&hellip;</p>';
                     }
                     loadMusicAlbums()
@@ -1050,6 +1100,11 @@
                             }
                         });
                 }
+
+                window.openZaydioAlbumPicker = function(album) {
+                    openMusicPopup(album);
+                };
+
                 function closeMusicPopup() {
                     musicPopup.classList.remove('active');
                     musicOverlay.classList.remove('active');
@@ -1068,7 +1123,13 @@
                     musicOverlay.addEventListener('click', closeMusicPopup);
                 }
                 if (musicPopupBack) {
-                    musicPopupBack.addEventListener('click', showMusicAlbumList);
+                    musicPopupBack.addEventListener('click', function() {
+                        if (isDesktopAlbumBrowse()) {
+                            closeMusicPopup();
+                        } else {
+                            showMusicAlbumList();
+                        }
+                    });
                 }
 
                 // Splash screen fade-out

@@ -779,6 +779,20 @@ strong {
   display: none !important;
 }
 
+.music-popup-desktop-heading {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .music-popup-mobile-albums {
+    display: none !important;
+  }
+
+  .music-popup-desktop-heading {
+    display: block;
+  }
+}
+
 .music-popup-overlay {
   display: none;
   position: fixed;
@@ -3337,7 +3351,17 @@ video:hover {
   transform: translateY(-1px);
 }
 
-/* Browse albums grid on homepage */
+/* Browse albums grid on homepage (desktop only) */
+.browse-albums--desktop {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .browse-albums--desktop {
+    display: block;
+  }
+}
+
 .browse-albums .album-card {
   display: flex;
   flex-direction: column;
@@ -3351,6 +3375,12 @@ video:hover {
   text-decoration: none;
   transition: transform 0.2s ease, background 0.2s ease;
   height: 100%;
+}
+
+.browse-albums button.album-card {
+  width: 100%;
+  cursor: pointer;
+  font: inherit;
 }
 
 .browse-albums .album-card:hover {
