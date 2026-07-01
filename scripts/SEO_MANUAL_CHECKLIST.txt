@@ -1,0 +1,38 @@
+Google Search Console & GA4 — manual setup checklist
+====================================================
+
+Search Console (one-time)
+-------------------------
+1. Go to https://search.google.com/search-console
+2. Add property: https://zaydio.com
+3. Verify via DNS TXT record (recommended) or HTML file upload
+4. Submit sitemap: https://zaydio.com/sitemap.xml
+5. Request indexing for:
+   - https://zaydio.com/
+   - https://zaydio.com/parents.html
+   - https://zaydio.com/privacy.html
+   - https://zaydio.com/videos.html
+   - https://zaydio.com/albums/everybody-sing.html
+   - https://zaydio.com/albums/the-new-abcs.html
+   - https://zaydio.com/albums/sing-along-lullabies.html
+   - https://zaydio.com/albums/island-vibes-lullabies.html
+6. Monitor queries monthly: kids music, children songs, sing along, lullabies
+
+GA4 custom events (implemented in analytics.js)
+-----------------------------------------------
+- stream_click (Spotify / Apple Music)
+- video_click (YouTube)
+- share_click (WhatsApp, Facebook, X, copy link)
+- parents_page_click / parents_page_view
+
+Verify in GA4: Admin → DebugView or Realtime after clicking stream buttons on site.
+
+Monthly review
+--------------
+- Search Console: impressions, clicks, average position for kids-music terms
+- GA4: stream_click and video_click conversion trends
+- Indexed pages count (target: 8+)
+
+Automated checks
+----------------
+Run: bash scripts/site-health-check.sh
