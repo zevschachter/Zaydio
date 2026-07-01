@@ -1,9 +1,12 @@
-var CACHE_NAME = 'zaydio-v5.1';
+var CACHE_NAME = 'zaydio-v5.2';
 var urlsToCache = [
   '/',
   '/index.html',
   '/ZAYDIOLOGO.webp',
-  '/album-cover-square.webp'
+  '/album-everybody-sing.webp',
+  '/album-the-new-abcs.webp',
+  '/album-sing-along-lullabies.webp',
+  '/album-island-vibes-lullabies.webp'
 ];
 
 self.addEventListener('install', function(event) {
