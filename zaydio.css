@@ -52,6 +52,9 @@ https://zaydio.com
   --border-radius-medium:         20px;
   --border-radius-small:          10px;
 
+  --wave-divider-height:          clamp(88px, 11vw, 120px);
+  --wave-divider-height-mobile:   clamp(72px, 10vw, 96px);
+
   --font-weight-normal:           400;
   --font-weight-medium:           500;
   --font-weight-bold:             700;
@@ -1814,8 +1817,9 @@ strong {
 
 /* Minimize orange-to-purple divider on mobile */
 @media screen and (max-width: 991px) {
-  .wave-divider {
-    height: clamp(44px, 6.5vw, 64px);
+  .wave-divider,
+  .seo-hero-wave {
+    height: var(--wave-divider-height-mobile);
   }
 }
 
@@ -2484,7 +2488,7 @@ video:hover {
 .wave-divider {
   display: block;
   width: 100%;
-  height: clamp(56px, 8vw, 80px);
+  height: var(--wave-divider-height);
   overflow: hidden;
   position: relative;
   z-index: 2;
@@ -2517,7 +2521,7 @@ video:hover {
 
 .wave-cream-teal {
   background-color: #fff9e6;
-  height: clamp(64px, 9vw, 96px);
+  height: clamp(96px, 12vw, 132px);
 }
 
 .wave-seo-cream-teal {
@@ -3527,7 +3531,7 @@ video:hover {
 .seo-hero-wave {
   display: block;
   width: 100%;
-  height: clamp(56px, 8vw, 80px);
+  height: var(--wave-divider-height);
   margin-top: 0;
   margin-bottom: -2px;
   overflow: hidden;
@@ -3833,7 +3837,7 @@ video:hover {
 .seo-page .seo-hero {
   position: relative;
   overflow: visible;
-  padding: 60px 32px 0;
+  padding: 60px 0 0;
   text-align: center;
   color: var(--color-white);
 }
