@@ -128,7 +128,25 @@
     @media (max-width:640px){ .zshorts__card{ width:186px; height:331px; } .zshorts__track{ gap:14px; } }
     @media (min-width:1200px){ .zshorts__card{ width:250px; height:444px; } }
 
-    .zshorts__thumb{ width:100%; height:100%; -o-object-fit:cover; object-fit:cover; display:block; }
+    .zshorts__poster{
+      position:absolute; top:0; left:0; width:100%; height:100%;
+    }
+    .zshorts__thumb{
+      width:100%; height:100%; -o-object-fit:cover; object-fit:cover; display:block;
+      -webkit-transition:opacity .25s ease; transition:opacity .25s ease;
+    }
+    .zshorts__embed{
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      opacity:0; pointer-events:none;
+      -webkit-transition:opacity .25s ease; transition:opacity .25s ease;
+    }
+    .zshorts__embed iframe{
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      border:0; pointer-events:none;
+    }
+    .zshorts__card.is-active .zshorts__thumb{ opacity:0; }
+    .zshorts__card.is-active .zshorts__embed{ opacity:1; }
+    .zshorts__card.is-active .zshorts__play{ opacity:0; }
     .zshorts__scrim{
       position:absolute; left:0; right:0; bottom:0; height:55%;
       background:linear-gradient(180deg,rgba(15,37,54,0) 0%,rgba(15,37,54,.85) 100%);
@@ -146,6 +164,7 @@
       display:-webkit-box; display:-ms-flexbox; display:flex;
       -ms-flex-align:center; align-items:center; -ms-flex-pack:center; justify-content:center;
       font-size:15px; box-shadow:0 3px 10px rgba(0,0,0,.25); pointer-events:none;
+      -webkit-transition:opacity .25s ease; transition:opacity .25s ease;
     }
     .zshorts__play svg{ display:block; margin-left:2px; }
 
@@ -210,6 +229,8 @@
     var UPLOADS_PLAYLIST = 'UU4p-Lx9r0WZ3AGI7tRuWOYA';     /* all uploads (fallback if shorts playlist is empty) */
     var MAX_SHORTS = 12;
     var CACHE_HOURS = 6;
+    var AUTO_MS_DESKTOP = 3500;
+    var AUTO_MS_MOBILE = 2000;
     /* Fallback shorts if there's no API key or the request fails.
        Add IDs from youtube.com/shorts/<ID> — the section hides itself if this is empty AND the API is unavailable. */
     var FALLBACK = [
@@ -229,6 +250,166 @@
     var track   = root.querySelector('.zshorts__track');
     var prevBtn = root.querySelector('.zshorts__paddle--prev');
     var nextBtn = root.querySelector('.zshorts__paddle--next');
+
+    var activeIndex = 0;
+    var reelTimer = null;
+    var resumeTimer = null;
+    var scrollSyncTimer = null;
+    var pauseHover = false;
+    var isDesktop = false;
+    var reducedMotion = false;
+
+    try {
+      isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (e) {}
+
+    function getCards(){
+      return track.querySelectorAll('.zshorts__card');
+    }
+
+    function embedUrl(id){
+      return 'https://www.youtube.com/embed/' + id
+        + '?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1'
+        + '&loop=1&playlist=' + id;
+    }
+
+    function deactivateAll(){
+      var cards = getCards();
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].classList.remove('is-active');
+        var embed = cards[i].querySelector('.zshorts__embed');
+        if (embed) embed.innerHTML = '';
+      }
+    }
+
+    function activateCard(card){
+      if (!card) return;
+      deactivateAll();
+      card.classList.add('is-active');
+      var embed = card.querySelector('.zshorts__embed');
+      var id = card.getAttribute('data-video-id');
+      if (!embed || !id) return;
+      if (!embed.querySelector('iframe')) {
+        var iframe = document.createElement('iframe');
+        iframe.src = embedUrl(id);
+        iframe.title = card.getAttribute('aria-label') || 'Zaydio short preview';
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('loading', 'lazy');
+        iframe.setAttribute('tabindex', '-1');
+        embed.appendChild(iframe);
+      }
+      var cards = getCards();
+      for (var j = 0; j < cards.length; j++) {
+        if (cards[j] === card) { activeIndex = j; break; }
+      }
+    }
+
+    function getNearestCenteredCard(){
+      var cards = getCards();
+      if (!cards.length) return null;
+      var trackRect = track.getBoundingClientRect();
+      var center = trackRect.left + trackRect.width / 2;
+      var best = cards[0];
+      var bestDist = Infinity;
+      for (var i = 0; i < cards.length; i++) {
+        var r = cards[i].getBoundingClientRect();
+        var cardCenter = r.left + r.width / 2;
+        var dist = Math.abs(cardCenter - center);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = cards[i];
+        }
+      }
+      return best;
+    }
+
+    function stopReel(){
+      if (reelTimer) {
+        clearTimeout(reelTimer);
+        reelTimer = null;
+      }
+    }
+
+    function scheduleNext(){
+      stopReel();
+      if (reducedMotion || document.hidden || pauseHover) return;
+      var ms = isDesktop ? AUTO_MS_DESKTOP : AUTO_MS_MOBILE;
+      reelTimer = setTimeout(function(){
+        advanceReel();
+        scheduleNext();
+      }, ms);
+    }
+
+    function startReel(){
+      scheduleNext();
+    }
+
+    function advanceReel(){
+      var cards = getCards();
+      if (!cards.length) return;
+      activeIndex = (activeIndex + 1) % cards.length;
+      var card = cards[activeIndex];
+      if (card.scrollIntoView) {
+        try {
+          card.scrollIntoView({ inline: 'center', behavior: 'smooth' });
+        } catch (e) {
+          card.scrollIntoView(true);
+        }
+      }
+      activateCard(card);
+      updatePaddles();
+    }
+
+    function syncActiveFromScroll(){
+      var nearest = getNearestCenteredCard();
+      if (!nearest) return;
+      activateCard(nearest);
+      if (!pauseHover && !reducedMotion && !document.hidden) {
+        stopReel();
+        startReel();
+      }
+    }
+
+    function bindCardHovers(){
+      if (!isDesktop) return;
+      var cards = getCards();
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].addEventListener('mouseenter', function(){
+          pauseHover = true;
+          stopReel();
+          activateCard(this);
+        });
+        cards[i].addEventListener('mouseleave', function(){
+          pauseHover = false;
+          if (resumeTimer) clearTimeout(resumeTimer);
+          resumeTimer = setTimeout(function(){
+            if (!pauseHover && !reducedMotion && !document.hidden) {
+              syncActiveFromScroll();
+              startReel();
+            }
+          }, 300);
+        });
+      }
+    }
+
+    function initReel(){
+      var cards = getCards();
+      if (!cards.length) return;
+      activeIndex = 0;
+      if (cards[0].scrollIntoView) {
+        try {
+          cards[0].scrollIntoView({ inline: 'center', behavior: 'auto' });
+        } catch (e) {
+          cards[0].scrollIntoView(true);
+        }
+      }
+      activateCard(cards[0]);
+      bindCardHovers();
+      updatePaddles();
+      if (!reducedMotion) startReel();
+    }
 
     /* safe localStorage (Safari private mode throws) */
     function cacheGet(k){ try{ var raw=localStorage.getItem(k); if(!raw) return null;
@@ -266,6 +447,7 @@
 
     function render(videos){
       if(!videos.length){ root.style.display='none'; return; }
+      stopReel();
       track.innerHTML = '';
       var frag = document.createDocumentFragment();
       videos.forEach(function(v){
@@ -273,26 +455,36 @@
         a.className = 'zshorts__card';
         a.href = 'https://www.youtube.com/shorts/' + v.id;
         a.target = '_blank'; a.rel = 'noopener';
+        a.setAttribute('data-video-id', v.id);
         a.setAttribute('aria-label', 'Watch on YouTube: ' + v.title);
+
+        var poster = document.createElement('div');
+        poster.className = 'zshorts__poster';
 
         var img = document.createElement('img');
         img.className = 'zshorts__thumb';
         img.alt = v.title + ' — Zaydio kids music short';
         img.loading = 'lazy'; img.decoding = 'async';
-        img.src = 'https://i.ytimg.com/vi/' + v.id + '/oardefault.jpg';   /* vertical shorts thumb */
+        img.src = 'https://i.ytimg.com/vi/' + v.id + '/oardefault.jpg';
         img.onerror = function(){ this.onerror=null; this.src='https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg'; };
+
+        var embed = document.createElement('div');
+        embed.className = 'zshorts__embed';
+
+        poster.appendChild(img);
+        poster.appendChild(embed);
 
         var scrim = document.createElement('div'); scrim.className='zshorts__scrim';
         var t = document.createElement('div'); t.className='zshorts__cardtitle'; t.textContent = v.title;
         var play = document.createElement('div'); play.className='zshorts__play';
         play.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
 
-        a.appendChild(img); a.appendChild(scrim); a.appendChild(t); a.appendChild(play);
+        a.appendChild(poster); a.appendChild(scrim); a.appendChild(t); a.appendChild(play);
         frag.appendChild(a);
       });
       track.appendChild(frag);
-      updatePaddles();
       injectSchema(videos);
+      initReel();
     }
 
     /* paddles */
@@ -301,9 +493,10 @@
       return card ? (card.offsetWidth + 18) * 2 : track.clientWidth * 0.8;
     }
     function doScroll(dir){
+      stopReel();
       var x = dir * scrollAmount();
       if('scrollBehavior' in document.documentElement.style){ track.scrollBy({left:x, behavior:'smooth'}); }
-      else { track.scrollLeft += x; } /* older browsers: instant */
+      else { track.scrollLeft += x; }
     }
     function updatePaddles(){
       var max = track.scrollWidth - track.clientWidth - 2;
@@ -312,12 +505,20 @@
     }
     prevBtn.addEventListener('click', function(){ doScroll(-1); });
     nextBtn.addEventListener('click', function(){ doScroll(1); });
-    track.addEventListener('scroll', updatePaddles, {passive:true});
+    track.addEventListener('scroll', function(){
+      updatePaddles();
+      if (scrollSyncTimer) clearTimeout(scrollSyncTimer);
+      scrollSyncTimer = setTimeout(syncActiveFromScroll, 150);
+    }, {passive:true});
     window.addEventListener('resize', updatePaddles);
-    /* keyboard support on the track */
     track.addEventListener('keydown', function(e){
       if(e.key === 'ArrowRight'){ e.preventDefault(); doScroll(1); }
       if(e.key === 'ArrowLeft'){ e.preventDefault(); doScroll(-1); }
+    });
+
+    document.addEventListener('visibilitychange', function(){
+      if (document.hidden) stopReel();
+      else if (!pauseHover && !reducedMotion) startReel();
     });
 
     /* SEO: VideoObject ItemList structured data */
