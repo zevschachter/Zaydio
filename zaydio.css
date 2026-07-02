@@ -872,6 +872,10 @@ strong {
   background: linear-gradient(135deg, #FC3C44, #FF2D55);
 }
 
+.amazon-btn {
+  background: #46C3D0;
+}
+
 .navbar .dropdown-menu {
   background: var(--white-color);
   box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
@@ -4306,6 +4310,13 @@ video:hover {
   display: inline-block;
 }
 
+.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(1) { color: #FF3B30; }
+.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(2) { color: #FF9500; }
+.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(3) { color: #FFCC00; }
+.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(4) { color: #34C759; }
+.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(5) { color: #007AFF; }
+.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(6) { color: #AF52DE; }
+
 .videos-page .page-header-videos h1::after {
   content: '';
   position: absolute;
@@ -4642,6 +4653,10 @@ video:hover {
     animation: none;
     width: 100%;
     opacity: 1;
+  }
+
+  .videos-page .page-header-videos h1 .zaydio-rainbow span {
+    animation: none;
   }
 }
 

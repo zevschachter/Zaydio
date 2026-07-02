@@ -50,7 +50,7 @@
 
     <main id="main" class="seo-page videos-page">
         <section class="page-header-videos">
-            <h1>Watch Zaydio Videos</h1>
+            <h1>Watch <span class="zaydio-rainbow"><span style="animation-delay:0s">Z</span><span style="animation-delay:0.1s">a</span><span style="animation-delay:0.2s">y</span><span style="animation-delay:0.3s">d</span><span style="animation-delay:0.4s">i</span><span style="animation-delay:0.5s">o</span></span> Videos</h1>
             <p class="header-subtitle">Sing along, dance, and learn — new videos added all the time. Find your favorite or discover something new!</p>
             <a href="https://www.youtube.com/@zaydioandpals" target="_blank" rel="noopener noreferrer" class="btn-subscribe">Subscribe on YouTube</a>
         </section>
@@ -229,8 +229,8 @@
     var UPLOADS_PLAYLIST = 'UU4p-Lx9r0WZ3AGI7tRuWOYA';     /* all uploads (fallback if shorts playlist is empty) */
     var MAX_SHORTS = 12;
     var CACHE_HOURS = 6;
-    var AUTO_MS_DESKTOP = 3500;
-    var AUTO_MS_MOBILE = 2000;
+    var AUTO_MS_DESKTOP = 5000;
+    var AUTO_MS_MOBILE = 5000;
     /* Fallback shorts if there's no API key or the request fails.
        Add IDs from youtube.com/shorts/<ID> — the section hides itself if this is empty AND the API is unavailable. */
     var FALLBACK = [
@@ -574,7 +574,7 @@
 
         <section id="all-videos" class="section-all-videos">
             <h2>All Zaydio Videos</h2>
-            <p class="section-subtitle">Every adventure, every song — from the very first video to the latest drop.</p>
+            <p class="section-subtitle">Full-length music videos and sing-along adventures — scroll the Shorts reel above for quick hits.</p>
             <ol id="youtube-videos" class="video-grid" aria-live="polite">
                 <li class="video-grid-loading">Loading videos&hellip;</li>
             </ol>
@@ -606,7 +606,7 @@
         <section class="section-albums">
             <div class="container">
                 <h2>Love What You Hear? Stream the Albums</h2>
-                <p>All 4 Zaydio albums available now on Spotify and Apple Music.</p>
+                <p>All 4 Zaydio albums available now on Spotify, Apple Music, and <a href="https://music.amazon.com/artists/B0GGN6CHBL/zaydio" target="_blank" rel="noopener noreferrer" aria-label="Listen on Amazon Music">Amazon Music</a>.</p>
                 <div class="album-cards-row">
                     <a href="/albums/everybody-sing.html" class="videos-album-card videos-album-card--coral">
                         <img src="album-everybody-sing.webp" alt="Everybody Sing album cover" width="220" height="220" loading="lazy" onerror="this.src='album-everybody-sing.png'">
@@ -670,6 +670,10 @@
                     .replace(/"/g, "&quot;");
             }
 
+            function longFormVideos(videos) {
+                return videos.filter(function (v) { return !v.isShort; });
+            }
+
             function findFeaturedVideo(videos) {
                 var birds = null;
                 for (var i = 0; i < videos.length; i++) {
@@ -716,7 +720,14 @@
                     if (!videos.length) throw new Error("No videos");
                     var featured = findFeaturedVideo(videos);
                     renderFeatured(featured);
-                    renderGrid(videos, featured.id);
+                    var gridVideos = longFormVideos(videos);
+                    if (!gridVideos.length) {
+                        list.innerHTML =
+                            '<li class="video-grid-error">No full-length videos yet. ' +
+                            '<a href="https://www.youtube.com/@zaydioandpals" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>.</li>';
+                        return;
+                    }
+                    renderGrid(gridVideos, featured.id);
                 })
                 .catch(function () {
                     list.innerHTML =

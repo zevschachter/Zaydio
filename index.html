@@ -55,6 +55,7 @@
                 "sameAs": [
                     "https://www.youtube.com/@zaydioandpals",
                     "https://open.spotify.com/artist/4fTjSdSh2hpjOECARv9qyF",
+                    "https://music.amazon.com/artists/B0GGN6CHBL/zaydio",
                     "https://www.instagram.com/zaydioandpals",
                     "https://www.tiktok.com/@zaydioandpals",
                     "https://linktr.ee/zaydio"
@@ -79,6 +80,7 @@
                     "https://www.youtube.com/@zaydioandpals",
                     "https://open.spotify.com/artist/4fTjSdSh2hpjOECARv9qyF",
                     "https://music.apple.com/us/artist/zaydio/1868898316",
+                    "https://music.amazon.com/artists/B0GGN6CHBL/zaydio",
                     "https://www.instagram.com/zaydioandpals",
                     "https://www.tiktok.com/@zaydioandpals",
                     "https://www.facebook.com/people/Zaydio/61576408836638/",
@@ -165,6 +167,10 @@
                         <svg class="music-popup-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
                         Apple Music
                     </a>
+                    <a href="https://music.amazon.com/artists/B0GGN6CHBL/zaydio" target="_blank" rel="noopener noreferrer" class="music-popup-btn amazon-btn music-popup-btn--compact" aria-label="Listen on Amazon Music">
+                        <img src="amazon-music.svg" class="music-popup-icon" width="20" height="20" alt="" aria-hidden="true">
+                        Amazon Music
+                    </a>
                 </div>
             </div>
             <div id="music-popup-detail" class="music-popup-view" hidden>
@@ -179,6 +185,10 @@
                 <a href="#" id="music-popup-apple" target="_blank" rel="noopener noreferrer" class="music-popup-btn apple-btn">
                     <svg class="music-popup-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
                     Apple Music
+                </a>
+                <a href="https://music.amazon.com/artists/B0GGN6CHBL/zaydio" id="music-popup-amazon" target="_blank" rel="noopener noreferrer" class="music-popup-btn amazon-btn" aria-label="Listen on Amazon Music">
+                    <img src="amazon-music.svg" class="music-popup-icon" width="24" height="24" alt="" aria-hidden="true">
+                    Amazon Music
                 </a>
             </div>
         </div>
@@ -410,8 +420,14 @@
                                     &#127911; Listen on Spotify
                                 </a>
                                 <a href="https://music.apple.com/us/artist/zaydio/1868898316" target="_blank" rel="noopener noreferrer"
-                                   class="btn" style="background-color: #FA243C; border-color: #FA243C; color: white; padding: 14px 30px; border-radius: 50px; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 15px rgba(250,36,60,0.4); transition: transform 0.2s ease, box-shadow 0.2s ease;">
+                                   class="btn" style="background-color: #FA243C; border-color: #FA243C; color: white; padding: 14px 30px; border-radius: 50px; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 15px rgba(250,36,60,0.4); transition: transform 0.2s ease, box-shadow 0.2s ease;"
+                                   aria-label="Listen on Apple Music">
                                     &#127925; Listen on Apple Music
+                                </a>
+                                <a href="https://music.amazon.com/artists/B0GGN6CHBL/zaydio" target="_blank" rel="noopener noreferrer"
+                                   class="btn" style="background-color: #46C3D0; border-color: #46C3D0; color: white; padding: 14px 30px; border-radius: 50px; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 15px rgba(70,195,208,0.4); transition: transform 0.2s ease, box-shadow 0.2s ease;"
+                                   aria-label="Listen on Amazon Music">
+                                    &#127926; Listen on Amazon Music
                                 </a>
                             </div>
 
@@ -1014,8 +1030,10 @@
                 var musicPopupTitle = document.getElementById('music-popup-album-title');
                 var musicPopupSpotify = document.getElementById('music-popup-spotify');
                 var musicPopupApple = document.getElementById('music-popup-apple');
+                var musicPopupAmazon = document.getElementById('music-popup-amazon');
                 var musicAlbumsCache = null;
                 var appleArtistUrl = 'https://music.apple.com/us/artist/zaydio/1868898316';
+                var amazonArtistUrl = 'https://music.amazon.com/artists/B0GGN6CHBL/zaydio';
                 var desktopAlbumBrowseQuery = window.matchMedia('(min-width: 992px)');
 
                 function isDesktopAlbumBrowse() {
@@ -1028,7 +1046,7 @@
                 }
 
                 function showMusicAlbumDetail(album) {
-                    if (!musicDetailView || !musicPopupTitle || !musicPopupSpotify || !musicPopupApple) return;
+                    if (!musicDetailView || !musicPopupTitle || !musicPopupSpotify || !musicPopupApple || !musicPopupAmazon) return;
                     if (musicAlbumsView) musicAlbumsView.hidden = true;
                     musicDetailView.hidden = false;
                     musicPopupTitle.textContent = album.name;
@@ -1038,6 +1056,7 @@
                     }
                     musicPopupSpotify.href = 'https://open.spotify.com/album/' + album.spotifyId;
                     musicPopupApple.href = album.appleMusicUrl || appleArtistUrl;
+                    musicPopupAmazon.href = amazonArtistUrl;
                 }
 
                 function renderMusicAlbumGrid(albums) {

@@ -20,6 +20,10 @@
           track("stream_click", { platform: "apple_music", link_url: href });
           return;
         }
+        if (href.indexOf("music.amazon.com") !== -1) {
+          track("stream_click", { platform: "amazon_music", link_url: href });
+          return;
+        }
         if (href.indexOf("youtube.com") !== -1 || href.indexOf("youtu.be") !== -1) {
           track("video_click", { platform: "youtube", link_url: href });
           return;
