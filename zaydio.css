@@ -3139,6 +3139,19 @@ video:hover {
   animation: zaydioLetterWave 2.5s ease-in-out infinite;
 }
 
+/* Thin white outline so rainbow letters stand out on similar backgrounds */
+.about-title-dance span,
+.zaydio-rainbow span,
+.zaydio-rainbow-sm span {
+  -webkit-text-stroke: 0.5px #fff;
+  paint-order: stroke fill;
+  text-shadow:
+    -0.5px 0 0 #fff,
+    0.5px 0 0 #fff,
+    0 -0.5px 0 #fff,
+    0 0.5px 0 #fff;
+}
+
 .about-title-dance span:nth-child(1),
 .zaydio-rainbow span:nth-child(1) { color: #FF3B30; }
 .about-title-dance span:nth-child(2),
