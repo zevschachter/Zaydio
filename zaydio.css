@@ -21,6 +21,10 @@ https://zaydio.com
   --color-coral-dark: #E85555;
   --color-purple:     #C084FC;
   --color-green:      #6BCB77;
+  --color-orange:     #FF8C42;
+  --color-orange-dark:#E5732A;
+  --color-orange-light:#FFF4EC;
+  --color-orange-glow:rgba(255, 140, 66, 0.35);
   --color-navy:       #1A1A2E;
   --color-white:      #FFFFFF;
 
@@ -2532,6 +2536,26 @@ video:hover {
   background-color: var(--color-teal-light);
 }
 
+.wave-seo-teal-white {
+  background-color: var(--color-teal);
+}
+
+.wave-seo-white-orange {
+  background-color: #ffffff;
+}
+
+.wave-seo-orange-teal {
+  background-color: var(--color-orange);
+}
+
+.wave-seo-teal-light-white {
+  background-color: var(--color-teal-light);
+}
+
+.wave-seo-white-navy {
+  background-color: #ffffff;
+}
+
 .shorts-about-zone .wave-orange-cream {
   background: transparent;
   overflow: hidden;
@@ -3950,4 +3974,298 @@ video:hover {
   background: rgba(255, 255, 255, 0.2);
   color: #FFD93D;
   box-shadow: none;
+}
+
+/* ============================================
+   FOR PARENTS PAGE
+   ============================================ */
+
+@keyframes orangePulse {
+  0%   { box-shadow: 0 0 0 0 var(--color-orange-glow); }
+  70%  { box-shadow: 0 0 0 14px rgba(255, 140, 66, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 140, 66, 0); }
+}
+
+@keyframes orangeGlow {
+  0%, 100% { text-shadow: 0 0 8px var(--color-orange-glow); }
+  50%       { text-shadow: 0 0 20px var(--color-orange), 0 0 40px var(--color-orange-glow); }
+}
+
+@keyframes orangeUnderline {
+  0%   { width: 0%; opacity: 0; }
+  100% { width: 100%; opacity: 1; }
+}
+
+.parents-page .page-header h1 {
+  color: #ffffff;
+  position: relative;
+  display: inline-block;
+}
+
+.parents-page .page-header h1::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background-color: var(--color-orange);
+  border-radius: 4px;
+  animation: orangeUnderline 0.8s ease forwards 0.3s;
+}
+
+.parents-page .section-trust {
+  background: #ffffff;
+  padding: 72px 32px;
+}
+
+.parents-page .trust-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  height: 100%;
+  transition: transform 0.2s ease;
+}
+
+.parents-page .trust-card:hover {
+  transform: translateY(-6px);
+}
+
+.parents-page .trust-card h2 {
+  font-family: 'Fredoka', sans-serif;
+  color: var(--color-navy);
+  font-size: 1.35rem;
+  margin-bottom: 12px;
+}
+
+.parents-page .trust-card p {
+  font-family: 'Nunito', sans-serif;
+  color: #555555;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.parents-page .trust-card-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin: 0 auto 16px;
+  animation: orangePulse 2.5s infinite;
+}
+
+.parents-page .trust-icon-ages {
+  background-color: var(--color-teal);
+  color: var(--color-white);
+}
+
+.parents-page .trust-icon-learn {
+  background-color: var(--color-orange);
+  color: var(--color-white);
+}
+
+.parents-page .trust-icon-noads {
+  background-color: var(--color-teal);
+  color: var(--color-white);
+}
+
+.parents-page .section-safety {
+  background-color: var(--color-orange);
+  color: #ffffff;
+  padding: 72px 32px;
+}
+
+.parents-page .section-safety h2 {
+  color: #ffffff;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.parents-page .section-safety ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.parents-page .section-safety li {
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 10px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.parents-page .section-safety li::before {
+  content: "✓ ";
+  color: #ffffff;
+  font-weight: 800;
+  margin-right: 6px;
+}
+
+.parents-page .section-safety a {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.parents-page .section-safety a:hover {
+  color: var(--color-teal-light);
+}
+
+.parents-page .section-faq {
+  background-color: var(--color-teal-light);
+  padding: 72px 32px;
+}
+
+.parents-page .section-faq > .container > h2 {
+  font-family: 'Fredoka', sans-serif;
+  color: var(--color-navy);
+  margin-bottom: 1.5rem;
+}
+
+.parents-page .seo-faq details {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  border-left: 5px solid var(--color-teal);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease;
+}
+
+.parents-page .seo-faq details:hover {
+  border-left-color: var(--color-orange);
+}
+
+.parents-page .seo-faq summary {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.1rem;
+  color: var(--color-navy);
+  font-weight: 700;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.parents-page .seo-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.parents-page .seo-faq p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  color: #444444;
+  line-height: 1.6;
+  margin: 8px 0 0;
+}
+
+.parents-page .section-signup {
+  background: #ffffff;
+  padding: 72px 32px;
+  text-align: center;
+}
+
+.parents-page .section-signup h2 {
+  font-family: 'Fredoka', sans-serif;
+  color: var(--color-navy);
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.parents-page .section-signup .parents-signup__lead {
+  color: #555555;
+  margin-bottom: 8px;
+}
+
+.parents-page .section-signup .parents-signup__privacy {
+  color: #636e72;
+  margin-bottom: 28px;
+}
+
+.parents-page .section-signup .parents-signup__privacy a {
+  color: var(--color-teal-dark);
+  font-weight: 600;
+}
+
+.parents-page .section-signup .parents-signup__privacy a:hover {
+  color: var(--color-orange);
+}
+
+.parents-page .signup-form {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.parents-page .signup-input {
+  padding: 14px 20px;
+  border-radius: 50px;
+  border: 2px solid var(--color-teal);
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  width: 280px;
+  max-width: 100%;
+  transition: border-color 0.2s ease;
+}
+
+.parents-page .signup-input:focus {
+  border-color: var(--color-orange);
+}
+
+.parents-page .signup-btn {
+  background-color: var(--color-orange);
+  color: #ffffff;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  animation: orangePulse 2.5s infinite;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.parents-page .signup-btn:hover {
+  background-color: var(--color-orange-dark);
+  transform: scale(1.04);
+}
+
+.parents-page .parents-signup__success {
+  background: #fff;
+  border: 2px solid var(--color-teal);
+  border-radius: 16px;
+  padding: 20px 24px;
+  max-width: 480px;
+  margin: 0 auto;
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parents-page .trust-card-icon,
+  .parents-page .signup-btn {
+    animation: none;
+  }
+
+  .parents-page .page-header h1::after {
+    animation: none;
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .parents-page .section-trust,
+  .parents-page .section-safety,
+  .parents-page .section-faq,
+  .parents-page .section-signup {
+    padding: 56px 20px;
+  }
 }
