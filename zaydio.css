@@ -4323,12 +4323,23 @@ video:hover {
   display: inline-block;
 }
 
-.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(1) { color: #FF3B30; }
-.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(2) { color: #FF9500; }
-.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(3) { color: #FFCC00; }
-.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(4) { color: #34C759; }
-.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(5) { color: #007AFF; }
-.videos-page .page-header-videos h1 .zaydio-rainbow span:nth-child(6) { color: #AF52DE; }
+.videos-page .zaydio-teal-bounce {
+  display: inline-block;
+}
+
+.videos-page .zaydio-teal-bounce span {
+  display: inline-block;
+  font-weight: 900;
+  color: var(--color-teal);
+  animation: zaydioLetterWave 2.5s ease-in-out infinite;
+  -webkit-text-stroke: 0.5px #fff;
+  paint-order: stroke fill;
+  text-shadow:
+    -0.5px 0 0 #fff,
+    0.5px 0 0 #fff,
+    0 -0.5px 0 #fff,
+    0 0.5px 0 #fff;
+}
 
 .videos-page .page-header-videos h1::after {
   content: '';
@@ -4668,7 +4679,7 @@ video:hover {
     opacity: 1;
   }
 
-  .videos-page .page-header-videos h1 .zaydio-rainbow span {
+  .videos-page .page-header-videos h1 .zaydio-teal-bounce span {
     animation: none;
   }
 }

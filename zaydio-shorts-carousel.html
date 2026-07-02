@@ -46,7 +46,7 @@
       padding:26px max(22px, calc((100vw - 1100px)/2)) 30px;
       -webkit-overflow-scrolling:touch;              /* iOS momentum */
       scroll-snap-type:x mandatory;                  /* modern browsers */
-      scroll-behavior:smooth;
+      scroll-behavior:auto;
       scrollbar-width:none;                          /* Firefox */
       -ms-overflow-style:none;                       /* old Edge/IE */
     }
@@ -87,8 +87,8 @@
       position:absolute; top:0; left:0; width:100%; height:100%;
       border:0; pointer-events:none;
     }
-    .zshorts__card.is-active .zshorts__thumb{ opacity:0; }
-    .zshorts__card.is-active .zshorts__embed{ opacity:1; }
+    .zshorts__card.is-active.is-playing .zshorts__thumb{ opacity:0; }
+    .zshorts__card.is-active.is-playing .zshorts__embed{ opacity:1; }
     .zshorts__card.is-active .zshorts__play{ opacity:0; }
     .zshorts__scrim{
       position:absolute; left:0; right:0; bottom:0; height:55%;
@@ -172,8 +172,7 @@
     var UPLOADS_PLAYLIST = 'UU4p-Lx9r0WZ3AGI7tRuWOYA';     /* all uploads (fallback if shorts playlist is empty) */
     var MAX_SHORTS = 12;
     var CACHE_HOURS = 6;
-    var AUTO_MS_DESKTOP = 5000;
-    var AUTO_MS_MOBILE = 5000;
+    var AUTO_MS = 5000;                                  /* time to scroll one frame width */
     /* Fallback shorts if there's no API key or the request fails.
        Add IDs from youtube.com/shorts/<ID> — the section hides itself if this is empty AND the API is unavailable. */
     var FALLBACK = [
@@ -217,10 +216,31 @@
         + '&loop=1&playlist=' + id;
     }
 
+    function thumbUrls(id){
+      return [
+        'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg',
+        'https://i.ytimg.com/vi/' + id + '/sddefault.jpg',
+        'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'
+      ];
+    }
+
+    function setThumbSrc(img, id, preferred){
+      var urls = preferred ? [preferred].concat(thumbUrls(id)) : thumbUrls(id);
+      var seen = {};
+      urls = urls.filter(function(u){ if(!u || seen[u]) return false; seen[u]=true; return true; });
+      var idx = 0;
+      img.onerror = function(){
+        idx++;
+        if (idx < urls.length) this.src = urls[idx];
+        else this.onerror = null;
+      };
+      img.src = urls[0];
+    }
+
     function deactivateAll(){
       var cards = getCards();
       for (var i = 0; i < cards.length; i++) {
-        cards[i].classList.remove('is-active');
+        cards[i].classList.remove('is-active', 'is-playing');
         var embed = cards[i].querySelector('.zshorts__embed');
         if (embed) embed.innerHTML = '';
       }
@@ -241,6 +261,12 @@
         iframe.setAttribute('allowfullscreen', '');
         iframe.setAttribute('loading', 'lazy');
         iframe.setAttribute('tabindex', '-1');
+        iframe.addEventListener('load', function onLoad(){
+          iframe.removeEventListener('load', onLoad);
+          setTimeout(function(){
+            if (card.classList.contains('is-active')) card.classList.add('is-playing');
+          }, 700);
+        });
         embed.appendChild(iframe);
       }
       var cards = getCards();
@@ -268,21 +294,86 @@
       return best;
     }
 
+    var scrollAnimId = null;
+    var autoScrolling = false;
+
+    function cancelScrollAnim(){
+      if (scrollAnimId) {
+        cancelAnimationFrame(scrollAnimId);
+        scrollAnimId = null;
+      }
+      autoScrolling = false;
+    }
+
+    function targetScrollForCard(card){
+      if (!card || !track) return 0;
+      var left = card.offsetLeft + card.offsetWidth / 2 - track.clientWidth / 2;
+      var max = Math.max(0, track.scrollWidth - track.clientWidth);
+      if (left < 0) left = 0;
+      if (left > max) left = max;
+      return left;
+    }
+
+    function scrollCardInTrack(card, duration, onDone){
+      if (!card || !track) {
+        if (onDone) onDone();
+        return;
+      }
+      var targetLeft = targetScrollForCard(card);
+
+      if (duration === 'auto') {
+        cancelScrollAnim();
+        track.scrollLeft = targetLeft;
+        updatePaddles();
+        if (onDone) onDone();
+        return;
+      }
+
+      cancelScrollAnim();
+      var startLeft = track.scrollLeft;
+      var dist = targetLeft - startLeft;
+      if (Math.abs(dist) < 0.5) {
+        track.scrollLeft = targetLeft;
+        updatePaddles();
+        if (onDone) onDone();
+        return;
+      }
+
+      autoScrolling = true;
+      var startTime = null;
+
+      function frame(ts){
+        if (!startTime) startTime = ts;
+        var p = Math.min((ts - startTime) / duration, 1);
+        track.scrollLeft = startLeft + dist * p;
+        if (p < 1) {
+          scrollAnimId = requestAnimationFrame(frame);
+        } else {
+          scrollAnimId = null;
+          autoScrolling = false;
+          track.scrollLeft = targetLeft;
+          updatePaddles();
+          if (onDone) onDone();
+        }
+      }
+      scrollAnimId = requestAnimationFrame(frame);
+    }
+
     function stopReel(){
       if (reelTimer) {
         clearTimeout(reelTimer);
         reelTimer = null;
       }
+      cancelScrollAnim();
     }
 
     function scheduleNext(){
       stopReel();
       if (reducedMotion || document.hidden || pauseHover) return;
-      var ms = isDesktop ? AUTO_MS_DESKTOP : AUTO_MS_MOBILE;
       reelTimer = setTimeout(function(){
+        reelTimer = null;
         advanceReel();
-        scheduleNext();
-      }, ms);
+      }, AUTO_MS);
     }
 
     function startReel(){
@@ -292,17 +383,28 @@
     function advanceReel(){
       var cards = getCards();
       if (!cards.length) return;
+      var prevIndex = activeIndex;
       activeIndex = (activeIndex + 1) % cards.length;
       var card = cards[activeIndex];
-      if (card.scrollIntoView) {
-        try {
-          card.scrollIntoView({ inline: 'center', behavior: 'smooth' });
-        } catch (e) {
-          card.scrollIntoView(true);
-        }
-      }
       activateCard(card);
       updatePaddles();
+
+      if (reducedMotion) {
+        scrollCardInTrack(card, 'auto');
+        scheduleNext();
+        return;
+      }
+
+      /* loop back to start — snap instead of scrolling the full track */
+      if (activeIndex === 0 && prevIndex === cards.length - 1) {
+        scrollCardInTrack(card, 'auto');
+        scheduleNext();
+        return;
+      }
+
+      scrollCardInTrack(card, AUTO_MS, function(){
+        if (!pauseHover && !reducedMotion && !document.hidden) advanceReel();
+      });
     }
 
     function syncActiveFromScroll(){
@@ -341,13 +443,7 @@
       var cards = getCards();
       if (!cards.length) return;
       activeIndex = 0;
-      if (cards[0].scrollIntoView) {
-        try {
-          cards[0].scrollIntoView({ inline: 'center', behavior: 'auto' });
-        } catch (e) {
-          cards[0].scrollIntoView(true);
-        }
-      }
+      scrollCardInTrack(cards[0], 'auto');
       activateCard(cards[0]);
       bindCardHovers();
       updatePaddles();
@@ -372,7 +468,13 @@
       }).then(function(data){
         var items = (data.items || []).map(function(it){
           var s = it.snippet || {};
-          return { id: (s.resourceId||{}).videoId, title: s.title || 'Zaydio Short' };
+          var thumbs = s.thumbnails || {};
+          var thumb = (thumbs.maxres && thumbs.maxres.url)
+            || (thumbs.high && thumbs.high.url)
+            || (thumbs.medium && thumbs.medium.url)
+            || (thumbs.default && thumbs.default.url)
+            || '';
+          return { id: (s.resourceId||{}).videoId, title: s.title || 'Zaydio Short', thumb: thumb };
         }).filter(function(v){ return v.id; });
         return items;
       });
@@ -393,7 +495,7 @@
       stopReel();
       track.innerHTML = '';
       var frag = document.createDocumentFragment();
-      videos.forEach(function(v){
+      videos.forEach(function(v, idx){
         var a = document.createElement('a');
         a.className = 'zshorts__card';
         a.href = 'https://www.youtube.com/shorts/' + v.id;
@@ -407,9 +509,9 @@
         var img = document.createElement('img');
         img.className = 'zshorts__thumb';
         img.alt = v.title + ' — Zaydio kids music short';
-        img.loading = 'lazy'; img.decoding = 'async';
-        img.src = 'https://i.ytimg.com/vi/' + v.id + '/oardefault.jpg';
-        img.onerror = function(){ this.onerror=null; this.src='https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg'; };
+        img.loading = idx < 6 ? 'eager' : 'lazy';
+        img.decoding = 'async';
+        setThumbSrc(img, v.id, v.thumb || '');
 
         var embed = document.createElement('div');
         embed.className = 'zshorts__embed';
@@ -450,6 +552,7 @@
     nextBtn.addEventListener('click', function(){ doScroll(1); });
     track.addEventListener('scroll', function(){
       updatePaddles();
+      if (autoScrolling) return;
       if (scrollSyncTimer) clearTimeout(scrollSyncTimer);
       scrollSyncTimer = setTimeout(syncActiveFromScroll, 150);
     }, {passive:true});
@@ -473,7 +576,7 @@
             return { '@type':'ListItem', 'position': i+1, 'item': {
               '@type':'VideoObject', 'name': v.title,
               'description': v.title + ' — a fun, family-friendly Zaydio short for kids.',
-              'thumbnailUrl': 'https://i.ytimg.com/vi/' + v.id + '/oardefault.jpg',
+              'thumbnailUrl': 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg',
               'contentUrl': 'https://www.youtube.com/shorts/' + v.id,
               'embedUrl': 'https://www.youtube.com/embed/' + v.id
             }};
