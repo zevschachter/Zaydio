@@ -36,7 +36,7 @@ https://zaydio.com
   --link-hover-color:             #FFD93D;
 
   --body-font-family:             'DM Sans', sans-serif;
-  --heading-font-family:          'Baloo 2', cursive;
+  --heading-font-family:          'Baloo 2', sans-serif;
 
   --h1-font-size:                 42px;
   --h2-font-size:                 36px;
@@ -3633,6 +3633,7 @@ video:hover {
    ============================================ */
 
 .seo-page {
+  --heading-font-family: 'Fredoka', sans-serif;
   font-family: 'Nunito', sans-serif;
   line-height: 1.6;
   color: var(--color-navy);
