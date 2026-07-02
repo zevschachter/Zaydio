@@ -3840,11 +3840,23 @@ video:hover {
   100% { box-shadow: 0 0 0 0 rgba(255, 140, 66, 0); }
 }
 
+@keyframes bluePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(51, 156, 255, 0.4); }
+  70%  { box-shadow: 0 0 0 14px rgba(51, 156, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(51, 156, 255, 0); }
+}
+
 @keyframes orangeGlow {
   0%, 100% { text-shadow: 0 0 8px var(--color-orange-glow); }
   50%       { text-shadow: 0 0 20px var(--color-orange), 0 0 40px var(--color-orange-glow); }
 }
 
+@keyframes circleDraw {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* still used by the Videos page header underline */
 @keyframes orangeUnderline {
   0%   { width: 0%; opacity: 0; }
   100% { width: 100%; opacity: 1; }
@@ -3854,18 +3866,30 @@ video:hover {
   color: #ffffff;
   position: relative;
   display: inline-block;
+  padding: 0.35em 1.2em;
 }
 
-.parents-page .page-header h1::after {
-  content: '';
+/* Hand-drawn orange circle that draws itself around the heading */
+.parents-page .page-header h1 .h1-circle-svg {
   position: absolute;
-  bottom: -8px;
-  left: 0;
-  height: 4px;
-  width: 0%;
-  background-color: var(--color-orange);
-  border-radius: 4px;
-  animation: orangeUnderline 0.8s ease forwards 0.3s;
+  top: 50%;
+  left: 50%;
+  width: 106%;
+  height: 140%;
+  transform: translate(-50%, -50%) rotate(-1.5deg);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.parents-page .page-header h1 .h1-circle-svg ellipse {
+  fill: none;
+  stroke: var(--color-orange);
+  /* user-space units; non-scaling-stroke breaks pathLength dash normalization in Chrome */
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: circleDraw 1.5s ease-out forwards 0.3s;
 }
 
 .parents-page .section-trust {
@@ -3916,8 +3940,14 @@ video:hover {
 .parents-page .trust-icon-ages,
 .parents-page .trust-icon-learn,
 .parents-page .trust-icon-noads {
-  background-color: transparent;
+  background-color: #ffffff;
   border-radius: 12px;
+  box-shadow: 0 0 0 0 var(--color-orange-glow);
+}
+
+.parents-page .trust-icon-learn {
+  animation: bluePulse 2.5s infinite;
+  box-shadow: 0 0 0 0 rgba(51, 156, 255, 0.4);
 }
 
 .parents-page .section-safety {
@@ -4100,10 +4130,9 @@ video:hover {
     animation: none;
   }
 
-  .parents-page .page-header h1::after {
+  .parents-page .page-header h1 .h1-circle-svg ellipse {
     animation: none;
-    width: 100%;
-    opacity: 1;
+    stroke-dashoffset: 0;
   }
 }
 

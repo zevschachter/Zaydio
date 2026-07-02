@@ -5,14 +5,14 @@ export interface SitemapEntry {
 }
 
 export const SITEMAP_ENTRIES: SitemapEntry[] = [
-  { loc: "https://zaydio.com/", changefreq: "weekly", priority: "1.0" },
-  { loc: "https://zaydio.com/parents.html", changefreq: "monthly", priority: "0.8" },
-  { loc: "https://zaydio.com/privacy.html", changefreq: "monthly", priority: "0.7" },
-  { loc: "https://zaydio.com/videos.html", changefreq: "weekly", priority: "0.8" },
-  { loc: "https://zaydio.com/albums/everybody-sing.html", changefreq: "monthly", priority: "0.9" },
-  { loc: "https://zaydio.com/albums/the-new-abcs.html", changefreq: "monthly", priority: "0.9" },
-  { loc: "https://zaydio.com/albums/sing-along-lullabies.html", changefreq: "monthly", priority: "0.9" },
-  { loc: "https://zaydio.com/albums/island-vibes-lullabies.html", changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.zaydio.com/", changefreq: "weekly", priority: "1.0" },
+  { loc: "https://www.zaydio.com/parents.html", changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.zaydio.com/privacy.html", changefreq: "monthly", priority: "0.7" },
+  { loc: "https://www.zaydio.com/videos.html", changefreq: "weekly", priority: "0.8" },
+  { loc: "https://www.zaydio.com/albums/everybody-sing.html", changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.zaydio.com/albums/the-new-abcs.html", changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.zaydio.com/albums/sing-along-lullabies.html", changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.zaydio.com/albums/island-vibes-lullabies.html", changefreq: "monthly", priority: "0.9" },
 ];
 
 export function buildSitemapXml(lastmod: string): string {

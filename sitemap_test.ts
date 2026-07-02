@@ -7,7 +7,7 @@ Deno.test("sitemap includes all SEO pages", () => {
 
 Deno.test("buildSitemapXml renders valid urls", () => {
   const xml = buildSitemapXml("2026-06-24");
-  assertStringIncludes(xml, "https://zaydio.com/parents.html");
-  assertStringIncludes(xml, "https://zaydio.com/albums/everybody-sing.html");
+  assertStringIncludes(xml, "https://www.zaydio.com/parents.html");
+  assertStringIncludes(xml, "https://www.zaydio.com/albums/everybody-sing.html");
   assertStringIncludes(xml, "<lastmod>2026-06-24</lastmod>");
 });
