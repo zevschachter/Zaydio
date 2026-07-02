@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link href="bootstrap.min.css?v=5.1" rel="stylesheet">
-    <link href="zaydio.css?v=8.4" rel="stylesheet">
+    <link href="zaydio.css?v=8.5" rel="stylesheet">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -42,49 +42,105 @@
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item"><a class="nav-link active" href="/videos.html">Videos</a></li>
                     <li class="nav-item"><a class="nav-link" href="/#album-announcement">Music</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/parents.html">For Parents</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/parents.html">For Families</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <main id="main" class="seo-page">
-        <section class="seo-hero seo-hero--videos page-header page-header--coral">
-            <div class="container">
-                <p class="seo-breadcrumb"><a href="/">Home</a> &rarr; Videos</p>
-                <h1>Kids Music Videos</h1>
-                <p class="seo-lead">Every Zaydio video in one place — sing along, dance, and learn with Zaydio and pals!</p>
-            </div>
-            <svg class="wave-animated seo-hero-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
-                <g class="wave-shift"><path fill="#FFFFFF" d="M0,40 C240,70 480,10 720,40 C960,70 1200,10 1440,40 L1440,80 L0,80 Z"></path></g>
-            </svg>
+    <main id="main" class="seo-page videos-page">
+        <section class="page-header-videos">
+            <h1>Watch Zaydio Videos</h1>
+            <p class="header-subtitle">Sing along, dance, and learn — new videos added all the time. Find your favorite or discover something new!</p>
+            <a href="https://www.youtube.com/@zaydioandpals" target="_blank" rel="noopener noreferrer" class="btn-subscribe">Subscribe on YouTube</a>
         </section>
 
-        <section class="section-padding">
-            <div class="container">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-2">
-                    <h2 class="h3 mb-0">All Zaydio videos</h2>
-                    <a href="https://www.youtube.com/@zaydioandpals" target="_blank" rel="noopener noreferrer" class="btn custom-btn">Subscribe on YouTube</a>
-                </div>
-                <p class="seo-lead mb-4">From alphabet adventures to bedtime sing-alongs — all of Zaydio&rsquo;s videos, ready to watch anytime.</p>
-                <ol id="youtube-videos" class="youtube-video-list" aria-live="polite">
-                    <li class="youtube-video-loading">Loading videos&hellip;</li>
-                </ol>
+        <svg class="wave-animated wave-divider wave-seo-orange-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+            <g class="wave-shift"><path fill="#FFFFFF" d="M0,20 C480,60 960,0 1440,40 L1440,60 L0,60 Z"></path></g>
+        </svg>
+
+        <section class="section-featured">
+            <p class="featured-label">Latest Video</p>
+            <h2 id="featured-video-title">Birds Eat Worms — Out Now!</h2>
+            <div class="featured-video-wrapper">
+                <iframe
+                    id="featured-video-iframe"
+                    src="https://www.youtube.com/embed/lqYquU6T0dw"
+                    title="Birds Eat Worms — Zaydio music video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="lazy"></iframe>
+            </div>
+            <a href="#all-videos" class="featured-scroll-link">See all videos ↓</a>
+        </section>
+
+        <svg class="wave-animated wave-divider wave-seo-white-teal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+            <g class="wave-shift"><path fill="#4ECDC4" d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"></path></g>
+        </svg>
+
+        <section id="all-videos" class="section-all-videos">
+            <h2>All Zaydio Videos</h2>
+            <p class="section-subtitle">Every adventure, every song — from the very first video to the latest drop.</p>
+            <ol id="youtube-videos" class="video-grid" aria-live="polite">
+                <li class="video-grid-loading">Loading videos&hellip;</li>
+            </ol>
+            <div class="video-grid-cta">
+                <p>New videos drop regularly. Subscribe so you never miss one.</p>
+                <a href="https://www.youtube.com/@zaydioandpals" target="_blank" rel="noopener noreferrer" class="btn-video-white">Subscribe on YouTube</a>
             </div>
         </section>
 
-        <section class="section-padding seo-section-alt">
-            <div class="container text-center">
-                <h2 class="mb-3">Stream the albums</h2>
-                <p class="mb-4">Love what you&rsquo;re hearing? Take the music everywhere — all 4 Zaydio albums are available to stream now.</p>
-                <div class="d-flex flex-wrap gap-3 justify-content-center">
-                    <a href="/albums/everybody-sing.html" class="btn custom-btn">Everybody Sing</a>
-                    <a href="/albums/the-new-abcs.html" class="btn custom-btn custom-border-btn">The New ABCs</a>
-                    <a href="/albums/sing-along-lullabies.html" class="btn custom-btn custom-border-btn">Sing Along Lullabies</a>
-                    <a href="/albums/island-vibes-lullabies.html" class="btn custom-btn custom-border-btn">Island Vibes Lullabies</a>
+        <svg class="wave-animated wave-divider wave-seo-teal-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+            <g class="wave-shift"><path fill="#FF8C42" d="M0,40 C360,0 1080,60 1440,20 L1440,60 L0,60 Z"></path></g>
+        </svg>
+
+        <section class="section-platforms">
+            <h2>Watch Everywhere</h2>
+            <p>Zaydio is on all your favorite platforms — watch on the big screen, phone, or tablet.</p>
+            <div class="platform-links">
+                <a href="https://www.youtube.com/@zaydioandpals" target="_blank" rel="noopener noreferrer" class="platform-btn platform-btn-youtube">📺 YouTube</a>
+                <a href="https://www.instagram.com/zaydioandpals" target="_blank" rel="noopener noreferrer" class="platform-btn">📸 Instagram</a>
+                <a href="https://www.tiktok.com/@zaydioandpals" target="_blank" rel="noopener noreferrer" class="platform-btn">🎵 TikTok</a>
+                <a href="https://www.facebook.com/people/Zaydio/61576408836638/" target="_blank" rel="noopener noreferrer" class="platform-btn">👍 Facebook</a>
+            </div>
+        </section>
+
+        <svg class="wave-animated wave-divider wave-seo-orange-teal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+            <g class="wave-shift"><path fill="#E8FAF9" d="M0,20 C720,60 1440,0 1440,30 L1440,60 L0,60 Z"></path></g>
+        </svg>
+
+        <section class="section-albums">
+            <div class="container">
+                <h2>Love What You Hear? Stream the Albums</h2>
+                <p>All 4 Zaydio albums available now on Spotify and Apple Music.</p>
+                <div class="album-cards-row">
+                    <a href="/albums/everybody-sing.html" class="videos-album-card videos-album-card--coral">
+                        <img src="album-everybody-sing.webp" alt="Everybody Sing album cover" width="220" height="220" loading="lazy" onerror="this.src='album-everybody-sing.png'">
+                        <p class="videos-album-card-title">Everybody Sing</p>
+                        <span class="videos-album-card-link">Listen Now →</span>
+                    </a>
+                    <a href="/albums/the-new-abcs.html" class="videos-album-card videos-album-card--teal">
+                        <img src="album-the-new-abcs.webp" alt="The New ABCs album cover" width="220" height="220" loading="lazy" onerror="this.src='album-the-new-abcs.png'">
+                        <p class="videos-album-card-title">The New ABCs</p>
+                        <span class="videos-album-card-link">Listen Now →</span>
+                    </a>
+                    <a href="/albums/sing-along-lullabies.html" class="videos-album-card videos-album-card--purple">
+                        <img src="album-sing-along-lullabies.webp" alt="Sing Along Lullabies album cover" width="220" height="220" loading="lazy" onerror="this.src='album-sing-along-lullabies.png'">
+                        <p class="videos-album-card-title">Sing Along Lullabies</p>
+                        <span class="videos-album-card-link">Listen Now →</span>
+                    </a>
+                    <a href="/albums/island-vibes-lullabies.html" class="videos-album-card videos-album-card--green">
+                        <img src="album-island-vibes-lullabies.webp" alt="Island Vibes Lullabies album cover" width="220" height="220" loading="lazy" onerror="this.src='album-island-vibes-lullabies.png'">
+                        <p class="videos-album-card-title">Island Vibes Lullabies</p>
+                        <span class="videos-album-card-link">Listen Now →</span>
+                    </a>
                 </div>
             </div>
         </section>
+
+        <svg class="wave-animated wave-divider wave-seo-teal-light-navy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+            <g class="wave-shift"><path fill="#1A1A2E" d="M0,30 C480,60 960,0 1440,40 L1440,60 L0,60 Z"></path></g>
+        </svg>
     </main>
 
     <footer class="site-footer site-footer--compact">
@@ -92,7 +148,7 @@
             <nav class="footer-nav text-center mb-3" aria-label="Site pages">
                 <a href="/">Home</a>
                 <a href="/videos.html">Videos</a>
-                <a href="/parents.html">For Parents</a>
+                <a href="/parents.html">For Families</a>
                 <a href="/privacy.html">Privacy</a>
                 <a href="/albums/everybody-sing.html">Everybody Sing</a>
                 <a href="/albums/the-new-abcs.html">The New ABCs</a>
@@ -105,17 +161,12 @@
     <script>
         (function () {
             var list = document.getElementById("youtube-videos");
+            var featuredIframe = document.getElementById("featured-video-iframe");
+            var featuredTitle = document.getElementById("featured-video-title");
             if (!list) return;
 
-            function formatDate(iso) {
-                var date = new Date(iso);
-                if (isNaN(date.getTime())) return "";
-                return date.toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                });
-            }
+            var FEATURED_TITLE = "Birds Eat Worms — Out Now!";
+            var FEATURED_ID = "lqYquU6T0dw";
 
             function escapeHtml(text) {
                 return String(text)
@@ -125,22 +176,39 @@
                     .replace(/"/g, "&quot;");
             }
 
-            function renderVideos(videos) {
+            function findFeaturedVideo(videos) {
+                var birds = null;
+                for (var i = 0; i < videos.length; i++) {
+                    if (videos[i].title.toLowerCase().indexOf("birds eat worms") !== -1) {
+                        birds = videos[i];
+                        break;
+                    }
+                }
+                return birds || videos[videos.length - 1];
+            }
+
+            function renderFeatured(video) {
+                if (!featuredIframe || !video) return;
+                featuredIframe.src = "https://www.youtube.com/embed/" + encodeURIComponent(video.id);
+                featuredIframe.title = escapeHtml(video.title) + " — Zaydio music video";
+                if (featuredTitle && video.id !== FEATURED_ID) {
+                    featuredTitle.textContent = video.title;
+                }
+            }
+
+            function renderGrid(videos, featuredId) {
                 list.innerHTML = "";
-                videos.forEach(function (video, index) {
+                var sorted = videos.slice().reverse();
+                sorted.forEach(function (video) {
+                    if (video.id === featuredId) return;
                     var item = document.createElement("li");
-                    item.className = "youtube-video-item";
+                    item.className = "video-card";
                     item.innerHTML =
-                        '<a class="youtube-video-card" href="' + escapeHtml(video.url) + '" target="_blank" rel="noopener noreferrer">' +
-                        '<span class="youtube-video-index">' + (index + 1) + "</span>" +
-                        '<img src="' + escapeHtml(video.thumbnailUrl) + '" alt="' + escapeHtml(video.title) + '" width="160" height="90" loading="lazy">' +
-                        '<span class="youtube-video-copy">' +
-                        '<span class="youtube-video-title">' + escapeHtml(video.title) + "</span>" +
-                        '<span class="youtube-video-meta">' + escapeHtml(formatDate(video.publishedAt)) +
-                        (video.isShort ? ' · Short' : '') + "</span>" +
-                        "</span>" +
-                        '<span class="youtube-video-watch">Watch</span>' +
-                        "</a>";
+                        '<iframe src="https://www.youtube.com/embed/' + escapeHtml(video.id) + '" ' +
+                        'title="' + escapeHtml(video.title) + '" ' +
+                        'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+                        'allowfullscreen loading="lazy"></iframe>' +
+                        '<p class="video-card-title">' + escapeHtml(video.title) + "</p>";
                     list.appendChild(item);
                 });
             }
@@ -150,9 +218,16 @@
                     if (!response.ok) throw new Error("Failed to load videos");
                     return response.json();
                 })
-                .then(renderVideos)
+                .then(function (videos) {
+                    if (!videos.length) throw new Error("No videos");
+                    var featured = findFeaturedVideo(videos);
+                    renderFeatured(featured);
+                    renderGrid(videos, featured.id);
+                })
                 .catch(function () {
-                    list.innerHTML = '<li class="youtube-video-error">Could not load videos. <a href="https://www.youtube.com/@zaydioandpals" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>.</li>';
+                    list.innerHTML =
+                        '<li class="video-grid-error">Could not load videos. ' +
+                        '<a href="https://www.youtube.com/@zaydioandpals" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>.</li>';
                 });
         })();
     </script>
