@@ -102,7 +102,8 @@
       gap:18px; overflow-x:auto; overflow-y:hidden;
       padding:26px max(22px, calc((100vw - 1100px)/2)) 30px;
       -webkit-overflow-scrolling:touch;              /* iOS momentum */
-      scroll-snap-type:x mandatory;                  /* modern browsers */
+      /* no scroll-snap: mandatory snap re-snaps on every programmatic scroll,
+         which fights the JS reel animation and makes it stutter */
       scroll-behavior:auto;
       scrollbar-width:none;                          /* Firefox */
       -ms-overflow-style:none;                       /* old Edge/IE */
@@ -113,7 +114,6 @@
     .zshorts__card{
       position:relative; -ms-flex-negative:0; flex-shrink:0;
       width:230px; height:409px;                     /* 9:16 */
-      scroll-snap-align:center;
       border-radius:22px; overflow:hidden; text-decoration:none;
       background:#0f2536;
       box-shadow:0 10px 26px rgba(29,53,87,.18);
@@ -612,6 +612,17 @@
       if (autoScrolling) return;
       if (scrollSyncTimer) clearTimeout(scrollSyncTimer);
       scrollSyncTimer = setTimeout(syncActiveFromScroll, 150);
+    }, {passive:true});
+    /* hand control to the user the moment they scroll/swipe the track */
+    track.addEventListener('wheel', function(e){
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) stopReel();
+    }, {passive:true});
+    track.addEventListener('touchstart', stopReel, {passive:true});
+    track.addEventListener('touchend', function(){
+      if (resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(function(){
+        if (!pauseHover && !reducedMotion && !document.hidden) syncActiveFromScroll();
+      }, 600);
     }, {passive:true});
     window.addEventListener('resize', updatePaddles);
     track.addEventListener('keydown', function(e){
