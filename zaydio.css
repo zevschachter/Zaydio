@@ -3913,16 +3913,8 @@ video:hover {
   animation: orangePulse 2.5s infinite;
 }
 
-.parents-page .trust-icon-ages {
-  background-color: var(--color-teal);
-  color: var(--color-white);
-}
-
-.parents-page .trust-icon-learn {
-  background-color: var(--color-orange);
-  color: var(--color-white);
-}
-
+.parents-page .trust-icon-ages,
+.parents-page .trust-icon-learn,
 .parents-page .trust-icon-noads {
   background-color: transparent;
   border-radius: 12px;
