@@ -3839,21 +3839,19 @@ video:hover {
   70%  { box-shadow: 0 0 0 14px rgba(255, 140, 66, 0); }
   100% { box-shadow: 0 0 0 0 rgba(255, 140, 66, 0); }
 }
-
-@keyframes bluePulse {
-  0%   { box-shadow: 0 0 0 0 rgba(51, 156, 255, 0.4); }
-  70%  { box-shadow: 0 0 0 14px rgba(51, 156, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(51, 156, 255, 0); }
-}
-
 @keyframes orangeGlow {
   0%, 100% { text-shadow: 0 0 8px var(--color-orange-glow); }
   50%       { text-shadow: 0 0 20px var(--color-orange), 0 0 40px var(--color-orange-glow); }
 }
 
 @keyframes circleDraw {
-  from { stroke-dashoffset: 100; }
-  to   { stroke-dashoffset: 0; }
+  from { stroke-dasharray: 0 100; stroke-dashoffset: 100; }
+  to   { stroke-dasharray: 93 7; stroke-dashoffset: 0; }
+}
+
+@keyframes circleTravel {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -100; }
 }
 
 /* still used by the Videos page header underline */
@@ -3869,7 +3867,7 @@ video:hover {
   padding: 0.35em 1.2em;
 }
 
-/* Hand-drawn orange circle that draws itself around the heading */
+/* Hand-drawn orange outline that draws itself around the heading, then loops */
 .parents-page .page-header h1 .h1-circle-svg {
   position: absolute;
   top: 50%;
@@ -3881,15 +3879,18 @@ video:hover {
   pointer-events: none;
 }
 
-.parents-page .page-header h1 .h1-circle-svg ellipse {
+.parents-page .page-header h1 .h1-circle-svg rect {
   fill: none;
   stroke: var(--color-orange);
   /* user-space units; non-scaling-stroke breaks pathLength dash normalization in Chrome */
   stroke-width: 2px;
   stroke-linecap: round;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: circleDraw 1.5s ease-out forwards 0.3s;
+  /* 93-unit line + 7-unit break; pathLength=100 makes the pattern period exactly one lap */
+  stroke-dasharray: 93 7;
+  stroke-dashoffset: 0;
+  animation:
+    circleDraw 1.5s ease-out 0.3s backwards,
+    circleTravel 7s linear 1.8s infinite;
 }
 
 .parents-page .section-trust {
@@ -3943,11 +3944,6 @@ video:hover {
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 0 0 0 var(--color-orange-glow);
-}
-
-.parents-page .trust-icon-learn {
-  animation: bluePulse 2.5s infinite;
-  box-shadow: 0 0 0 0 rgba(51, 156, 255, 0.4);
 }
 
 .parents-page .section-safety {
@@ -4130,7 +4126,7 @@ video:hover {
     animation: none;
   }
 
-  .parents-page .page-header h1 .h1-circle-svg ellipse {
+  .parents-page .page-header h1 .h1-circle-svg rect {
     animation: none;
     stroke-dashoffset: 0;
   }
