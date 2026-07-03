@@ -3387,16 +3387,9 @@ video:hover {
 
 .browse-albums .album-card img {
   border-radius: 12px;
-  margin-bottom: 12px;
   width: 100px;
   height: 100px;
   object-fit: cover;
-}
-
-.browse-albums .album-card span {
-  font-family: var(--heading-font-family);
-  font-weight: 700;
-  font-size: 0.95rem;
 }
 
 .seo-hero-wave {
@@ -4468,6 +4461,8 @@ video:hover {
 
 .videos-page .videos-album-card img {
   width: 100%;
+  /* override the height="220" attribute so the square aspect-ratio wins and no cropping occurs */
+  height: auto;
   border-radius: 10px;
   margin-bottom: 12px;
   aspect-ratio: 1;
