@@ -876,26 +876,20 @@
                         .catch(function() {});
                 })();
 
-                // Countdown timer to July 1, 2026
-                var releaseDate = new Date('2026-07-01T00:00:00').getTime();
-                function updateCountdown() {
-                    var now = new Date().getTime();
-                    var diff = releaseDate - now;
-                    if (diff <= 0) {
-                        document.getElementById('countdown').innerHTML = '<p style="font-size:1.3rem;font-weight:700;color:var(--secondary-color);margin:0;">It\'s here! Watch now!</p>';
-                        return;
+                // Countdown timer to July 9, 2026 at 9:00 AM Eastern
+                (function(){
+                    var target = new Date('2026-07-09T09:00:00-04:00').getTime();
+                    function tick(){
+                        var d = target - Date.now();
+                        if (d <= 0) { document.getElementById('countdown').innerHTML = '🎉 Out now!'; return; }
+                        document.getElementById('cd-days').textContent    = Math.floor(d/864e5);
+                        document.getElementById('cd-hours').textContent   = Math.floor(d%864e5/36e5);
+                        document.getElementById('cd-minutes').textContent = Math.floor(d%36e5/6e4);
+                        document.getElementById('cd-seconds').textContent = Math.floor(d%6e4/1e3);
+                        setTimeout(tick, 1000);
                     }
-                    var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                    document.getElementById('cd-days').textContent = days;
-                    document.getElementById('cd-hours').textContent = hours;
-                    document.getElementById('cd-minutes').textContent = minutes;
-                    document.getElementById('cd-seconds').textContent = seconds;
-                }
-                updateCountdown();
-                setInterval(updateCountdown, 1000);
+                    tick();
+                })();
 
                 // Instantly position at album announcement before splash fades
                 var albumTarget = document.getElementById('album-announcement');
