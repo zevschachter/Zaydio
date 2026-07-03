@@ -44,7 +44,7 @@
 
         <link href="bootstrap-icons.css?v=5.1" rel="stylesheet">
 
-        <link href="zaydio.css?v=8.4" rel="stylesheet">
+        <link href="zaydio.css?v=8.6" rel="stylesheet">
 
         <!-- Structured Data for Google Rich Results -->
         <script type="application/ld+json">
@@ -454,10 +454,10 @@
                     <div class="browse-albums browse-albums--desktop mt-5">
                         <h3 class="text-white text-center mb-4">Browse All Albums</h3>
                         <div id="browse-albums-grid" class="row g-3 justify-content-center">
-                            <div class="col-md-6 col-lg-3"><a href="/albums/everybody-sing.html" class="album-card text-decoration-none"><img src="album-everybody-sing.webp" alt="Everybody Sing — Zaydio family sing-along album" width="120" height="120" loading="lazy"><span>Everybody Sing</span></a></div>
-                            <div class="col-md-6 col-lg-3"><a href="/albums/the-new-abcs.html" class="album-card text-decoration-none"><img src="album-the-new-abcs.webp" alt="The New ABCs — Zaydio educational alphabet album" width="120" height="120" loading="lazy"><span>The New ABCs</span></a></div>
-                            <div class="col-md-6 col-lg-3"><a href="/albums/sing-along-lullabies.html" class="album-card text-decoration-none"><img src="album-sing-along-lullabies.webp" alt="Sing Along Lullabies — Zaydio kids bedtime album" width="120" height="120" loading="lazy"><span>Sing Along Lullabies</span></a></div>
-                            <div class="col-md-6 col-lg-3"><a href="/albums/island-vibes-lullabies.html" class="album-card text-decoration-none"><img src="album-island-vibes-lullabies.webp" alt="Island Vibes Lullabies — Zaydio relaxing kids album" width="120" height="120" loading="lazy"><span>Island Vibes Lullabies</span></a></div>
+                            <div class="col-md-6 col-lg-3"><a href="/albums/everybody-sing.html" class="album-card text-decoration-none"><img src="album-everybody-sing.webp" alt="Everybody Sing — Zaydio family sing-along album" width="120" height="120" loading="lazy"></a></div>
+                            <div class="col-md-6 col-lg-3"><a href="/albums/the-new-abcs.html" class="album-card text-decoration-none"><img src="album-the-new-abcs.webp" alt="The New ABCs — Zaydio educational alphabet album" width="120" height="120" loading="lazy"></a></div>
+                            <div class="col-md-6 col-lg-3"><a href="/albums/sing-along-lullabies.html" class="album-card text-decoration-none"><img src="album-sing-along-lullabies.webp" alt="Sing Along Lullabies — Zaydio kids bedtime album" width="120" height="120" loading="lazy"></a></div>
+                            <div class="col-md-6 col-lg-3"><a href="/albums/island-vibes-lullabies.html" class="album-card text-decoration-none"><img src="album-island-vibes-lullabies.webp" alt="Island Vibes Lullabies — Zaydio relaxing kids album" width="120" height="120" loading="lazy"></a></div>
                         </div>
                     </div>
                 </div>
@@ -853,8 +853,8 @@
                                 card.type = 'button';
                                 card.className = 'album-card';
                                 card.innerHTML =
-                                    '<img src="' + album.coverImage + '" alt="' + album.name.replace(/"/g, '&quot;') + '" width="120" height="120" loading="lazy">' +
-                                    '<span>' + album.name + '</span>';
+                                    '<img src="' + album.coverImage + '" alt="' + album.name.replace(/"/g, '&quot;') + '" width="120" height="120" loading="lazy">';
+                                card.setAttribute('aria-label', album.name);
                                 card.addEventListener('click', function() {
                                     if (typeof window.openZaydioAlbumPicker === 'function') {
                                         window.openZaydioAlbumPicker(album);
