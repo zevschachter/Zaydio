@@ -3690,6 +3690,16 @@ video:hover {
   padding: 16px 0;
 }
 
+/* The 3.5x navbar logo scale overflows the shorter seo-page navbar and gets clipped */
+.seo-navbar .navbar-brand-image {
+  transform: scale(1.9);
+  transform-origin: left center;
+}
+
+.seo-navbar .navbar-brand-image:hover {
+  transform: scale(2);
+}
+
 .seo-navbar .nav-link {
   color: var(--color-navy);
   font-family: var(--body-font-family);
