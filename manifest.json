@@ -9,7 +9,7 @@
   "orientation": "any",
   "icons": [
     {
-      "src": "ZAYDIOLOGO.png",
+      "src": "ZAYDIOLOGO.png?v=2",
       "sizes": "2048x2048",
       "type": "image/png",
       "purpose": "any maskable"

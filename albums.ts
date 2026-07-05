@@ -54,7 +54,7 @@ export function spotifyIdForAlbum(name: string): string | undefined {
 }
 
 export function coverImageForAlbum(name: string): string {
-  return ALBUM_COVER_IMAGES[normalizeAlbumName(name)] ?? "/ZAYDIOLOGO.webp";
+  return ALBUM_COVER_IMAGES[normalizeAlbumName(name)] ?? "/ZAYDIOLOGO.webp?v=2";
 }
 
 function appleMusicUrlForAlbum(name: string, fromApi?: string): string | undefined {
