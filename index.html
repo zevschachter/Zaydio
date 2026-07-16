@@ -1115,9 +1115,16 @@
                         lastScrubTs = now;
                         var rect = frame.getBoundingClientRect();
                         var viewH = window.innerHeight || document.documentElement.clientHeight;
-                        var travel = viewH + rect.height;
-                        if (travel <= 0) return;
-                        var progress = (viewH - rect.top) / travel;
+                        // Scrub only while the full frame is visible: progress is 0 until the
+                        // bottom edge enters the viewport, and 1 when the top edge reaches it.
+                        var travel = viewH - rect.height;
+                        var progress;
+                        if (travel > 0) {
+                            progress = (viewH - rect.height - rect.top) / travel;
+                        } else {
+                            // Frame taller than the viewport: fall back to entry-to-exit mapping
+                            progress = (viewH - rect.top) / (viewH + rect.height);
+                        }
                         if (progress < 0) progress = 0;
                         if (progress > 1) progress = 1;
                         var nextTime = progress * scrubVideo.duration;
