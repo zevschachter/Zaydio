@@ -240,15 +240,16 @@
     /* Fallback shorts if there's no API key or the request fails.
        Add IDs from youtube.com/shorts/<ID> — the section hides itself if this is empty AND the API is unavailable. */
     var FALLBACK = [
-      { id: 'lqYquU6T0dw', title: 'Birds Eat Worms' },
+      { id: 'MMKuqS7pXcQ', title: 'Humpty Dumpty, Twinkle Twinkle + 13 MORE!' },
+      { id: '3p6lZV-THvY', title: 'Cloudy With a Chance of Zaydio' },
+      { id: 'MN8Oa6baxIE', title: 'Colors Make Colours!' },
+      { id: 'XvPTSOPO52c', title: 'Burbles' },
+      { id: 'm5PDUSBkiPQ', title: 'Farm Animal Sounds' },
       { id: 'r-OMWIJDBPA', title: 'Grow Flower Grow!' },
-      { id: 'LOzbUdVu-6M', title: '4 Seasons' },
+      { id: 'lqYquU6T0dw', title: 'Birds Eat Worms' },
       { id: 'Ke5tVja1XN4', title: "Let's Learn Colors!" },
       { id: 'MvTdeHemgkk', title: 'Cloudy with a Chance of ZAYDIO' },
-      { id: 'm5PDUSBkiPQ', title: 'Farm Animal Sounds' },
-      { id: 'XvPTSOPO52c', title: 'Burbles' },
-      { id: 'MN8Oa6baxIE', title: 'Colors Make Colours!' },
-      { id: '3p6lZV-THvY', title: 'Cloudy With a Chance of Zaydio' },
+      { id: 'LOzbUdVu-6M', title: '4 Seasons' },
     ];
     /* ========================================== */
 
@@ -676,12 +677,12 @@
 
         <section class="section-featured">
             <p class="featured-label">Latest Video</p>
-            <h2 id="featured-video-title">Birds Eat Worms — Out Now!</h2>
+            <h2 id="featured-video-title">Red, Yellow, and Blue — Out Now!</h2>
             <div class="featured-video-wrapper">
                 <iframe
                     id="featured-video-iframe"
-                    src="https://www.youtube.com/embed/lqYquU6T0dw"
-                    title="Birds Eat Worms — Zaydio music video"
+                    src="https://www.youtube.com/embed/LOoweIO_NhA"
+                    title="Red, Yellow, and Blue — Zaydio music video"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen
                     loading="lazy"></iframe>
@@ -788,8 +789,8 @@
             var featuredTitle = document.getElementById("featured-video-title");
             if (!list) return;
 
-            var FEATURED_TITLE = "Birds Eat Worms — Out Now!";
-            var FEATURED_ID = "lqYquU6T0dw";
+            var FEATURED_TITLE = "Red, Yellow, and Blue — Out Now!";
+            var FEATURED_ID = "LOoweIO_NhA";
 
             function escapeHtml(text) {
                 return String(text)
@@ -804,22 +805,19 @@
             }
 
             function findFeaturedVideo(videos) {
-                var birds = null;
-                for (var i = 0; i < videos.length; i++) {
-                    if (videos[i].title.toLowerCase().indexOf("birds eat worms") !== -1) {
-                        birds = videos[i];
-                        break;
-                    }
-                }
-                return birds || videos[videos.length - 1];
+                var longs = longFormVideos(videos);
+                if (longs.length) return longs[longs.length - 1];
+                return videos.length ? videos[videos.length - 1] : null;
             }
 
             function renderFeatured(video) {
                 if (!featuredIframe || !video) return;
                 featuredIframe.src = "https://www.youtube.com/embed/" + encodeURIComponent(video.id);
                 featuredIframe.title = escapeHtml(video.title) + " — Zaydio music video";
-                if (featuredTitle && video.id !== FEATURED_ID) {
-                    featuredTitle.textContent = video.title;
+                if (featuredTitle) {
+                    featuredTitle.textContent = video.id === FEATURED_ID
+                        ? FEATURED_TITLE
+                        : (video.title + " — Out Now!");
                 }
             }
 

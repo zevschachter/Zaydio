@@ -183,5 +183,21 @@ export function fallbackVideos(): YouTubeVideo[] {
       thumbnailUrl: "https://i.ytimg.com/vi/3p6lZV-THvY/hqdefault.jpg",
       isShort: true,
     },
+    {
+      id: "LOoweIO_NhA",
+      title: "Red, Yellow, and Blue | ZAYDIO",
+      publishedAt: "2026-07-05T14:11:16+00:00",
+      url: "https://www.youtube.com/watch?v=LOoweIO_NhA",
+      thumbnailUrl: "https://i.ytimg.com/vi/LOoweIO_NhA/hqdefault.jpg",
+      isShort: false,
+    },
+    {
+      id: "MMKuqS7pXcQ",
+      title: "Humpty Dumpty, Twinkle Twinkle + 13 MORE!",
+      publishedAt: "2026-07-07T21:39:44+00:00",
+      url: "https://www.youtube.com/shorts/MMKuqS7pXcQ",
+      thumbnailUrl: "https://i.ytimg.com/vi/MMKuqS7pXcQ/hqdefault.jpg",
+      isShort: true,
+    },
   ]);
 }
