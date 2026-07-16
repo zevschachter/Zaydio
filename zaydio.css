@@ -2473,21 +2473,17 @@ video:hover {
   gap: 16px;
 }
 
-/* Shorts + About gradient zone */
+/* Shorts + About gradient zone — single orange → teal blend */
 .shorts-about-zone {
   position: relative;
   overflow: visible;
   background: linear-gradient(
     180deg,
     #ff8c42 0%,
-    #ffa34d 10%,
-    #ff9a50 18%,
-    #4ecdc4 28%,
-    #45bfb7 48%,
-    #4ecdc4 68%,
-    #ff9a50 82%,
-    #ff8c42 92%,
-    #fff9e6 100%
+    #ffa34d 28%,
+    #7fd4c8 58%,
+    #4ecdc4 82%,
+    #45bfb7 100%
   );
 }
 
@@ -2518,6 +2514,10 @@ video:hover {
 
 .wave-orange-cream {
   background-color: #ff8c42;
+}
+
+.wave-teal-cream {
+  background-color: #45bfb7;
 }
 
 .wave-cream-teal-wrap {
@@ -2559,7 +2559,7 @@ video:hover {
   background-color: #ffffff;
 }
 
-.shorts-about-zone .wave-orange-cream {
+.shorts-about-zone .wave-teal-cream {
   background: transparent;
   overflow: hidden;
 }
@@ -2966,17 +2966,15 @@ video:hover {
   animation: zaydioLetterWave 2.5s ease-in-out infinite;
 }
 
-/* Thin white outline so rainbow letters stand out on similar backgrounds */
-.about-title-dance span,
-.zaydio-rainbow span,
-.zaydio-rainbow-sm span {
-  -webkit-text-stroke: 0.5px #fff;
+/* Navy outline on About title rainbow only (matches logo border) */
+.about-title-dance span {
+  -webkit-text-stroke: 0.75px #1a2744;
   paint-order: stroke fill;
   text-shadow:
-    -0.5px 0 0 #fff,
-    0.5px 0 0 #fff,
-    0 -0.5px 0 #fff,
-    0 0.5px 0 #fff;
+    -0.5px 0 0 #1a2744,
+    0.5px 0 0 #1a2744,
+    0 -0.5px 0 #1a2744,
+    0 0.5px 0 #1a2744;
 }
 
 .about-title-dance span:nth-child(1),
@@ -4186,13 +4184,6 @@ video:hover {
   font-weight: 900;
   color: var(--color-teal);
   animation: zaydioLetterWave 2.5s ease-in-out infinite;
-  -webkit-text-stroke: 0.5px #fff;
-  paint-order: stroke fill;
-  text-shadow:
-    -0.5px 0 0 #fff,
-    0.5px 0 0 #fff,
-    0 -0.5px 0 #fff,
-    0 0.5px 0 #fff;
 }
 
 .videos-page .page-header-videos h1::after {
