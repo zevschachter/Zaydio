@@ -44,7 +44,7 @@
 
         <link href="bootstrap-icons.css?v=5.1" rel="stylesheet">
 
-        <link href="zaydio.css?v=8.9" rel="stylesheet">
+        <link href="zaydio.css?v=9.0" rel="stylesheet">
 
         <!-- Structured Data for Google Rich Results -->
         <script type="application/ld+json">
@@ -476,10 +476,9 @@
                 <div class="container-fluid px-lg-5">
                     <div class="row justify-content-center">
                         <div class="col-12" style="overflow: visible;">
-                            <video class="lazy-video" loop muted playsinline preload="none" aria-label="Zaydio animal adventure video" style="width: 100%; height: auto; border-radius: 50px 50px 30px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: block; object-fit: contain; max-width: 100%; overflow: visible;">
-                                <source data-src="thisanimalconglomerateisavibe.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
+                            <div class="scroll-scrub-frame">
+                                <video id="about-backdrop-video" class="scroll-scrub-video" muted playsinline preload="none" data-scrub-src="gonnabebackdropforzaydio.mp4" aria-label="Zaydio animal adventure video"></video>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -891,10 +890,13 @@
                 })();
 
                 // Instantly position at album announcement before splash fades
-                var albumTarget = document.getElementById('album-announcement');
-                if (albumTarget) {
-                    var navH = document.querySelector('.navbar') ? document.querySelector('.navbar').offsetHeight : 0;
-                    window.scrollTo({ top: albumTarget.offsetTop - navH, behavior: 'instant' });
+                // Only jump to the album section when that hash is requested
+                if (window.location.hash === '#album-announcement') {
+                    var albumTarget = document.getElementById('album-announcement');
+                    if (albumTarget) {
+                        var navH = document.querySelector('.navbar') ? document.querySelector('.navbar').offsetHeight : 0;
+                        window.scrollTo({ top: albumTarget.offsetTop - navH, behavior: 'instant' });
+                    }
                 }
 
                 // Music nav popup toggle
@@ -1082,6 +1084,117 @@
                         v.play().catch(function() {});
                     });
                 }
+
+                // About-backdrop video: scroll position scrubbing (no autoplay)
+                (function () {
+                    var scrubVideo = document.getElementById('about-backdrop-video');
+                    if (!scrubVideo) return;
+
+                    var frame = scrubVideo.closest('.scroll-scrub-frame') || scrubVideo;
+                    var ready = false;
+                    var blobUrl = null;
+                    var lastApplied = -1;
+                    var lastScrubTs = 0;
+                    var reduceMotion = false;
+                    try {
+                        reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    } catch (e) {}
+
+                    function markReady() {
+                        if (ready) return;
+                        if (!scrubVideo.duration || !isFinite(scrubVideo.duration)) return;
+                        ready = true;
+                        try { scrubVideo.pause(); } catch (e) {}
+                        scrubFromScroll(true);
+                    }
+
+                    function scrubFromScroll(force) {
+                        if (!ready || !scrubVideo.duration) return;
+                        var now = (window.performance && performance.now) ? performance.now() : Date.now();
+                        if (!force && now - lastScrubTs < 24) return;
+                        lastScrubTs = now;
+                        var rect = frame.getBoundingClientRect();
+                        var viewH = window.innerHeight || document.documentElement.clientHeight;
+                        var travel = viewH + rect.height;
+                        if (travel <= 0) return;
+                        var progress = (viewH - rect.top) / travel;
+                        if (progress < 0) progress = 0;
+                        if (progress > 1) progress = 1;
+                        var nextTime = progress * scrubVideo.duration;
+                        if (nextTime >= scrubVideo.duration) nextTime = scrubVideo.duration - 0.001;
+                        if (!force && Math.abs(nextTime - lastApplied) < 0.04) return;
+                        lastApplied = nextTime;
+                        try {
+                            scrubVideo.pause();
+                            scrubVideo.currentTime = nextTime;
+                        } catch (e) {}
+                    }
+
+                    function onScroll() {
+                        scrubFromScroll(false);
+                    }
+
+                    function bindReady() {
+                        scrubVideo.addEventListener('loadedmetadata', markReady);
+                        scrubVideo.addEventListener('canplay', markReady);
+                        if (scrubVideo.readyState >= 1) markReady();
+                    }
+
+                    // Blob URL loads the full file so seeking works without HTTP Range support
+                    function loadAsBlob() {
+                        var url = scrubVideo.getAttribute('data-scrub-src');
+                        if (!url || scrubVideo.getAttribute('data-scrub-loaded') === '1') return;
+                        scrubVideo.setAttribute('data-scrub-loaded', '1');
+                        fetch(url)
+                            .then(function (res) {
+                                if (!res.ok) throw new Error('video fetch failed');
+                                return res.blob();
+                            })
+                            .then(function (blob) {
+                                if (blobUrl) URL.revokeObjectURL(blobUrl);
+                                blobUrl = URL.createObjectURL(blob);
+                                scrubVideo.removeAttribute('src');
+                                while (scrubVideo.firstChild) scrubVideo.removeChild(scrubVideo.firstChild);
+                                scrubVideo.src = blobUrl;
+                                scrubVideo.load();
+                                bindReady();
+                            })
+                            .catch(function () {
+                                scrubVideo.removeAttribute('data-scrub-loaded');
+                                scrubVideo.src = url;
+                                scrubVideo.load();
+                                bindReady();
+                            });
+                    }
+
+                    if (reduceMotion) {
+                        loadAsBlob();
+                        scrubVideo.addEventListener('loadedmetadata', function () {
+                            scrubVideo.currentTime = 0;
+                            scrubVideo.pause();
+                        }, { once: true });
+                        return;
+                    }
+
+                    if ('IntersectionObserver' in window) {
+                        var preloadObserver = new IntersectionObserver(function (entries) {
+                            entries.forEach(function (entry) {
+                                if (!entry.isIntersecting) return;
+                                loadAsBlob();
+                                preloadObserver.disconnect();
+                            });
+                        }, { rootMargin: '400px' });
+                        preloadObserver.observe(frame);
+                    } else {
+                        loadAsBlob();
+                    }
+
+                    window.addEventListener('scroll', onScroll, { passive: true });
+                    window.addEventListener('resize', onScroll);
+                    window.addEventListener('pagehide', function () {
+                        if (blobUrl) URL.revokeObjectURL(blobUrl);
+                    });
+                })();
 
                 // Easter egg: confetti burst on album cover click
                 var albumFrame = document.querySelector('.album-cover-frame');
