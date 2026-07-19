@@ -2253,7 +2253,7 @@ video:hover {
   position: relative;
   /* Above .wave-divider (z-index: 2) so the cover glow is not covered on top */
   z-index: 3;
-  padding: 48px 0 48px;
+  padding: 0 0 48px;
   background: transparent;
   overflow: visible;
 }
@@ -2262,6 +2262,81 @@ video:hover {
 .album-announcement .container,
 .album-announcement .container-fluid {
   overflow: visible;
+}
+
+/* Opening frame: forest-walk welcome — fills the first screen on arrival */
+#welcome.welcome-open {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  box-sizing: border-box;
+  /* Clear sticky navbar when scrolled to as the opening frame */
+  padding: max(88px, clamp(16px, 4svh, 40px)) 0 clamp(16px, 4svh, 40px);
+  scroll-margin-top: 0;
+}
+
+#welcome .welcome-open__row {
+  width: 100%;
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  #welcome.welcome-open {
+    align-items: center;
+    text-align: center;
+    padding: max(80px, clamp(12px, 3svh, 28px)) 0 clamp(12px, 3svh, 28px);
+  }
+
+  #welcome .welcome-open__row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #welcome .welcome-open__media,
+  #welcome .welcome-open__copy {
+    width: 100%;
+    max-width: 28rem;
+  }
+
+  #welcome .welcome-open__copy {
+    text-align: center !important;
+  }
+
+  #welcome .welcome-open__title {
+    font-size: clamp(1.6rem, 7vw, 2.2rem) !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  #welcome .welcome-open__lede {
+    font-size: clamp(0.95rem, 3.6vw, 1.1rem) !important;
+    margin-bottom: 0.85rem !important;
+  }
+
+  #welcome .album-cover-glow {
+    padding: 8px;
+  }
+
+  #welcome .album-cover-frame {
+    width: min(220px, 55svh);
+    height: min(220px, 55svh);
+    max-height: 55svh;
+  }
+
+  #welcome #streaming-links {
+    gap: 0.5rem !important;
+  }
+
+  #welcome #streaming-links .btn {
+    padding: 10px 18px !important;
+    font-size: 0.9rem !important;
+  }
+
+  #welcome .share-row {
+    margin-top: 0.65rem !important;
+  }
 }
 
 #album-embeds {
@@ -2466,7 +2541,7 @@ video.album-cover-img {
 
 @media screen and (max-width: 767px) {
   .album-announcement {
-    padding: 30px 0 !important;
+    padding: 0 0 30px;
   }
   .album-cover-glow {
     padding: 14px;

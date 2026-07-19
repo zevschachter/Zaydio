@@ -44,7 +44,25 @@
 
         <link href="bootstrap-icons.css?v=5.1" rel="stylesheet">
 
-        <link href="zaydio.css?v=10.0" rel="stylesheet">
+        <link href="zaydio.css?v=10.1" rel="stylesheet">
+
+        <!-- Open on welcome (under splash); honor hash / reload / back-forward -->
+        <script>
+            history.scrollRestoration = 'manual';
+            window.addEventListener('DOMContentLoaded', function () {
+                var nav = performance.getEntriesByType('navigation')[0];
+                var isBackOrReload = nav && (nav.type === 'back_forward' || nav.type === 'reload');
+                if (!location.hash && !isBackOrReload) {
+                    var el = document.getElementById('welcome');
+                    if (!el) return;
+                    var root = document.documentElement;
+                    var prev = root.style.scrollBehavior;
+                    root.style.scrollBehavior = 'auto';
+                    el.scrollIntoView({ behavior: 'instant', block: 'start' });
+                    root.style.scrollBehavior = prev;
+                }
+            });
+        </script>
 
         <!-- Structured Data for Google Rich Results -->
         <script type="application/ld+json">
@@ -379,7 +397,7 @@
                     </g>
                 </svg>
 
-                <section id="album-announcement" class="album-announcement reveal">
+                <section id="album-announcement" class="album-announcement reveal visible">
                 <!-- Decorative floating music notes -->
                 <div aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.1;">
                     <span style="position: absolute; top: 10%; left: 5%; font-size: 3rem; transform: rotate(-15deg);">&#9835;</span>
@@ -390,8 +408,9 @@
                 </div>
 
                 <div class="container" style="position: relative; z-index: 1;">
-                    <div class="row align-items-center">
-                        <div class="col-lg-5 col-md-6 col-12 mb-2 mb-lg-0 text-center" style="overflow: visible;">
+                    <div id="welcome" class="welcome-open">
+                    <div class="row align-items-center welcome-open__row">
+                        <div class="col-lg-5 col-md-6 col-12 mb-2 mb-lg-0 text-center welcome-open__media" style="overflow: visible;">
                             <div class="album-cover-glow">
                                 <div class="album-cover-frame">
                                     <video id="welcome-loop-video" class="album-cover-img" autoplay muted loop playsinline preload="metadata" poster="zaydioloopingvibes-poster.jpg" width="272" height="272" aria-label="Zaydio walking through a sunny forest">
@@ -401,11 +420,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-7 col-md-6 col-12 text-center text-md-start">
-                            <h2 class="mb-3" style="font-size: 2.8rem; font-weight: 700; text-shadow: 2px 3px 6px rgba(0,0,0,0.2); line-height: 1.2;">
+                        <div class="col-lg-7 col-md-6 col-12 text-center text-md-start welcome-open__copy">
+                            <h2 class="mb-3 welcome-open__title" style="font-size: 2.8rem; font-weight: 700; text-shadow: 2px 3px 6px rgba(0,0,0,0.2); line-height: 1.2;">
                                 <span class="rainbow-wave"><span style="animation-delay:0s">W</span><span style="animation-delay:0.05s">e</span><span style="animation-delay:0.1s">l</span><span style="animation-delay:0.15s">c</span><span style="animation-delay:0.2s">o</span><span style="animation-delay:0.25s">m</span><span style="animation-delay:0.3s">e</span><span class="rainbow-space"> </span><span style="animation-delay:0.4s">t</span><span style="animation-delay:0.45s">o</span><span class="rainbow-space"> </span><span style="animation-delay:0.55s">Z</span><span style="animation-delay:0.6s">A</span><span style="animation-delay:0.65s">Y</span><span style="animation-delay:0.7s">D</span><span style="animation-delay:0.75s">I</span><span style="animation-delay:0.8s">O</span></span>
                             </h2>
-                            <p class="text-white mb-4 mx-auto mx-md-0" style="font-size: 1.25rem; opacity: 0.95; max-width: 480px;">
+                            <p class="text-white mb-4 mx-auto mx-md-0 welcome-open__lede" style="font-size: 1.25rem; opacity: 0.95; max-width: 480px;">
                                 Sing along with the whole family &mdash; catchy tunes that teach, inspire, and bring everyone together!
                             </p>
                             <div id="streaming-links" class="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
@@ -439,6 +458,7 @@
                                 <button type="button" class="share-btn share-copy" aria-label="Copy link to Zaydio website" onclick="navigator.clipboard.writeText('https://www.zaydio.com').then(function(){var b=document.querySelector('.share-copy');b.innerHTML='&#10003;';setTimeout(function(){b.innerHTML='&#128279;'},1500)})"><span aria-hidden="true">&#128279;</span></button>
                             </div>
                         </div>
+                    </div>
                     </div>
 
                     <div id="album-embeds"></div>
@@ -934,16 +954,6 @@
                         showFallbackOnly();
                     }
                 })();
-
-                // Instantly position at album announcement before splash fades
-                // Only jump to the album section when that hash is requested
-                if (window.location.hash === '#album-announcement') {
-                    var albumTarget = document.getElementById('album-announcement');
-                    if (albumTarget) {
-                        var navH = document.querySelector('.navbar') ? document.querySelector('.navbar').offsetHeight : 0;
-                        window.scrollTo({ top: albumTarget.offsetTop - navH, behavior: 'instant' });
-                    }
-                }
 
                 // Music nav popup toggle
                 var musicToggle = document.getElementById('music-nav-toggle');
