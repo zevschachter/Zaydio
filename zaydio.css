@@ -1834,7 +1834,9 @@ strong {
    Note: html/body overflow-x:hidden breaks CSS sticky, so JS toggles
    .is-pinned / .is-pinned-end for a fixed pin that still matches this structure. */
 .scrub-track {
-  --scrub-length: 250vh;
+  /* Pin height uses svh (stable under iOS URL-bar collapse); track is a multiple of that */
+  --scrub-pin-h: 100svh;
+  --scrub-length: calc(var(--scrub-pin-h) * 2.5);
   --scrub-purple: #6C5CE7;
   --scrub-purple-deep: #4a3fc4;
   height: var(--scrub-length);
@@ -1850,7 +1852,7 @@ strong {
 .scrub-sticky {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: var(--scrub-pin-h);
   width: 100%;
   display: flex;
   align-items: center;
@@ -1863,6 +1865,7 @@ strong {
     #5a4bd6 100%
   );
   overflow: hidden;
+  will-change: transform;
 }
 
 /* Active scrub: hold the frame in the viewport */
@@ -1905,7 +1908,7 @@ strong {
 .scrub-poster {
   display: block;
   width: 100%;
-  max-height: 100vh;
+  max-height: 100%;
   height: auto;
   object-fit: contain;
   background: transparent;
@@ -1983,9 +1986,12 @@ strong {
 
 .scrub-progress__bar {
   height: 100%;
-  width: 0%;
+  width: 100%;
   background: linear-gradient(90deg, var(--color-teal), var(--color-yellow));
   box-shadow: 0 0 10px rgba(78, 205, 196, 0.45);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
   transition: none;
 }
 
@@ -2032,13 +2038,13 @@ strong {
 /* Mobile: size the pin to the wide frame so purple letterboxing collapses */
 @media screen and (max-width: 991px) {
   .scrub-track {
-    --scrub-length: 200vh;
+    --scrub-pin-h: min(calc(100vw * 608 / 1488), 52svh);
+    --scrub-length: calc(var(--scrub-pin-h) * 4);
   }
 
   .scrub-sticky {
-    /* Native 1488×608 frame — height follows full-bleed width */
-    height: calc(100vw * 608 / 1488);
-    max-height: 52vh;
+    height: var(--scrub-pin-h);
+    max-height: none;
   }
 
   .scrub-sticky.is-pinned {
@@ -2072,8 +2078,8 @@ strong {
 }
 
 @media screen and (max-width: 480px) {
-  .scrub-sticky {
-    max-height: 46vh;
+  .scrub-track {
+    --scrub-pin-h: min(calc(100vw * 608 / 1488), 46svh);
   }
 }
 
