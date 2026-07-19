@@ -2340,10 +2340,31 @@ video:hover {
 
 video.album-cover-img {
   background: #1a1a2e;
+  aspect-ratio: 1 / 1;
+}
+
+.welcome-loop-still {
+  display: none;
 }
 
 .album-cover-img:hover {
   transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #welcome-loop-video {
+    display: none !important;
+  }
+
+  #welcome-loop-still,
+  .welcome-loop-still {
+    display: block !important;
+  }
+
+  .album-cover-frame::before,
+  .album-cover-frame::after {
+    animation: none;
+  }
 }
 
 /* Responsive adjustments for album announcement */
