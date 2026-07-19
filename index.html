@@ -46,7 +46,7 @@
 
         <link href="bootstrap-icons.css?v=5.1" rel="stylesheet">
 
-        <link href="zaydio.css?v=10.3" rel="stylesheet">
+        <link href="zaydio.css?v=10.4" rel="stylesheet">
 
         <!-- Open on welcome (under splash); honor hash / reload / back-forward -->
         <script>
@@ -1065,9 +1065,10 @@
                     });
                 }
 
-                // Farm animals video: scroll-scrub (forward down, reverse up)
-                // Uses fixed pin classes because html/body overflow-x:hidden breaks CSS sticky.
-                // Mobile-hardened: rAF poll loop, cached svh metrics, efficient seeks, iOS prime.
+                // Farm animals video:
+                // - Desktop (hover): scroll-scrub (unchanged)
+                // - Mobile (touch-primary): baked ping-pong autoplay loop, no scrub track
+                // Mode is chosen once at load; prefers-reduced-motion wins over both.
                 (function () {
                     var video = document.getElementById('scrubVideo');
                     var track = document.querySelector('.scrub-track');
@@ -1079,8 +1080,12 @@
                     if (!video || !track || !sticky) return;
 
                     var reduceMotion = false;
+                    var touchPrimary = false;
                     try {
                         reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    } catch (e) {}
+                    try {
+                        touchPrimary = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
                     } catch (e) {}
 
                     var fallbackApplied = false;
@@ -1089,6 +1094,7 @@
                         if (fallbackApplied) return;
                         fallbackApplied = true;
                         track.classList.add('is-fallback');
+                        track.classList.remove('is-pingpong');
                         sticky.classList.remove('is-pinned', 'is-pinned-end');
                         if (stage) {
                             stage.style.transform = '';
@@ -1104,17 +1110,35 @@
                         return;
                     }
 
-                    var DESKTOP_SRC = 'gonnabebackdropforzaydio.mp4';
-                    var MOBILE_SRC = 'gonnabebackdropforzaydio-mobile.mp4';
-                    var touchPrimary = false;
-                    try {
-                        touchPrimary = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-                    } catch (e) {}
+                    // Mobile: native ping-pong loop (baked reverse), no scrub init.
+                    if (touchPrimary) {
+                        track.classList.add('is-pingpong');
+                        sticky.classList.remove('is-pinned', 'is-pinned-end');
+                        if (stage) {
+                            stage.style.transform = '';
+                            stage.style.opacity = '';
+                        }
+                        video.muted = true;
+                        video.defaultMuted = true;
+                        video.playsInline = true;
+                        video.setAttribute('playsinline', '');
+                        video.setAttribute('webkit-playsinline', '');
+                        video.loop = true;
+                        video.autoplay = true;
+                        video.preload = 'metadata';
+                        video.setAttribute('poster', 'gonnabebackdropforzaydio-poster.jpg');
+                        video.src = 'farm-pingpong-720.mp4';
+                        video.play().catch(function () {});
+                        document.addEventListener('touchstart', function unlockPingPong() {
+                            video.play().catch(function () {});
+                            document.removeEventListener('touchstart', unlockPingPong);
+                        }, { once: true, passive: true });
+                        return;
+                    }
 
-                    // Set source before metadata loads (touch-primary → 720p dense-keyframe variant).
-                    var sourceTriedMobile = false;
-                    video.src = touchPrimary ? MOBILE_SRC : DESKTOP_SRC;
-                    if (touchPrimary) sourceTriedMobile = true;
+                    // Desktop scrub only from here.
+                    var DESKTOP_SRC = 'gonnabebackdropforzaydio.mp4';
+                    video.src = DESKTOP_SRC;
 
                     var duration = 0;
                     var targetTime = 0;
@@ -1125,7 +1149,7 @@
                     var vpH = 0;
                     var scrollable = 0;
                     var lastW = window.innerWidth || 0;
-                    var easeFactor = touchPrimary ? 0.10 : 0.14;
+                    var easeFactor = 0.14;
                     var SEEK_EPS = 1 / 30;
 
                     function measure() {
@@ -1133,11 +1157,6 @@
                         scrollable = Math.max(0, track.offsetHeight - vpH);
                         lastW = window.innerWidth || lastW;
                     }
-
-                    document.addEventListener('touchstart', function prime() {
-                        video.play().then(function () { video.pause(); }).catch(function () {});
-                        document.removeEventListener('touchstart', prime);
-                    }, { once: true, passive: true });
 
                     function syncDuration() {
                         var d = video.duration;
@@ -1303,14 +1322,7 @@
                     video.addEventListener('loadedmetadata', onReady);
                     video.addEventListener('loadeddata', onReady);
                     video.addEventListener('canplay', onReady);
-                    video.addEventListener('error', function () {
-                        if (sourceTriedMobile && video.src.indexOf(DESKTOP_SRC) === -1) {
-                            sourceTriedMobile = false;
-                            video.src = DESKTOP_SRC;
-                            return;
-                        }
-                        applyFallback();
-                    });
+                    video.addEventListener('error', applyFallback);
 
                     setTimeout(function () {
                         if (!syncDuration()) applyFallback();

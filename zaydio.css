@@ -2083,6 +2083,69 @@ strong {
   }
 }
 
+/* Mobile ping-pong loop: natural-height section, no scrub track / pin / chrome */
+.scrub-track.is-pingpong {
+  height: auto !important;
+  background: linear-gradient(
+    180deg,
+    var(--scrub-purple) 0%,
+    var(--scrub-purple-deep) 50%,
+    var(--scrub-purple) 100%
+  );
+}
+
+.scrub-track.is-pingpong .scrub-sticky,
+.scrub-track.is-pingpong .scrub-sticky.is-pinned,
+.scrub-track.is-pingpong .scrub-sticky.is-pinned-end {
+  position: relative !important;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  height: auto !important;
+  min-height: 0;
+  max-height: none;
+  padding: 0;
+  z-index: auto;
+  will-change: auto;
+}
+
+.scrub-track.is-pingpong .scrub-stage {
+  height: auto;
+  transform: none !important;
+  opacity: 1 !important;
+  will-change: auto;
+}
+
+.scrub-track.is-pingpong .scrub-frame {
+  width: 100%;
+  max-height: none;
+  height: auto;
+}
+
+.scrub-track.is-pingpong #scrubVideo {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: 1488 / 608;
+  object-fit: cover;
+  background: transparent;
+}
+
+.scrub-track.is-pingpong .scrub-poster {
+  display: none;
+}
+
+.scrub-track.is-pingpong .scrub-caption,
+.scrub-track.is-pingpong .scrub-progress {
+  display: none !important;
+}
+
+.scrub-track.is-pingpong .scrub-vignette {
+  display: block;
+}
+
 /* Collapsed poster-only state (load failure / reduced motion via JS class) */
 .scrub-track.is-fallback {
   height: auto !important;
