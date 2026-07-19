@@ -1255,8 +1255,9 @@
                         flushPendingSeek();
                     });
 
-                    // Phase 1: pinned forward scrub. Phase 2: reverse as the track exits.
-                    // Progress is track scroll fraction — same math as before; only the driver changed.
+                    // Pinned: scroll drives the video forward/back.
+                    // After release (is-pinned-end): hold the final frame — no rewind on exit.
+                    // Re-entering the pin from above resumes normal scrub/rewind.
                     function computeTarget(rect) {
                         var progress = 0;
                         if (scrollable > 0) {
@@ -1267,7 +1268,13 @@
                         updateChrome(progress);
                         if (!duration && !syncDuration()) return;
                         if (scrollable <= 0) return;
-                        var nextTime = progress * duration;
+
+                        // Hold last frame once the section has released at the end.
+                        var scrubProgress = sticky.classList.contains('is-pinned-end')
+                            ? 1
+                            : progress;
+
+                        var nextTime = scrubProgress * duration;
                         if (nextTime >= duration) nextTime = Math.max(0, duration - 0.001);
                         targetTime = nextTime;
                     }
