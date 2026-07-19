@@ -2186,9 +2186,17 @@ video:hover {
 
 .album-announcement {
   position: relative;
-  z-index: 1;
-  padding: 40px 0 48px;
+  /* Above .wave-divider (z-index: 2) so the cover glow is not covered on top */
+  z-index: 3;
+  padding: 48px 0 48px;
   background: transparent;
+  overflow: visible;
+}
+
+/* Global .container { overflow-x: hidden } also clips Y; keep rainbow glow visible */
+.album-announcement .container,
+.album-announcement .container-fluid {
+  overflow: visible;
 }
 
 #album-embeds {
@@ -2279,41 +2287,57 @@ video:hover {
   30% { transform: translateY(0); }
 }
 
-/* Album cover with spinning rainbow glow */
+/* Extra room so the rainbow glow is never clipped by section edges / sticky nav */
+.album-cover-glow {
+  display: inline-block;
+  padding: 16px;
+  margin: 4px auto;
+  overflow: visible;
+  line-height: 0;
+}
+
+/* Album cover with spinning rainbow ring (padding ring — stays inside the box) */
 .album-cover-frame {
+  --album-border-width: 4px;
   position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   width: 280px;
   height: 280px;
+  margin: 0;
+  padding: var(--album-border-width);
   border-radius: 24px;
-  background: #fff;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease;
-  overflow: visible;
-}
-
-.album-cover-frame::before,
-.album-cover-frame::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 26px;
   background: conic-gradient(
     from var(--border-angle, 0deg),
     #FF3B30, #FF9500, #FFCC00, #34C759,
     #007AFF, #AF52DE, #FF3B30
   );
   animation: spinBorder 3s linear infinite;
-  z-index: -1;
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.15),
+    0 0 18px 2px rgba(255, 149, 0, 0.45),
+    0 0 28px 6px rgba(0, 122, 255, 0.28),
+    0 0 36px 10px rgba(175, 82, 222, 0.22);
+  transition: transform 0.3s ease;
+  overflow: visible;
 }
 
+/* Inner plate so the conic background reads as a border ring */
 .album-cover-frame::after {
-  inset: -6px;
-  border-radius: 28px;
-  filter: blur(14px);
-  opacity: 0.5;
+  content: '';
+  position: absolute;
+  inset: var(--album-border-width);
+  border-radius: 20px;
+  background: #fff;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.album-cover-frame::before {
+  content: none;
 }
 
 @keyframes spinBorder {
@@ -2327,9 +2351,11 @@ video:hover {
 }
 
 .album-cover-img {
+  position: relative;
+  z-index: 1;
   display: block;
-  width: 272px !important;
-  height: 272px !important;
+  width: 100% !important;
+  height: 100% !important;
   max-width: none !important;
   max-height: none !important;
   aspect-ratio: 1 / 1 !important;
@@ -2361,8 +2387,7 @@ video.album-cover-img {
     display: block !important;
   }
 
-  .album-cover-frame::before,
-  .album-cover-frame::after {
+  .album-cover-frame {
     animation: none;
   }
 }
@@ -2378,24 +2403,18 @@ video.album-cover-img {
   .album-announcement {
     padding: 30px 0 !important;
   }
+  .album-cover-glow {
+    padding: 14px;
+  }
   .album-cover-frame {
     width: 220px;
     height: 220px;
     border-radius: 22px;
-    margin: 10px auto;
-  }
-  .album-cover-frame::before {
-    inset: -4px;
-    border-radius: 26px;
   }
   .album-cover-frame::after {
-    inset: -8px;
-    border-radius: 30px;
-    filter: blur(12px);
+    border-radius: 18px;
   }
   .album-cover-img {
-    width: 208px !important;
-    height: 208px !important;
     border-radius: 18px;
   }
   .album-announcement h2 {
@@ -2419,24 +2438,18 @@ video.album-cover-img {
 }
 
 @media screen and (max-width: 480px) {
+  .album-cover-glow {
+    padding: 12px;
+  }
   .album-cover-frame {
     width: 190px;
     height: 190px;
     border-radius: 20px;
-    margin: 10px auto;
-  }
-  .album-cover-frame::before {
-    inset: -4px;
-    border-radius: 24px;
   }
   .album-cover-frame::after {
-    inset: -8px;
-    border-radius: 28px;
-    filter: blur(10px);
+    border-radius: 16px;
   }
   .album-cover-img {
-    width: 178px !important;
-    height: 178px !important;
     border-radius: 16px;
   }
   .album-announcement h2 {
