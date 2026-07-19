@@ -1830,76 +1830,110 @@ strong {
   }
 }
 
-/* Sticky scroll-pin: page stays on the video until one full scrub completes */
-.scroll-scrub-pin {
+/* Farm animals scroll-scrub (pins above About)
+   Note: html/body overflow-x:hidden breaks CSS sticky, so JS toggles
+   .is-pinned / .is-pinned-end for a fixed pin that still matches this structure. */
+.scrub-track {
+  --scrub-length: 250vh;
+  height: var(--scrub-length);
+  position: relative;
   background-color: #6C5CE7;
 }
 
-.scroll-scrub-pin__track {
-  position: relative;
-  /* Fallback height; JS sets a duration-based height once the video loads */
-  height: 320vh;
-}
-
-.scroll-scrub-pin__sticky {
+.scrub-sticky {
   position: sticky;
   top: 0;
   height: 100vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #6C5CE7;
-  z-index: 2;
   overflow: hidden;
 }
 
-.scroll-scrub-pin__sticky .video-purple-section {
-  width: 100%;
+/* Active scrub: hold the frame in the viewport */
+.scrub-sticky.is-pinned {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
 }
 
-/* Purple video section: wide frame matching prior animal video (1536×576 ≈ 8/3) */
-.video-purple-section .scroll-scrub-frame {
-  width: 100%;
-  max-width: 100%;
-  aspect-ratio: 8 / 3;
-  overflow: hidden;
-  border-radius: 50px 50px 30px 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  background: #6C5CE7;
+/* Past the track: park the frame at the bottom so About follows cleanly */
+.scrub-sticky.is-pinned-end {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.video-purple-section .scroll-scrub-video {
+#scrubVideo,
+.scrub-poster {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-radius: inherit;
+  max-height: 100vh;
+  height: auto;
+  object-fit: contain;
+  background-color: #6C5CE7;
 }
 
-/* Purple video section: smaller on mobile with compact wavy borders */
-@media screen and (max-width: 991px) {
-  .video-purple-section {
-    padding: 12px 8px !important;
-  }
+.scrub-poster {
+  display: none;
+}
 
-  .video-purple-section .scroll-scrub-frame {
-    border-radius: 20px 20px 15px 15px;
-  }
+/* Collapsed poster-only state (load failure / reduced motion via JS class) */
+.scrub-track.is-fallback {
+  height: auto !important;
+}
 
-  .scroll-scrub-pin__track {
-    height: 280vh;
-  }
+.scrub-track.is-fallback .scrub-sticky,
+.scrub-track.is-fallback .scrub-sticky.is-pinned,
+.scrub-track.is-fallback .scrub-sticky.is-pinned-end {
+  position: relative;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  height: auto;
+  padding: 24px 0;
+  z-index: auto;
+}
+
+.scrub-track.is-fallback #scrubVideo {
+  display: none !important;
+}
+
+.scrub-track.is-fallback .scrub-poster {
+  display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scroll-scrub-pin__track {
-    height: auto !important;
+  .scrub-track {
+    height: auto;
   }
 
-  .scroll-scrub-pin__sticky {
+  .scrub-sticky,
+  .scrub-sticky.is-pinned,
+  .scrub-sticky.is-pinned-end {
     position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
     height: auto;
+    padding: 24px 0;
+    z-index: auto;
+  }
+
+  #scrubVideo {
+    display: none !important;
+  }
+
+  .scrub-poster {
+    display: block;
   }
 }
 
