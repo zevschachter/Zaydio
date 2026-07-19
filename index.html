@@ -44,7 +44,7 @@
 
         <link href="bootstrap-icons.css?v=5.1" rel="stylesheet">
 
-        <link href="zaydio.css?v=9.0" rel="stylesheet">
+        <link href="zaydio.css?v=9.1" rel="stylesheet">
 
         <!-- Structured Data for Google Rich Results -->
         <script type="application/ld+json">
@@ -390,7 +390,9 @@
                     <div class="row align-items-center">
                         <div class="col-lg-5 col-md-6 col-12 mb-2 mb-lg-0 text-center" style="overflow: visible;">
                             <div class="album-cover-frame">
-                                <img src="album-everybody-sing.webp" class="album-cover-img" alt="Everybody Sings - Zaydio's new family singalong album" width="272" height="272" loading="lazy" onerror="this.src='album-everybody-sing.png'">
+                                <video class="album-cover-img" autoplay muted loop playsinline preload="metadata" width="272" height="272" aria-label="Everybody Sing — Zaydio family sing-along album video">
+                                    <source src="zaydioloopingvibes.mp4" type="video/mp4">
+                                </video>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-6 col-12 text-center text-md-start">
@@ -1210,10 +1212,14 @@
                     });
                 })();
 
-                // Easter egg: confetti burst on album cover click
+                // Easter egg: confetti burst on album cover / looping video click
                 var albumFrame = document.querySelector('.album-cover-frame');
                 if (albumFrame) {
                     albumFrame.style.cursor = 'pointer';
+                    var albumVideo = albumFrame.querySelector('video.album-cover-img');
+                    if (albumVideo) {
+                        albumVideo.play().catch(function() {});
+                    }
                     albumFrame.addEventListener('click', function(e) {
                         var cx = e.clientX;
                         var cy = e.clientY;
