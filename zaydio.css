@@ -1835,9 +1835,16 @@ strong {
    .is-pinned / .is-pinned-end for a fixed pin that still matches this structure. */
 .scrub-track {
   --scrub-length: 250vh;
+  --scrub-purple: #6C5CE7;
+  --scrub-purple-deep: #4a3fc4;
   height: var(--scrub-length);
   position: relative;
-  background-color: #6C5CE7;
+  background: linear-gradient(
+    180deg,
+    var(--scrub-purple) 0%,
+    var(--scrub-purple-deep) 45%,
+    var(--scrub-purple) 100%
+  );
 }
 
 .scrub-sticky {
@@ -1848,7 +1855,13 @@ strong {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #6C5CE7;
+  background: linear-gradient(
+    180deg,
+    #7b6cf0 0%,
+    var(--scrub-purple) 28%,
+    var(--scrub-purple-deep) 72%,
+    #5a4bd6 100%
+  );
   overflow: hidden;
 }
 
@@ -1870,18 +1883,150 @@ strong {
   right: 0;
 }
 
+.scrub-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.scrub-frame {
+  position: relative;
+  width: 100%;
+  max-height: 100%;
+  line-height: 0;
+}
+
 #scrubVideo,
 .scrub-poster {
   display: block;
   width: 100%;
-  max-height: 100%;
+  max-height: 100vh;
   height: auto;
   object-fit: contain;
-  background-color: #6C5CE7;
+  background: transparent;
 }
 
 .scrub-poster {
   display: none;
+}
+
+.scrub-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    ellipse 72% 68% at 50% 48%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.06) 55%,
+    rgba(20, 12, 48, 0.18) 100%
+  );
+}
+
+.scrub-caption {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(18px, 4vh, 36px);
+  transform: translateX(-50%);
+  z-index: 3;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0.55rem 1.1rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(255, 249, 230, 0.88);
+  color: #3d348b;
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  font-size: clamp(0.8rem, 2.4vw, 0.95rem);
+  line-height: 1.2;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(40, 20, 90, 0.18);
+  opacity: 1;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.scrub-caption.is-hidden {
+  opacity: 0;
+}
+
+.scrub-caption__chevron {
+  display: block;
+  font-size: 0.85em;
+  line-height: 1;
+  animation: scrubCaptionBounce 1.4s ease-in-out infinite;
+}
+
+@keyframes scrubCaptionBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+.scrub-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.scrub-progress__bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-teal), var(--color-yellow));
+  box-shadow: 0 0 10px rgba(78, 205, 196, 0.45);
+  transition: none;
+}
+
+.scrub-deco {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.scrub-deco__note {
+  position: absolute;
+  color: rgba(255, 249, 230, 0.28);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  animation: scrubNoteDrift 14s ease-in-out infinite;
+}
+
+.scrub-deco__note--1 {
+  top: 10%;
+  left: 8%;
+  animation-delay: 0s;
+}
+
+.scrub-deco__note--2 {
+  top: 14%;
+  right: 12%;
+  animation-delay: -4s;
+  font-size: clamp(1.1rem, 2.4vw, 1.7rem);
+}
+
+.scrub-deco__note--3 {
+  bottom: 12%;
+  left: 14%;
+  animation-delay: -8s;
+  font-size: clamp(1.2rem, 2.6vw, 1.9rem);
+}
+
+@keyframes scrubNoteDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-8deg); opacity: 0.22; }
+  50% { transform: translate3d(10px, -14px, 0) rotate(10deg); opacity: 0.38; }
 }
 
 /* Mobile: size the pin to the wide frame so purple letterboxing collapses */
@@ -1900,12 +2045,29 @@ strong {
     top: 0;
   }
 
+  .scrub-frame {
+    height: 100%;
+  }
+
   #scrubVideo,
   .scrub-poster {
     width: 100%;
     height: 100%;
     max-height: none;
     object-fit: cover;
+  }
+
+  .scrub-caption {
+    bottom: 10px;
+    white-space: normal;
+    text-align: center;
+    max-width: min(92vw, 20rem);
+    font-size: 0.78rem;
+    padding: 0.45rem 0.85rem 0.3rem;
+  }
+
+  .scrub-deco__note--3 {
+    display: none;
   }
 }
 
@@ -1918,6 +2080,12 @@ strong {
 /* Collapsed poster-only state (load failure / reduced motion via JS class) */
 .scrub-track.is-fallback {
   height: auto !important;
+  background: linear-gradient(
+    180deg,
+    var(--scrub-purple) 0%,
+    var(--scrub-purple-deep) 50%,
+    var(--scrub-purple) 100%
+  );
 }
 
 .scrub-track.is-fallback .scrub-sticky,
@@ -1929,8 +2097,15 @@ strong {
   left: auto;
   right: auto;
   height: auto;
-  padding: 24px 0;
+  min-height: 0;
+  max-height: none;
+  padding: 0;
   z-index: auto;
+}
+
+.scrub-track.is-fallback .scrub-stage {
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 .scrub-track.is-fallback #scrubVideo {
@@ -1939,11 +2114,31 @@ strong {
 
 .scrub-track.is-fallback .scrub-poster {
   display: block;
+  width: 100%;
+  max-height: none;
+  object-fit: cover;
+  aspect-ratio: 1488 / 608;
+}
+
+.scrub-track.is-fallback .scrub-caption,
+.scrub-track.is-fallback .scrub-progress,
+.scrub-track.is-fallback .scrub-deco {
+  display: none;
+}
+
+.scrub-track.is-fallback .scrub-vignette {
+  display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .scrub-track {
     height: auto;
+    background: linear-gradient(
+      180deg,
+      var(--scrub-purple) 0%,
+      var(--scrub-purple-deep) 50%,
+      var(--scrub-purple) 100%
+    );
   }
 
   .scrub-sticky,
@@ -1955,8 +2150,14 @@ strong {
     left: auto;
     right: auto;
     height: auto;
-    padding: 24px 0;
+    max-height: none;
+    padding: 0;
     z-index: auto;
+  }
+
+  .scrub-stage {
+    transform: none !important;
+    opacity: 1 !important;
   }
 
   #scrubVideo {
@@ -1965,6 +2166,24 @@ strong {
 
   .scrub-poster {
     display: block;
+    width: 100%;
+    max-height: none;
+    object-fit: cover;
+    aspect-ratio: 1488 / 608;
+  }
+
+  .scrub-caption,
+  .scrub-progress,
+  .scrub-deco {
+    display: none;
+  }
+
+  .scrub-caption__chevron {
+    animation: none;
+  }
+
+  .scrub-deco__note {
+    animation: none;
   }
 }
 

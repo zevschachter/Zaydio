@@ -44,7 +44,7 @@
 
         <link href="bootstrap-icons.css?v=5.1" rel="stylesheet">
 
-        <link href="zaydio.css?v=10.1" rel="stylesheet">
+        <link href="zaydio.css?v=10.2" rel="stylesheet">
 
         <!-- Open on welcome (under splash); honor hash / reload / back-forward -->
         <script>
@@ -486,21 +486,38 @@
             <!-- Scroll-scrub: farm animals video pins and plays via scroll before About -->
             <section class="scrub-track" id="farm-scrub" aria-label="Zaydio farm animals scroll video">
                 <div class="scrub-sticky">
-                    <video id="scrubVideo"
-                           muted
-                           playsinline
-                           preload="auto"
-                           poster="gonnabebackdropforzaydio-poster.jpg"
-                           src="gonnabebackdropforzaydio.mp4"
-                           width="1488"
-                           height="608"
-                           aria-label="Farm animals smiling and walking up close to the camera"></video>
-                    <img id="scrubPoster"
-                         class="scrub-poster"
-                         src="gonnabebackdropforzaydio-poster.jpg"
-                         alt="Farm animals smiling near the camera"
-                         width="1488"
-                         height="608">
+                    <div class="scrub-stage">
+                        <div class="scrub-deco" aria-hidden="true">
+                            <span class="scrub-deco__note scrub-deco__note--1">&#9835;</span>
+                            <span class="scrub-deco__note scrub-deco__note--2">&#9834;</span>
+                            <span class="scrub-deco__note scrub-deco__note--3">&#9833;</span>
+                        </div>
+                        <div class="scrub-frame">
+                            <video id="scrubVideo"
+                                   muted
+                                   playsinline
+                                   preload="auto"
+                                   poster="gonnabebackdropforzaydio-poster.jpg"
+                                   src="gonnabebackdropforzaydio.mp4"
+                                   width="1488"
+                                   height="608"
+                                   aria-label="Farm animals smiling and walking up close to the camera"></video>
+                            <img id="scrubPoster"
+                                 class="scrub-poster"
+                                 src="gonnabebackdropforzaydio-poster.jpg"
+                                 alt="Farm animals smiling near the camera"
+                                 width="1488"
+                                 height="608">
+                            <div class="scrub-vignette" aria-hidden="true"></div>
+                            <div class="scrub-caption" id="scrubCaption">
+                                <span class="scrub-caption__text">Keep scrolling — say hi to the farm friends</span>
+                                <span class="scrub-caption__chevron" aria-hidden="true">&#9662;</span>
+                            </div>
+                            <div class="scrub-progress" id="scrubProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Farm video scroll progress">
+                                <div class="scrub-progress__bar" id="scrubProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -1147,11 +1164,18 @@
                     var video = document.getElementById('scrubVideo');
                     var track = document.querySelector('.scrub-track');
                     var sticky = track ? track.querySelector('.scrub-sticky') : null;
+                    var stage = track ? track.querySelector('.scrub-stage') : null;
+                    var caption = document.getElementById('scrubCaption');
+                    var progressBar = document.getElementById('scrubProgressBar');
+                    var progressEl = document.getElementById('scrubProgress');
                     if (!video || !track || !sticky) return;
 
                     var duration = 0;
-                    var ticking = false;
+                    var scrollTicking = false;
                     var fallbackApplied = false;
+                    var targetTime = 0;
+                    var easedTime = 0;
+                    var rafId = null;
                     var reduceMotion = false;
                     try {
                         reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1162,7 +1186,15 @@
                         fallbackApplied = true;
                         track.classList.add('is-fallback');
                         sticky.classList.remove('is-pinned', 'is-pinned-end');
+                        if (stage) {
+                            stage.style.transform = '';
+                            stage.style.opacity = '';
+                        }
                         try { video.pause(); } catch (e) {}
+                        if (rafId) {
+                            cancelAnimationFrame(rafId);
+                            rafId = null;
+                        }
                         window.removeEventListener('scroll', onScroll);
                     }
 
@@ -1192,8 +1224,56 @@
                         }
                     }
 
+                    function updateStageLook(rect, viewH, progress) {
+                        if (!stage) return;
+                        var scale = 1;
+                        var opacity = 1;
+                        if (rect.top > 0) {
+                            var approach = 1 - Math.min(1, Math.max(0, rect.top / (viewH * 0.4)));
+                            scale = 0.94 + 0.06 * approach;
+                            opacity = 0.85 + 0.15 * approach;
+                        } else if (progress > 0.85) {
+                            var exitT = (progress - 0.85) / 0.15;
+                            scale = 1 - 0.04 * Math.min(1, Math.max(0, exitT));
+                        }
+                        stage.style.transform = 'scale(' + scale.toFixed(4) + ')';
+                        stage.style.opacity = String(opacity.toFixed(3));
+                    }
+
+                    function updateChrome(progress) {
+                        if (caption) {
+                            if (progress > 0.15) caption.classList.add('is-hidden');
+                            else caption.classList.remove('is-hidden');
+                        }
+                        var pct = Math.round(Math.min(1, Math.max(0, progress)) * 100);
+                        if (progressBar) progressBar.style.width = pct + '%';
+                        if (progressEl) progressEl.setAttribute('aria-valuenow', String(pct));
+                    }
+
+                    function tickEase() {
+                        easedTime += (targetTime - easedTime) * 0.14;
+                        if (Math.abs(targetTime - easedTime) > 0.001) {
+                            try {
+                                if (!video.paused) video.pause();
+                                video.currentTime = easedTime;
+                            } catch (e) {}
+                            rafId = requestAnimationFrame(tickEase);
+                        } else {
+                            easedTime = targetTime;
+                            try {
+                                if (!video.paused) video.pause();
+                                video.currentTime = easedTime;
+                            } catch (e) {}
+                            rafId = null;
+                        }
+                    }
+
+                    function startEase() {
+                        if (rafId == null) rafId = requestAnimationFrame(tickEase);
+                    }
+
                     function update() {
-                        ticking = false;
+                        scrollTicking = false;
                         if (fallbackApplied) return;
                         var viewH = window.innerHeight || document.documentElement.clientHeight;
                         var rect = track.getBoundingClientRect();
@@ -1203,28 +1283,28 @@
                             progress = Math.min(1, Math.max(0, -rect.top / scrollable));
                         }
                         updatePin(rect, viewH, progress);
+                        updateStageLook(rect, viewH, progress);
+                        updateChrome(progress);
                         if (!duration && !syncDuration()) return;
                         if (scrollable <= 0) return;
                         var nextTime = progress * duration;
                         if (nextTime >= duration) nextTime = Math.max(0, duration - 0.001);
-                        try {
-                            if (!video.paused) video.pause();
-                            if (Math.abs(video.currentTime - nextTime) > 0.01) {
-                                video.currentTime = nextTime;
-                            }
-                        } catch (e) {}
+                        targetTime = nextTime;
+                        startEase();
                     }
 
                     function onScroll() {
-                        if (!ticking) {
+                        if (!scrollTicking) {
                             requestAnimationFrame(update);
-                            ticking = true;
+                            scrollTicking = true;
                         }
                     }
 
                     function onReady() {
                         if (!syncDuration()) return;
                         try { video.pause(); } catch (e) {}
+                        easedTime = video.currentTime || 0;
+                        targetTime = easedTime;
                         update();
                     }
 
