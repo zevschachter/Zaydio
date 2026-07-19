@@ -256,6 +256,10 @@
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link" href="/blog/">Blog</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link" href="parents.html">For Families</a>
                             </li>
 
@@ -1118,15 +1122,15 @@
                         var rect = frame.getBoundingClientRect();
                         var viewH = window.innerHeight || document.documentElement.clientHeight;
                         // Scrub only while the full frame is visible: progress is 0 until the
-                        // bottom edge enters the viewport. The 1.35 factor stretches the scroll
-                        // distance so playback takes 35% longer to reach the end.
+                        // bottom edge enters the viewport. The 2.7 factor stretches scroll travel
+                        // so playback runs at half speed vs the prior 1.35 mapping (50% slower).
                         var travel = viewH - rect.height;
                         var progress;
                         if (travel > 0) {
-                            progress = (viewH - rect.height - rect.top) / (travel * 1.35);
+                            progress = (viewH - rect.height - rect.top) / (travel * 2.7);
                         } else {
                             // Frame taller than the viewport: fall back to entry-to-exit mapping
-                            progress = (viewH - rect.top) / ((viewH + rect.height) * 1.35);
+                            progress = (viewH - rect.top) / ((viewH + rect.height) * 2.7);
                         }
                         if (progress < 0) progress = 0;
                         if (progress > 1) progress = 1;
