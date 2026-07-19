@@ -1830,6 +1830,33 @@ strong {
   }
 }
 
+/* Sticky scroll-pin: page stays on the video until one full scrub completes */
+.scroll-scrub-pin {
+  background-color: #6C5CE7;
+}
+
+.scroll-scrub-pin__track {
+  position: relative;
+  /* Fallback height; JS sets a duration-based height once the video loads */
+  height: 320vh;
+}
+
+.scroll-scrub-pin__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #6C5CE7;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.scroll-scrub-pin__sticky .video-purple-section {
+  width: 100%;
+}
+
 /* Purple video section: wide frame matching prior animal video (1536×576 ≈ 8/3) */
 .video-purple-section .scroll-scrub-frame {
   width: 100%;
@@ -1858,6 +1885,21 @@ strong {
 
   .video-purple-section .scroll-scrub-frame {
     border-radius: 20px 20px 15px 15px;
+  }
+
+  .scroll-scrub-pin__track {
+    height: 280vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-scrub-pin__track {
+    height: auto !important;
+  }
+
+  .scroll-scrub-pin__sticky {
+    position: relative;
+    height: auto;
   }
 }
 

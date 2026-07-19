@@ -44,7 +44,7 @@
 
         <link href="bootstrap-icons.css?v=5.1" rel="stylesheet">
 
-        <link href="zaydio.css?v=9.1" rel="stylesheet">
+        <link href="zaydio.css?v=9.2" rel="stylesheet">
 
         <!-- Structured Data for Google Rich Results -->
         <script type="application/ld+json">
@@ -396,11 +396,8 @@
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-6 col-12 text-center text-md-start">
-                            <p class="text-white mb-2" style="font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.95; font-weight: 500;">
-                                <span aria-hidden="true">&#127925;</span> New Album Out Now <span aria-hidden="true">&#127925;</span>
-                            </p>
                             <h2 class="text-white mb-3" style="font-size: 2.8rem; font-weight: 700; text-shadow: 2px 3px 6px rgba(0,0,0,0.2); line-height: 1.2;">
-                                <a href="/albums/everybody-sing.html" class="text-white text-decoration-none"><span class="rainbow-wave"><span style="animation-delay:0s">E</span><span style="animation-delay:0.06s">V</span><span style="animation-delay:0.12s">E</span><span style="animation-delay:0.18s">R</span><span style="animation-delay:0.24s">Y</span><span style="animation-delay:0.3s">B</span><span style="animation-delay:0.36s">O</span><span style="animation-delay:0.42s">D</span><span style="animation-delay:0.48s">Y</span><span class="rainbow-space"> </span><span style="animation-delay:0.6s">S</span><span style="animation-delay:0.66s">I</span><span style="animation-delay:0.72s">N</span><span style="animation-delay:0.78s">G</span></span><br>Album is Out!</a>
+                                Welcome to <span class="rainbow-wave"><span style="animation-delay:0s">Z</span><span style="animation-delay:0.06s">A</span><span style="animation-delay:0.12s">Y</span><span style="animation-delay:0.18s">D</span><span style="animation-delay:0.24s">I</span><span style="animation-delay:0.3s">O</span></span>!
                             </h2>
                             <p class="text-white mb-4 mx-auto mx-md-0" style="font-size: 1.25rem; opacity: 0.95; max-width: 480px;">
                                 Sing along with the whole family &mdash; catchy tunes that teach, inspire, and bring everyone together!
@@ -460,18 +457,24 @@
                 </svg>
             </div>
 
-            <!-- Video section with purple background and wavy top -->
-            <section class="video-purple-section" style="background-color: #6C5CE7; padding: 30px 15px; overflow: visible; position: relative;">
-                <div class="container-fluid px-lg-5">
-                    <div class="row justify-content-center">
-                        <div class="col-12" style="overflow: visible;">
-                            <div class="scroll-scrub-frame">
-                                <video id="about-backdrop-video" class="scroll-scrub-video" muted playsinline preload="none" data-scrub-src="gonnabebackdropforzaydio.mp4" aria-label="Zaydio animal adventure video"></video>
+            <!-- Scroll-pin: video must scrub through once before the page continues -->
+            <div class="scroll-scrub-pin" id="about-scroll-scrub">
+                <div class="scroll-scrub-pin__track">
+                    <div class="scroll-scrub-pin__sticky">
+                        <section class="video-purple-section" style="background-color: #6C5CE7; padding: 30px 15px; overflow: visible; position: relative; width: 100%;">
+                            <div class="container-fluid px-lg-5">
+                                <div class="row justify-content-center">
+                                    <div class="col-12" style="overflow: visible;">
+                                        <div class="scroll-scrub-frame">
+                                            <video id="about-backdrop-video" class="scroll-scrub-video" muted playsinline preload="none" data-scrub-src="gonnabebackdropforzaydio.mp4" aria-label="Zaydio animal adventure video"></video>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </section>
                     </div>
                 </div>
-            </section>
+            </div>
 
             <!-- Wavy transition: purple into orange -->
             <svg class="wave-animated wave-divider wave-purple-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
@@ -1093,11 +1096,13 @@
                     });
                 }
 
-                // About-backdrop video: scroll position scrubbing (no autoplay)
+                // About-backdrop video: sticky scroll-pin scrub (full play before page continues)
                 (function () {
                     var scrubVideo = document.getElementById('about-backdrop-video');
-                    if (!scrubVideo) return;
+                    var pin = document.getElementById('about-scroll-scrub');
+                    if (!scrubVideo || !pin) return;
 
+                    var track = pin.querySelector('.scroll-scrub-pin__track');
                     var frame = scrubVideo.closest('.scroll-scrub-frame') || scrubVideo;
                     var ready = false;
                     var blobUrl = null;
@@ -1108,34 +1113,40 @@
                         reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                     } catch (e) {}
 
+                    function updateTrackHeight() {
+                        if (!track || reduceMotion || !scrubVideo.duration) return;
+                        var viewH = window.innerHeight || document.documentElement.clientHeight;
+                        // Scroll distance while pinned: ~0.7 viewport per second of video
+                        // (keeps the prior "slow" feel while requiring a full playthrough)
+                        var travel = Math.max(viewH * 2.4, viewH * scrubVideo.duration * 0.7);
+                        track.style.height = (viewH + travel) + 'px';
+                    }
+
                     function markReady() {
                         if (ready) return;
                         if (!scrubVideo.duration || !isFinite(scrubVideo.duration)) return;
                         ready = true;
+                        updateTrackHeight();
                         try { scrubVideo.pause(); } catch (e) {}
                         scrubFromScroll(true);
                     }
 
                     function scrubFromScroll(force) {
-                        if (!ready || !scrubVideo.duration) return;
+                        if (!ready || !scrubVideo.duration || !track) return;
                         var now = (window.performance && performance.now) ? performance.now() : Date.now();
                         if (!force && now - lastScrubTs < 24) return;
                         lastScrubTs = now;
-                        var rect = frame.getBoundingClientRect();
+
                         var viewH = window.innerHeight || document.documentElement.clientHeight;
-                        // Scrub only while the full frame is visible: progress is 0 until the
-                        // bottom edge enters the viewport. The 2.7 factor stretches scroll travel
-                        // so playback runs at half speed vs the prior 1.35 mapping (50% slower).
-                        var travel = viewH - rect.height;
-                        var progress;
-                        if (travel > 0) {
-                            progress = (viewH - rect.height - rect.top) / (travel * 2.7);
-                        } else {
-                            // Frame taller than the viewport: fall back to entry-to-exit mapping
-                            progress = (viewH - rect.top) / ((viewH + rect.height) * 2.7);
-                        }
+                        var trackRect = track.getBoundingClientRect();
+                        var scrollable = track.offsetHeight - viewH;
+                        if (scrollable <= 0) return;
+
+                        // 0 while approaching the pin; 1 after scrolling through the full track
+                        var progress = (-trackRect.top) / scrollable;
                         if (progress < 0) progress = 0;
                         if (progress > 1) progress = 1;
+
                         var nextTime = progress * scrubVideo.duration;
                         if (nextTime >= scrubVideo.duration) nextTime = scrubVideo.duration - 0.001;
                         if (!force && Math.abs(nextTime - lastApplied) < 0.04) return;
@@ -1148,6 +1159,11 @@
 
                     function onScroll() {
                         scrubFromScroll(false);
+                    }
+
+                    function onResize() {
+                        updateTrackHeight();
+                        scrubFromScroll(true);
                     }
 
                     function bindReady() {
@@ -1199,14 +1215,14 @@
                                 loadAsBlob();
                                 preloadObserver.disconnect();
                             });
-                        }, { rootMargin: '400px' });
-                        preloadObserver.observe(frame);
+                        }, { rootMargin: '500px' });
+                        preloadObserver.observe(pin);
                     } else {
                         loadAsBlob();
                     }
 
                     window.addEventListener('scroll', onScroll, { passive: true });
-                    window.addEventListener('resize', onScroll);
+                    window.addEventListener('resize', onResize);
                     window.addEventListener('pagehide', function () {
                         if (blobUrl) URL.revokeObjectURL(blobUrl);
                     });
