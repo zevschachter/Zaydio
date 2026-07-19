@@ -2264,10 +2264,14 @@ video:hover {
 .rainbow-wave span:nth-child(7)  { color: #1DAA5C; }
 .rainbow-wave span:nth-child(8)  { color: #18A0B8; }
 .rainbow-wave span:nth-child(9)  { color: #0090D4; }
+.rainbow-wave span:nth-child(10) { color: #0077CC; }
 .rainbow-wave span:nth-child(11) { color: #0066FF; }
 .rainbow-wave span:nth-child(12) { color: #6B3FA0; }
 .rainbow-wave span:nth-child(13) { color: #9B30D6; }
 .rainbow-wave span:nth-child(14) { color: #E8225E; }
+.rainbow-wave span:nth-child(15) { color: #E8222E; }
+.rainbow-wave span:nth-child(16) { color: #FF9500; }
+.rainbow-wave span:nth-child(17) { color: #FFE033; }
 
 @keyframes rainbowLetterWave {
   0%, 100% { transform: translateY(0); }
