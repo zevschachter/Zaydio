@@ -144,7 +144,7 @@ Deno.serve(async (req) => {
     return withSecurityHeaders(new Response(file, {
       headers: {
         "content-type": "text/html",
-        "Cache-Control": "public, max-age=60, must-revalidate",
+        "Cache-Control": "no-cache, must-revalidate",
       },
     }));
   }
@@ -159,7 +159,7 @@ Deno.serve(async (req) => {
   // Keep HTML fresh so blog/index and article pages don't stick in browser caches.
   if (contentType.includes("text/html")) {
     const headers = new Headers(secured.headers);
-    headers.set("Cache-Control", "public, max-age=60, must-revalidate");
+    headers.set("Cache-Control", "no-cache, must-revalidate");
     return new Response(secured.body, {
       status: secured.status,
       statusText: secured.statusText,
