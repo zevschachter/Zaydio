@@ -171,6 +171,62 @@
   line-height: 1.55;
 }
 
+.blog-keep-going {
+  margin: 2.25rem 0 0;
+  padding: 1.5rem 0 0;
+  border-top: 2px solid rgba(78, 205, 196, 0.35);
+}
+
+.blog-keep-going > h2 {
+  margin-top: 0;
+}
+
+.blog-keep-going-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.blog-keep-going-list li {
+  background: var(--color-white);
+  border: 2px solid rgba(26, 26, 46, 0.08);
+  border-radius: var(--border-radius-medium);
+  padding: 1rem 1.15rem;
+}
+
+.blog-keep-going-list a {
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--color-navy);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.blog-keep-going-list a:hover {
+  color: var(--color-teal-dark);
+}
+
+.blog-keep-going-list p {
+  margin: 0.35rem 0 0;
+  font-size: 0.98rem;
+  color: var(--p-color);
+  line-height: 1.5;
+}
+
+.blog-keep-going-album {
+  border-color: rgba(78, 205, 196, 0.45);
+  background: var(--color-teal-light);
+}
+
+.blog-back {
+  margin: 0;
+  font-size: 1rem;
+}
+
 .blog-boilerplate {
   margin-top: 2.5rem;
   padding: 1.25rem 1.35rem;
