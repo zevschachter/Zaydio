@@ -154,5 +154,17 @@ Deno.serve(async (req) => {
     fsRoot: ".",
     showDirListing: false,
   });
-  return withSecurityHeaders(response);
+  const secured = withSecurityHeaders(response);
+  const contentType = secured.headers.get("content-type") || "";
+  // Keep HTML fresh so blog/index and article pages don't stick in browser caches.
+  if (contentType.includes("text/html")) {
+    const headers = new Headers(secured.headers);
+    headers.set("Cache-Control", "public, max-age=60, must-revalidate");
+    return new Response(secured.body, {
+      status: secured.status,
+      statusText: secured.statusText,
+      headers,
+    });
+  }
+  return secured;
 });
