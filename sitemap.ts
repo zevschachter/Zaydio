@@ -10,6 +10,8 @@ export const SITEMAP_ENTRIES: SitemapEntry[] = [
   { loc: "https://www.zaydio.com/privacy.html", changefreq: "monthly", priority: "0.7" },
   { loc: "https://www.zaydio.com/videos.html", changefreq: "weekly", priority: "0.8" },
   { loc: "https://www.zaydio.com/blog/", changefreq: "weekly", priority: "0.8" },
+  { loc: "https://www.zaydio.com/blog/alphabet-songs-for-toddlers/", changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.zaydio.com/es/blog/canciones-del-abecedario-para-ninos/", changefreq: "monthly", priority: "0.8" },
   { loc: "https://www.zaydio.com/blog/songs-to-teach-toddlers-colors/", changefreq: "monthly", priority: "0.8" },
   { loc: "https://www.zaydio.com/albums/everybody-sing.html", changefreq: "monthly", priority: "0.9" },
   { loc: "https://www.zaydio.com/albums/the-new-abcs.html", changefreq: "monthly", priority: "0.9" },
