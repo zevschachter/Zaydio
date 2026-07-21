@@ -4219,16 +4219,17 @@ video.album-cover-img {
   background: var(--color-white);
   border-bottom: 3px solid var(--color-teal);
   padding: 16px 0;
+  overflow: hidden; /* clip scaled logo so it cannot cover page content */
 }
 
-/* The 3.5x navbar logo scale overflows the shorter seo-page navbar and gets clipped */
 .seo-navbar .navbar-brand-image {
-  transform: scale(1.9);
+  transform: scale(1.6);
   transform-origin: left center;
+  z-index: 1;
 }
 
 .seo-navbar .navbar-brand-image:hover {
-  transform: scale(2);
+  transform: scale(1.7);
 }
 
 .seo-navbar .nav-link {

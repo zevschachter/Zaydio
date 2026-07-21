@@ -3,28 +3,30 @@
 .blog-main {
   background: linear-gradient(180deg, var(--color-teal-light) 0%, var(--color-white) 180px);
   padding-bottom: 4rem;
+  position: relative;
+  z-index: 2;
 }
 
 /* Keep the fixed consent bar from covering the last post cards on first paint */
 body:has(#consent-banner) .blog-main {
-  padding-bottom: calc(4rem + 7.5rem);
+  padding-bottom: calc(4rem + 8rem);
 }
 
 .blog-hero {
-  padding: 1.5rem 0 1rem;
+  padding: 1rem 0 0.65rem;
 }
 
 .blog-hero h1 {
   font-family: var(--heading-font-family);
   font-weight: var(--font-weight-bold);
   color: var(--color-navy);
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  margin-bottom: 0.35rem;
+  font-size: clamp(1.55rem, 4vw, 2.25rem);
+  margin-bottom: 0.25rem;
 }
 
 .blog-hero .blog-subtitle {
   color: var(--p-color);
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   max-width: 40rem;
   margin: 0;
 }
@@ -35,14 +37,14 @@ body:has(#consent-banner) .blog-main {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.65rem;
 }
 
 .blog-post-card {
   background: var(--color-white);
   border: 2px solid rgba(26, 26, 46, 0.08);
   border-radius: var(--border-radius-medium);
-  padding: 1.1rem 1.25rem;
+  padding: 0.85rem 1rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -53,9 +55,9 @@ body:has(#consent-banner) .blog-main {
 
 .blog-post-card h2 {
   font-family: var(--heading-font-family);
-  font-size: 1.2rem;
-  line-height: 1.3;
-  margin: 0 0 0.35rem;
+  font-size: 1.08rem;
+  line-height: 1.25;
+  margin: 0 0 0.25rem;
 }
 
 .blog-post-card h2 a {
@@ -70,16 +72,17 @@ body:has(#consent-banner) .blog-main {
 
 .blog-post-card .blog-excerpt {
   color: var(--p-color);
-  margin: 0 0 0.45rem;
-  line-height: 1.5;
+  margin: 0 0 0.3rem;
+  line-height: 1.4;
+  font-size: 0.95rem;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   overflow: hidden;
 }
 
 .blog-post-card time {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--dark-color);
   opacity: 0.7;
 }
@@ -286,18 +289,18 @@ body:has(#consent-banner) .blog-main {
   }
 
   .blog-hero {
-    padding: 1.15rem 0 0.75rem;
+    padding: 0.75rem 0 0.5rem;
   }
 
   .blog-post-card {
-    padding: 0.95rem 1rem;
+    padding: 0.75rem 0.85rem;
   }
 
   .blog-post-card h2 {
-    font-size: 1.1rem;
+    font-size: 1.02rem;
   }
 
   body:has(#consent-banner) .blog-main {
-    padding-bottom: calc(3rem + 9rem);
+    padding-bottom: calc(2.5rem + 9rem);
   }
 }
