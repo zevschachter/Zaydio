@@ -478,7 +478,7 @@
                 </svg>
             </div>
 
-            <!-- Scroll-scrub: farm animals video pins and plays via scroll before About -->
+            <!-- Farm video: scroll-scrub on desktop; autoplay/loop on mobile -->
             <section class="scrub-track" id="farm-scrub" aria-label="Zaydio farm animals scroll video">
                 <div class="scrub-sticky">
                     <div class="scrub-stage">
@@ -1134,12 +1134,11 @@
                     });
                 }
 
-                // Farm animals (#farm-scrub): ONE scroll-scrubbed ping-pong cycle.
-                // p = clamp(-trackTop / (trackHeight - pinHeight), 0, 1) once.
-                // File already bakes far→near→far; scrub only the approach half so
-                // triangle reverse doesn't play a second visual cycle.
-                // target = scrubD * (1 - |1 - 2p|), scrubD = duration / 2.
-                // No autonomous playback / loop / .play(). Single rAF owner.
+                // Farm animals (#farm-scrub):
+                // - Desktop (hover): ONE scroll-scrubbed ping-pong cycle
+                //   (scrub approach half only; file already bakes far→near→far)
+                // - Mobile (touch-primary): autoplay + loop baked ping-pong clip
+                // prefers-reduced-motion → static poster for both.
                 (function () {
                     var video = document.getElementById('scrubVideo');
                     var track = document.getElementById('farm-scrub') || document.querySelector('.scrub-track');
@@ -1151,22 +1150,13 @@
                     if (!video || !track || !sticky) return;
 
                     var reduceMotion = false;
+                    var touchPrimary = false;
                     try {
                         reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                     } catch (e) {}
-
-                    video.muted = true;
-                    video.defaultMuted = true;
-                    video.playsInline = true;
-                    video.setAttribute('playsinline', '');
-                    video.setAttribute('webkit-playsinline', '');
-                    video.preload = 'auto';
-                    video.loop = false;
-                    video.autoplay = false;
-                    video.removeAttribute('loop');
-                    video.removeAttribute('autoplay');
-                    video.src = 'gonnabebackdropforzaydio.mp4';
-                    try { video.pause(); } catch (e) {}
+                    try {
+                        touchPrimary = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+                    } catch (e) {}
 
                     function showStaticFrame() {
                         track.classList.add('is-fallback');
@@ -1186,6 +1176,45 @@
                         showStaticFrame();
                         return;
                     }
+
+                    video.muted = true;
+                    video.defaultMuted = true;
+                    video.playsInline = true;
+                    video.setAttribute('playsinline', '');
+                    video.setAttribute('webkit-playsinline', '');
+
+                    // Mobile: native autoplay loop — no scroll scrub.
+                    if (touchPrimary) {
+                        track.classList.add('is-pingpong');
+                        sticky.classList.remove('is-pinned', 'is-pinned-end');
+                        if (stage) {
+                            stage.style.transform = '';
+                            stage.style.opacity = '';
+                        }
+                        video.loop = true;
+                        video.autoplay = true;
+                        video.setAttribute('loop', '');
+                        video.setAttribute('autoplay', '');
+                        video.preload = 'metadata';
+                        video.setAttribute('poster', 'gonnabebackdropforzaydio-poster.jpg');
+                        video.src = 'farm-pingpong-720.mp4';
+                        video.play().catch(function () {});
+                        document.addEventListener('touchstart', function unlockPingPong() {
+                            video.play().catch(function () {});
+                            document.removeEventListener('touchstart', unlockPingPong);
+                        }, { once: true, passive: true });
+                        video.addEventListener('error', showStaticFrame);
+                        return;
+                    }
+
+                    // Desktop scrub only from here.
+                    video.preload = 'auto';
+                    video.loop = false;
+                    video.autoplay = false;
+                    video.removeAttribute('loop');
+                    video.removeAttribute('autoplay');
+                    video.src = 'gonnabebackdropforzaydio.mp4';
+                    try { video.pause(); } catch (e) {}
 
                     var scrubD = 0;
                     var displayedTime = 0;
