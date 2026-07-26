@@ -785,12 +785,39 @@ strong {
   cursor: pointer;
 }
 
+.music-popup-album-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  text-decoration: none;
+  color: inherit;
+  margin: 8px 0 4px;
+}
+
 .music-popup-album-cover {
   display: block;
-  margin: 8px auto 12px;
+  margin: 0 0 8px;
   border-radius: 14px;
   object-fit: cover;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.music-popup-album-page:hover .music-popup-album-cover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.16);
+}
+
+.music-popup-album-page-caption {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6C5CE7;
+  line-height: 1.3;
+}
+
+.music-popup-album-page:hover .music-popup-album-page-caption {
+  text-decoration: underline;
 }
 
 .music-popup-album-title {

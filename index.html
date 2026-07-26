@@ -190,7 +190,10 @@
             </div>
             <div id="music-popup-detail" class="music-popup-view" hidden>
                 <button type="button" class="music-popup-back" id="music-popup-back">&larr; All albums</button>
-                <img id="music-popup-album-cover" class="music-popup-album-cover" src="" alt="" width="160" height="160">
+                <a href="#" id="music-popup-album-page" class="music-popup-album-page">
+                    <img id="music-popup-album-cover" class="music-popup-album-cover" src="" alt="" width="160" height="160">
+                    <span class="music-popup-album-page-caption">View album page &rarr;</span>
+                </a>
                 <h3 id="music-popup-album-title" class="music-popup-album-title"></h3>
                 <p class="music-popup-detail-label">Listen on</p>
                 <a href="#" id="music-popup-spotify" target="_blank" rel="noopener noreferrer" class="music-popup-btn spotify-btn">
@@ -923,6 +926,7 @@
                 var musicDetailView = document.getElementById('music-popup-detail');
                 var musicAlbumGrid = document.getElementById('music-popup-album-grid');
                 var musicPopupBack = document.getElementById('music-popup-back');
+                var musicPopupAlbumPage = document.getElementById('music-popup-album-page');
                 var musicPopupCover = document.getElementById('music-popup-album-cover');
                 var musicPopupTitle = document.getElementById('music-popup-album-title');
                 var musicPopupSpotify = document.getElementById('music-popup-spotify');
@@ -932,9 +936,28 @@
                 var appleArtistUrl = 'https://music.apple.com/us/artist/zaydio/1868898316';
                 var amazonArtistUrl = 'https://music.amazon.com/artists/B0GGN6CHBL/zaydio';
                 var desktopAlbumBrowseQuery = window.matchMedia('(min-width: 992px)');
+                var ALBUM_PAGE_URLS = {
+                    'everybody sing': 'https://www.zaydio.com/albums/everybody-sing.html',
+                    'the new abcs': 'https://www.zaydio.com/albums/the-new-abcs.html',
+                    'sing along lullabies': 'https://www.zaydio.com/albums/sing-along-lullabies.html',
+                    'island vibes lullabies': 'https://www.zaydio.com/albums/island-vibes-lullabies.html'
+                };
 
                 function isDesktopAlbumBrowse() {
                     return desktopAlbumBrowseQuery.matches;
+                }
+
+                function normalizeAlbumKey(name) {
+                    return String(name || '')
+                        .toLowerCase()
+                        .replace(/[''\u2019]/g, '')
+                        .replace(/[^a-z0-9\s]/g, '')
+                        .replace(/\s+/g, ' ')
+                        .trim();
+                }
+
+                function albumPageUrl(album) {
+                    return ALBUM_PAGE_URLS[normalizeAlbumKey(album && album.name)] || '#';
                 }
 
                 function showMusicAlbumList() {
@@ -951,9 +974,19 @@
                         musicPopupCover.src = album.coverImage;
                         musicPopupCover.alt = album.name + ' album cover';
                     }
+                    if (musicPopupAlbumPage) {
+                        musicPopupAlbumPage.href = albumPageUrl(album);
+                        musicPopupAlbumPage.setAttribute('aria-label', 'View the ' + album.name + ' album page');
+                    }
                     musicPopupSpotify.href = 'https://open.spotify.com/album/' + album.spotifyId;
                     musicPopupApple.href = album.appleMusicUrl || appleArtistUrl;
                     musicPopupAmazon.href = amazonArtistUrl;
+                }
+
+                if (musicPopupAlbumPage) {
+                    musicPopupAlbumPage.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
                 }
 
                 function renderMusicAlbumGrid(albums) {
