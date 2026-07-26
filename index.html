@@ -485,6 +485,7 @@
                         </div>
                         <div class="scrub-frame">
                             <video id="scrubVideo"
+                                   src="gonnabebackdropforzaydio.mp4"
                                    muted
                                    playsinline
                                    preload="auto"
@@ -1074,13 +1075,12 @@
                     });
                 }
 
-                // Farm animals video:
-                // - Desktop (hover): scroll-scrub (unchanged)
-                // - Mobile (touch-primary): baked ping-pong autoplay loop, no scrub track
-                // Mode is chosen once at load; prefers-reduced-motion wins over both.
+                // Farm animals (#farm-scrub): scroll-scrubbed ping-pong.
+                // videoTime = duration * (1 - |1 - 2p|), p = scroll progress through the track.
+                // No autonomous playback / loop / .play().
                 (function () {
                     var video = document.getElementById('scrubVideo');
-                    var track = document.querySelector('.scrub-track');
+                    var track = document.getElementById('farm-scrub') || document.querySelector('.scrub-track');
                     var sticky = track ? track.querySelector('.scrub-sticky') : null;
                     var stage = track ? track.querySelector('.scrub-stage') : null;
                     var caption = document.getElementById('scrubCaption');
@@ -1089,19 +1089,26 @@
                     if (!video || !track || !sticky) return;
 
                     var reduceMotion = false;
-                    var touchPrimary = false;
                     try {
                         reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                     } catch (e) {}
-                    try {
-                        touchPrimary = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-                    } catch (e) {}
 
-                    var fallbackApplied = false;
-                    var rafActive = false;
-                    function applyFallback() {
-                        if (fallbackApplied) return;
-                        fallbackApplied = true;
+                    video.muted = true;
+                    video.defaultMuted = true;
+                    video.playsInline = true;
+                    video.setAttribute('playsinline', '');
+                    video.setAttribute('webkit-playsinline', '');
+                    video.preload = 'auto';
+                    video.loop = false;
+                    video.autoplay = false;
+                    video.removeAttribute('loop');
+                    video.removeAttribute('autoplay');
+                    if (!video.getAttribute('src')) {
+                        video.src = 'gonnabebackdropforzaydio.mp4';
+                    }
+                    try { video.pause(); } catch (e) {}
+
+                    function showStaticFrame() {
                         track.classList.add('is-fallback');
                         track.classList.remove('is-pingpong');
                         sticky.classList.remove('is-pinned', 'is-pinned-end');
@@ -1109,63 +1116,25 @@
                             stage.style.transform = '';
                             stage.style.opacity = '';
                         }
-                        try { video.pause(); } catch (e) {}
-                        rafActive = false;
-                        window.removeEventListener('scroll', onScroll);
+                        try {
+                            video.pause();
+                            if (video.readyState >= 1) video.currentTime = 0;
+                        } catch (e) {}
                     }
 
                     if (reduceMotion) {
-                        applyFallback();
+                        showStaticFrame();
                         return;
                     }
-
-                    // Mobile: native ping-pong loop (baked reverse), no scrub init.
-                    if (touchPrimary) {
-                        track.classList.add('is-pingpong');
-                        sticky.classList.remove('is-pinned', 'is-pinned-end');
-                        if (stage) {
-                            stage.style.transform = '';
-                            stage.style.opacity = '';
-                        }
-                        video.muted = true;
-                        video.defaultMuted = true;
-                        video.playsInline = true;
-                        video.setAttribute('playsinline', '');
-                        video.setAttribute('webkit-playsinline', '');
-                        video.loop = true;
-                        video.autoplay = true;
-                        video.preload = 'metadata';
-                        video.setAttribute('poster', 'gonnabebackdropforzaydio-poster.jpg');
-                        video.src = 'farm-pingpong-720.mp4';
-                        video.play().catch(function () {});
-                        document.addEventListener('touchstart', function unlockPingPong() {
-                            video.play().catch(function () {});
-                            document.removeEventListener('touchstart', unlockPingPong);
-                        }, { once: true, passive: true });
-                        return;
-                    }
-
-                    // Desktop scrub only from here.
-                    var DESKTOP_SRC = 'gonnabebackdropforzaydio.mp4';
-                    video.src = DESKTOP_SRC;
 
                     var duration = 0;
+                    var displayedTime = 0;
                     var targetTime = 0;
-                    var currentTime = 0;
-                    var lastAppliedTime = -1;
-                    var pendingSeek = null;
-                    var seekInFlight = false;
-                    var vpH = 0;
-                    var scrollable = 0;
+                    var rafId = 0;
+                    var heroNear = false;
+                    var EASE = 0.18;
+                    var SEEK_EPS = 0.01;
                     var lastW = window.innerWidth || 0;
-                    var easeFactor = 0.14;
-                    var SEEK_EPS = 1 / 30;
-
-                    function measure() {
-                        vpH = sticky.offsetHeight || 1;
-                        scrollable = Math.max(0, track.offsetHeight - vpH);
-                        lastW = window.innerWidth || lastW;
-                    }
 
                     function syncDuration() {
                         var d = video.duration;
@@ -1176,11 +1145,25 @@
                         return false;
                     }
 
-                    function updatePin(rect, progress) {
-                        if (rect.top <= 0 && (rect.bottom > vpH) && progress < 0.999) {
+                    // Mid-page sticky track: p=0 when track top hits viewport top;
+                    // p=1 when track has scrolled through (trackHeight - pinHeight).
+                    function scrollProgress() {
+                        var pinH = sticky.offsetHeight || 1;
+                        var scrollable = Math.max(1, track.offsetHeight - pinH);
+                        var top = track.getBoundingClientRect().top;
+                        return Math.min(1, Math.max(0, -top / scrollable));
+                    }
+
+                    function pingPongTime(p) {
+                        return duration * (1 - Math.abs(1 - 2 * p));
+                    }
+
+                    function updatePin(rect, p) {
+                        var vpH = sticky.offsetHeight || window.innerHeight || 1;
+                        if (rect.top <= 0 && rect.bottom > vpH && p < 0.999) {
                             sticky.classList.add('is-pinned');
                             sticky.classList.remove('is-pinned-end');
-                        } else if (rect.top < 0 && (rect.bottom <= vpH || progress >= 0.999)) {
+                        } else if (rect.top < 0 && (rect.bottom <= vpH || p >= 0.999)) {
                             sticky.classList.remove('is-pinned');
                             sticky.classList.add('is-pinned-end');
                         } else {
@@ -1188,181 +1171,120 @@
                         }
                     }
 
-                    function updateStageLook(rect, progress) {
+                    function updateStageLook(rect, p) {
                         if (!stage) return;
+                        var vpH = sticky.offsetHeight || window.innerHeight || 1;
                         var scale = 1;
                         var opacity = 1;
                         if (rect.top > 0) {
                             var approach = 1 - Math.min(1, Math.max(0, rect.top / (vpH * 0.4)));
                             scale = 0.94 + 0.06 * approach;
                             opacity = 0.85 + 0.15 * approach;
-                        } else if (progress > 0.85) {
-                            var exitT = (progress - 0.85) / 0.15;
+                        } else if (p > 0.85) {
+                            var exitT = (p - 0.85) / 0.15;
                             scale = 1 - 0.04 * Math.min(1, Math.max(0, exitT));
                         }
                         stage.style.transform = 'scale(' + scale.toFixed(4) + ')';
                         stage.style.opacity = String(opacity.toFixed(3));
                     }
 
-                    function updateChrome(progress) {
+                    function updateChrome(p) {
                         if (caption) {
-                            if (progress > 0.15) caption.classList.add('is-hidden');
+                            if (p > 0.15) caption.classList.add('is-hidden');
                             else caption.classList.remove('is-hidden');
                         }
-                        var clamped = Math.min(1, Math.max(0, progress));
-                        var pct = Math.round(clamped * 100);
-                        if (progressBar) progressBar.style.transform = 'scaleX(' + clamped.toFixed(4) + ')';
+                        var pct = Math.round(p * 100);
+                        if (progressBar) progressBar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
                         if (progressEl) progressEl.setAttribute('aria-valuenow', String(pct));
                     }
 
-                    function flushPendingSeek() {
-                        seekInFlight = false;
-                        if (pendingSeek == null) return;
-                        var p = pendingSeek;
-                        pendingSeek = null;
-                        applySeek(p);
-                    }
+                    function frame() {
+                        rafId = 0;
+                        if (!heroNear) return;
 
-                    function applySeek(t) {
-                        if (!isFinite(t)) return;
-                        if (Math.abs(t - lastAppliedTime) < SEEK_EPS) return;
-                        if (video.seeking || seekInFlight) {
-                            pendingSeek = t;
+                        if (!duration && !syncDuration()) {
+                            rafId = requestAnimationFrame(frame);
                             return;
                         }
-                        seekInFlight = true;
-                        try {
-                            if (!video.paused) video.pause();
-                            if (typeof video.fastSeek === 'function') {
-                                video.fastSeek(t);
-                            } else {
-                                video.currentTime = t;
-                            }
-                            lastAppliedTime = t;
-                        } catch (e) {
-                            try {
-                                video.currentTime = t;
-                                lastAppliedTime = t;
-                            } catch (e2) {
-                                seekInFlight = false;
-                                return;
-                            }
-                        }
-                        // If the decoder accepted the seek synchronously, continue.
-                        if (!video.seeking) {
-                            flushPendingSeek();
-                            return;
-                        }
-                        // Safety: some mobile engines leave seeking=true without seeked.
-                        setTimeout(function () {
-                            if (seekInFlight) flushPendingSeek();
-                        }, 120);
-                    }
 
-                    video.addEventListener('seeked', function () {
-                        lastAppliedTime = video.currentTime;
-                        flushPendingSeek();
-                    });
-
-                    // Pinned: scroll drives the video forward/back.
-                    // After release (is-pinned-end): hold the final frame — no rewind on exit.
-                    // Re-entering the pin from above resumes normal scrub/rewind.
-                    function computeTarget(rect) {
-                        var progress = 0;
-                        if (scrollable > 0) {
-                            progress = Math.min(1, Math.max(0, -rect.top / scrollable));
-                        }
-                        updatePin(rect, progress);
-                        updateStageLook(rect, progress);
-                        updateChrome(progress);
-                        if (!duration && !syncDuration()) return;
-                        if (scrollable <= 0) return;
-
-                        // Hold last frame once the section has released at the end.
-                        var scrubProgress = sticky.classList.contains('is-pinned-end')
-                            ? 1
-                            : progress;
-
-                        var nextTime = scrubProgress * duration;
-                        if (nextTime >= duration) nextTime = Math.max(0, duration - 0.001);
-                        targetTime = nextTime;
-                    }
-
-                    function stepEasing() {
-                        currentTime += (targetTime - currentTime) * easeFactor;
-                        if (Math.abs(targetTime - currentTime) <= 0.001) {
-                            currentTime = targetTime;
-                        }
-                        applySeek(currentTime);
-                    }
-
-                    function frameLoop() {
-                        if (fallbackApplied) {
-                            rafActive = false;
-                            return;
-                        }
                         var rect = track.getBoundingClientRect();
-                        var nearViewport = rect.bottom > -200 && rect.top < vpH + 200;
-                        if (nearViewport && duration) {
-                            computeTarget(rect);
-                            stepEasing();
-                        } else if (nearViewport) {
-                            computeTarget(rect);
-                            syncDuration();
+                        var p = scrollProgress();
+                        targetTime = pingPongTime(p);
+                        if (targetTime >= duration) targetTime = Math.max(0, duration - 0.001);
+
+                        updatePin(rect, p);
+                        updateStageLook(rect, p);
+                        updateChrome(p);
+
+                        displayedTime += (targetTime - displayedTime) * EASE;
+                        if (Math.abs(targetTime - displayedTime) <= 0.001) {
+                            displayedTime = targetTime;
                         }
-                        if (nearViewport) {
-                            requestAnimationFrame(frameLoop);
-                        } else {
-                            rafActive = false;
+
+                        if (Math.abs(video.currentTime - displayedTime) >= SEEK_EPS) {
+                            try {
+                                if (!video.paused) video.pause();
+                                video.currentTime = displayedTime;
+                            } catch (e) {}
+                        }
+
+                        rafId = requestAnimationFrame(frame);
+                    }
+
+                    function startRaf() {
+                        if (!rafId && heroNear) {
+                            rafId = requestAnimationFrame(frame);
                         }
                     }
 
-                    function onScroll() {
-                        if (!rafActive) {
-                            rafActive = true;
-                            requestAnimationFrame(frameLoop);
+                    function stopRaf() {
+                        if (rafId) {
+                            cancelAnimationFrame(rafId);
+                            rafId = 0;
                         }
+                    }
+
+                    // Passive: only kicks the rAF loop; all scrub work is inside frame().
+                    function onScroll() {
+                        startRaf();
                     }
 
                     function onReady() {
                         if (!syncDuration()) return;
                         try { video.pause(); } catch (e) {}
-                        currentTime = video.currentTime || 0;
-                        targetTime = currentTime;
-                        lastAppliedTime = currentTime;
-                        measure();
-                        onScroll();
+                        displayedTime = video.currentTime || 0;
+                        targetTime = displayedTime;
+                        startRaf();
                     }
 
-                    measure();
                     video.addEventListener('loadedmetadata', onReady);
-                    video.addEventListener('loadeddata', onReady);
-                    video.addEventListener('canplay', onReady);
-                    video.addEventListener('error', applyFallback);
-
-                    setTimeout(function () {
-                        if (!syncDuration()) applyFallback();
-                        else onScroll();
-                    }, 3000);
-
+                    video.addEventListener('error', showStaticFrame);
                     if (video.readyState >= 1) onReady();
 
                     window.addEventListener('scroll', onScroll, { passive: true });
-                    window.addEventListener('orientationchange', function () {
-                        setTimeout(function () {
-                            if (fallbackApplied) return;
-                            measure();
-                            onScroll();
-                        }, 300);
-                    });
                     window.addEventListener('resize', function () {
-                        if (fallbackApplied) return;
                         var w = window.innerWidth || 0;
                         if (Math.abs(w - lastW) > 40) {
-                            measure();
-                            onScroll();
+                            lastW = w;
+                            startRaf();
                         }
+                    }, { passive: true });
+                    window.addEventListener('orientationchange', function () {
+                        setTimeout(startRaf, 300);
                     });
+
+                    if ('IntersectionObserver' in window) {
+                        var io = new IntersectionObserver(function (entries) {
+                            var entry = entries[0];
+                            heroNear = !!(entry && entry.isIntersecting);
+                            if (heroNear) startRaf();
+                            else stopRaf();
+                        }, { root: null, rootMargin: '200px 0px', threshold: 0 });
+                        io.observe(track);
+                    } else {
+                        heroNear = true;
+                        startRaf();
+                    }
                 })();
 
                 // Easter egg: confetti burst on album cover / looping video click
