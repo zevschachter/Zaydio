@@ -1075,9 +1075,12 @@
                     });
                 }
 
-                // Farm animals (#farm-scrub): scroll-scrubbed ping-pong.
-                // videoTime = duration * (1 - |1 - 2p|), p = scroll progress through the track.
-                // No autonomous playback / loop / .play().
+                // Farm animals (#farm-scrub): ONE scroll-scrubbed ping-pong cycle.
+                // p = clamp(-trackTop / (trackHeight - pinHeight), 0, 1) once.
+                // File already bakes far→near→far; scrub only the approach half so
+                // triangle reverse doesn't play a second visual cycle.
+                // target = scrubD * (1 - |1 - 2p|), scrubD = duration / 2.
+                // No autonomous playback / loop / .play(). Single rAF owner.
                 (function () {
                     var video = document.getElementById('scrubVideo');
                     var track = document.getElementById('farm-scrub') || document.querySelector('.scrub-track');
@@ -1103,9 +1106,7 @@
                     video.autoplay = false;
                     video.removeAttribute('loop');
                     video.removeAttribute('autoplay');
-                    if (!video.getAttribute('src')) {
-                        video.src = 'gonnabebackdropforzaydio.mp4';
-                    }
+                    video.src = 'gonnabebackdropforzaydio.mp4';
                     try { video.pause(); } catch (e) {}
 
                     function showStaticFrame() {
@@ -1127,10 +1128,11 @@
                         return;
                     }
 
-                    var duration = 0;
+                    var scrubD = 0;
                     var displayedTime = 0;
                     var targetTime = 0;
                     var rafId = 0;
+                    var rafRunning = false;
                     var heroNear = false;
                     var EASE = 0.18;
                     var SEEK_EPS = 0.01;
@@ -1139,7 +1141,8 @@
                     function syncDuration() {
                         var d = video.duration;
                         if (d && isFinite(d) && d > 0) {
-                            duration = d;
+                            // Approach half only — second half of the file is a baked retreat.
+                            scrubD = d * 0.5;
                             return true;
                         }
                         return false;
@@ -1155,7 +1158,7 @@
                     }
 
                     function pingPongTime(p) {
-                        return duration * (1 - Math.abs(1 - 2 * p));
+                        return scrubD * (1 - Math.abs(1 - 2 * p));
                     }
 
                     function updatePin(rect, p) {
@@ -1199,10 +1202,13 @@
                     }
 
                     function frame() {
-                        rafId = 0;
-                        if (!heroNear) return;
+                        if (!heroNear) {
+                            rafRunning = false;
+                            rafId = 0;
+                            return;
+                        }
 
-                        if (!duration && !syncDuration()) {
+                        if (!scrubD && !syncDuration()) {
                             rafId = requestAnimationFrame(frame);
                             return;
                         }
@@ -1210,7 +1216,7 @@
                         var rect = track.getBoundingClientRect();
                         var p = scrollProgress();
                         targetTime = pingPongTime(p);
-                        if (targetTime >= duration) targetTime = Math.max(0, duration - 0.001);
+                        if (targetTime >= scrubD) targetTime = Math.max(0, scrubD - 0.001);
 
                         updatePin(rect, p);
                         updateStageLook(rect, p);
@@ -1232,12 +1238,14 @@
                     }
 
                     function startRaf() {
-                        if (!rafId && heroNear) {
+                        if (!rafRunning && heroNear) {
+                            rafRunning = true;
                             rafId = requestAnimationFrame(frame);
                         }
                     }
 
                     function stopRaf() {
+                        rafRunning = false;
                         if (rafId) {
                             cancelAnimationFrame(rafId);
                             rafId = 0;
@@ -1252,7 +1260,7 @@
                     function onReady() {
                         if (!syncDuration()) return;
                         try { video.pause(); } catch (e) {}
-                        displayedTime = video.currentTime || 0;
+                        displayedTime = Math.min(video.currentTime || 0, scrubD);
                         targetTime = displayedTime;
                         startRaf();
                     }
