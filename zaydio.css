@@ -4287,7 +4287,7 @@ video.album-cover-img {
   margin-bottom: 12px;
 }
 
-.page-header p,
+.page-header p:not(.seo-breadcrumb),
 .seo-page .seo-hero .seo-lead {
   color: rgba(255, 255, 255, 0.9);
   font-size: 1.1rem;
@@ -4344,6 +4344,10 @@ video.album-cover-img {
 
 .seo-page .seo-hero .seo-breadcrumb {
   text-align: left;
+  /* Don't inherit .page-header p { max-width + margin:auto } centering */
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .hero-section h1,
@@ -4399,6 +4403,9 @@ video.album-cover-img {
 
 .seo-page .seo-hero.page-header:has(.row) .seo-breadcrumb {
   text-align: left;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .seo-page .seo-hero.page-header:has(.row) .seo-lead {

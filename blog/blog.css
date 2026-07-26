@@ -263,6 +263,7 @@ body:has(#consent-banner) .blog-main {
   gap: 0;
   font-size: 0.875rem;
   color: rgba(45, 52, 54, 0.62);
+  /* Lives inside .blog-article so left edge matches the H1 column */
   margin: 1.5rem 0 0.75rem;
   line-height: 1.4;
 }
