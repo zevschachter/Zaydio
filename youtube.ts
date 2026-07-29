@@ -199,5 +199,13 @@ export function fallbackVideos(): YouTubeVideo[] {
       thumbnailUrl: "https://i.ytimg.com/vi/MMKuqS7pXcQ/hqdefault.jpg",
       isShort: true,
     },
+    {
+      id: "Wm1Y6nARn68",
+      title: "Where Does Rain Come From? Clouds, Rain & Flowers | Zaydio",
+      publishedAt: "2026-07-28T00:00:00+00:00",
+      url: "https://www.youtube.com/shorts/Wm1Y6nARn68",
+      thumbnailUrl: "https://i.ytimg.com/vi/Wm1Y6nARn68/hqdefault.jpg",
+      isShort: true,
+    },
   ]);
 }
