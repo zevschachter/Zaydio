@@ -230,17 +230,17 @@ body:has(#consent-banner) .blog-main {
   cursor: default;
 }
 
-.blog-helpful-heart {
-  color: var(--color-coral);
-  font-size: 1.15rem;
-  line-height: 1;
-  display: inline-block;
-  transition: transform 0.25s ease, color 0.25s ease;
+.blog-helpful-thumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
 }
 
-.blog-helpful.is-popping .blog-helpful-heart {
+.blog-helpful.is-popping .blog-helpful-thumb {
   transform: scale(1.35);
-  color: var(--color-coral-dark, #E85555);
 }
 
 .blog-helpful.is-thanks .blog-helpful-btn,
@@ -249,9 +249,8 @@ body:has(#consent-banner) .blog-main {
   background: rgba(78, 205, 196, 0.18);
 }
 
-.blog-helpful.is-thanks .blog-helpful-heart,
-.blog-helpful.is-filled .blog-helpful-heart {
-  color: var(--color-coral);
+.blog-helpful.is-thanks .blog-helpful-thumb,
+.blog-helpful.is-filled .blog-helpful-thumb {
   transform: scale(1.05);
 }
 

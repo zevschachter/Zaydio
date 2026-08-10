@@ -19,7 +19,7 @@
     btn.disabled = true;
     btn.setAttribute("aria-disabled", "true");
     root.classList.add("is-thanks");
-    label.textContent = lang === "es" ? "¡Gracias! ♥" : "Thanks! ♥";
+    label.textContent = lang === "es" ? "¡Gracias!" : "Thanks!";
     btn.setAttribute("aria-label", label.textContent);
   }
 
