@@ -122,9 +122,25 @@
       });
   }
 
-  function boot() {
+  function bootHelpful() {
     var nodes = document.querySelectorAll("[data-helpful]");
     for (var i = 0; i < nodes.length; i++) initOne(nodes[i]);
+  }
+
+  function bootSignup() {
+    if (window.location.search.indexOf("signedup=1") === -1) return;
+    var boxes = document.querySelectorAll(".blog-signup");
+    for (var i = 0; i < boxes.length; i++) {
+      var box = boxes[i];
+      var success = box.querySelector(".blog-signup-success");
+      if (success) success.hidden = false;
+      box.classList.add("is-success");
+    }
+  }
+
+  function boot() {
+    bootHelpful();
+    bootSignup();
   }
 
   if (document.readyState === "loading") {

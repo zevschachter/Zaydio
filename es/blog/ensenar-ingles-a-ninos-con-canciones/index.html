@@ -32,7 +32,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
     <link href="/bootstrap.min.css?v=5.1" rel="stylesheet">
     <link href="/zaydio.css?v=10.5" rel="stylesheet">
-    <link href="/blog/blog.css?v=8" rel="stylesheet">
+    <link href="/blog/blog.css?v=9" rel="stylesheet">
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -272,7 +272,26 @@
                     <p class="blog-helpful-count" hidden></p>
                 </div>
 
-                <h2>Fuentes</h2>
+                
+                <!-- MAILERLITE-MIGRATION: replace this Formsubmit block with MailerLite embed when list auth is ready -->
+                <aside class="blog-signup" aria-labelledby="blog-signup-heading">
+                    <h2 id="blog-signup-heading">Una lectura honesta al mes.</h2>
+                    <p class="blog-signup-lead">Canciones nuevas, y una respuesta con base en la investigación para padres de niños pequeños. Sin spam; puedes darte de baja cuando quieras.</p>
+                    <p class="blog-signup-privacy">Solo usamos tu email para novedades de Zaydio. Ver nuestra <a href="/privacy.html">Política de privacidad</a>.</p>
+                    <div class="blog-signup-success" hidden>¡Gracias por unirte! Ya estás en la lista.</div>
+                    <form class="blog-signup-form" action="https://formsubmit.co/zaydioandfriends@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="New Zaydio blog signup (ES)">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://www.zaydio.com/es/blog/ensenar-ingles-a-ninos-con-canciones/?signedup=1">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="source" value="es/blog/ensenar-ingles-a-ninos-con-canciones">
+                        <label class="visually-hidden" for="blog-signup-email-ensenaringlesaninosconca">Correo electrónico</label>
+                        <input class="blog-signup-input" type="email" name="email" id="blog-signup-email-ensenaringlesaninosconca" required placeholder="tu@email.com" autocomplete="email">
+                        <button type="submit" class="blog-signup-btn">Únete</button>
+                    </form>
+                </aside>
+
+<h2>Fuentes</h2>
                 <ul class="blog-sources">
                     <li>Kuhl, P. K., Tsao, F. M., &amp; Liu, H. M. (2003). &ldquo;Foreign-language experience in infancy: Effects of short-term exposure and social interaction on phonetic learning.&rdquo; <em>Proceedings of the National Academy of Sciences</em>, <a href="https://www.pnas.org/doi/10.1073/pnas.1532872100" target="_blank" rel="noopener">pnas.org</a>.</li>
                     <li>Kuhl, P. K. (2010). &ldquo;Brain mechanisms in early language acquisition.&rdquo; <em>Neuron</em> (acceso abierto en PMC), <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3164118/" target="_blank" rel="noopener">pmc.ncbi.nlm.nih.gov</a>.</li>
@@ -334,6 +353,6 @@
 
     <script src="/jquery.min.js?v=5.1"></script>
     <script src="/bootstrap.bundle.min.js?v=5.1"></script>
-    <script defer src="/blog/helpful.js?v=1"></script>
+    <script defer src="/blog/helpful.js?v=2"></script>
 </body>
 </html>

@@ -400,3 +400,103 @@ body:has(#consent-banner) .blog-main {
   font-size: 0.9em;
   opacity: 0.8;
 }
+
+/* Blog email signup — above Sources; quiet, post-content placement */
+.blog-signup {
+  margin: 2rem 0 1.75rem;
+  padding: 1.35rem 1.15rem;
+  text-align: center;
+  background: rgba(78, 205, 196, 0.1);
+  border: 1px solid rgba(78, 205, 196, 0.28);
+  border-radius: var(--border-radius-medium);
+}
+
+.blog-signup h2 {
+  font-family: var(--heading-font-family);
+  font-size: 1.35rem;
+  margin: 0 0 0.5rem;
+  color: var(--color-navy);
+}
+
+.blog-signup-lead {
+  margin: 0 auto 0.4rem;
+  max-width: 34rem;
+  color: var(--p-color);
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.blog-signup-privacy {
+  margin: 0 auto 1rem;
+  max-width: 34rem;
+  font-size: 0.85rem;
+  color: rgba(45, 52, 54, 0.72);
+}
+
+.blog-signup-privacy a {
+  color: var(--color-teal-dark);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.blog-signup-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.blog-signup-input {
+  flex: 1 1 12rem;
+  min-width: 0;
+  padding: 0.65rem 1rem;
+  border: 2px solid rgba(26, 26, 46, 0.12);
+  border-radius: 999px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.blog-signup-input:focus {
+  outline: none;
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.22);
+}
+
+.blog-signup-btn {
+  appearance: none;
+  border: none;
+  background: var(--color-teal);
+  color: #fff;
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.blog-signup-btn:hover {
+  background: var(--color-teal-dark, #3db8b0);
+}
+
+.blog-signup-success {
+  background: var(--color-white);
+  border: 2px solid var(--color-teal);
+  border-radius: var(--border-radius-medium);
+  padding: 0.85rem 1rem;
+  max-width: 28rem;
+  margin: 0 auto;
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.blog-signup-success[hidden] {
+  display: none !important;
+}
+
+.blog-signup.is-success .blog-signup-form,
+.blog-signup.is-success .blog-signup-privacy {
+  display: none;
+}

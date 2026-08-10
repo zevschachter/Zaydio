@@ -8,6 +8,7 @@
 - [ ] og:image + 1200/630 size tags, twitter:card summary_large_image — prefer a custom 1200×630 per post (not shared `og-image.jpg`)
 - [ ] Image files named `zaydio-[subject]-[context].webp`; alt text describes the image (a11y = SEO)
 - [ ] "This helped" button present
+- [ ] Blog signup strip present above Sources (Formsubmit for now — see MailerLite note below)
 - [ ] Sources section follows site convention
 - [ ] Answer-first first sentence under every body H2/H3 (FAQ already does this)
 - [ ] Internal anchors ~60% descriptive / 40% conversational; no duplicate anchor text on one page
@@ -31,6 +32,15 @@
 
 ## Distribute
 - [ ] Google Search Console → URL Inspection → Request indexing (EN + ES)
+- [ ] Monthly GSC ritual ([docs/GSC-MONTHLY-RITUAL.md](docs/GSC-MONTHLY-RITUAL.md)) — queries, CTR, positions 8–20, zero-impression pages
 - [ ] Social announcement scheduled (platform hashtag rules apply)
-- [ ] Pinterest pin created (vertical graphic, links to post)
+- [ ] Pinterest: vertical pin (1000×1500) + description; board assignment
+- [ ] YouTube: if there’s a companion video, update description + pinned comment ([VIDEO-TO-POST.md](VIDEO-TO-POST.md))
+- [ ] Reddit / parenting groups: answer the question fully first; link only if asked or clearly additive; disclose affiliation when linking
+- [ ] PR / expert sourcing: pitch when the post has a story angle ([docs/PR-PITCH-SCREEN-TIME.md](docs/PR-PITCH-SCREEN-TIME.md) for the screen-time pattern)
 - [ ] Noted in content calendar / next-post queue
+
+## Email / MailerLite
+- [ ] Signup strip uses Formsubmit until MailerLite is authenticated (`<!-- MAILERLITE-MIGRATION -->` in post HTML)
+- [ ] **When importing Formsubmit signups into MailerLite (or any ESP): record consent date/time and source page for each address** — Formsubmit does not store this for you by default
+- [ ] Welcome email + monthly cadence: new song + newest post + one useful thing

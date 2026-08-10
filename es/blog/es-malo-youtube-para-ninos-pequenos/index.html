@@ -32,7 +32,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
     <link href="/bootstrap.min.css?v=5.1" rel="stylesheet">
     <link href="/zaydio.css?v=10.5" rel="stylesheet">
-    <link href="/blog/blog.css?v=8" rel="stylesheet">
+    <link href="/blog/blog.css?v=9" rel="stylesheet">
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -281,7 +281,26 @@
                     <p class="blog-helpful-count" hidden></p>
                 </div>
 
-                <h2>Fuentes <span lang="en">(en inglés)</span></h2>
+                
+                <!-- MAILERLITE-MIGRATION: replace this Formsubmit block with MailerLite embed when list auth is ready -->
+                <aside class="blog-signup" aria-labelledby="blog-signup-heading">
+                    <h2 id="blog-signup-heading">Una lectura honesta al mes.</h2>
+                    <p class="blog-signup-lead">Canciones nuevas, y una respuesta con base en la investigación para padres de niños pequeños. Sin spam; puedes darte de baja cuando quieras.</p>
+                    <p class="blog-signup-privacy">Solo usamos tu email para novedades de Zaydio. Ver nuestra <a href="/privacy.html">Política de privacidad</a>.</p>
+                    <div class="blog-signup-success" hidden>¡Gracias por unirte! Ya estás en la lista.</div>
+                    <form class="blog-signup-form" action="https://formsubmit.co/zaydioandfriends@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="New Zaydio blog signup (ES)">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://www.zaydio.com/es/blog/es-malo-youtube-para-ninos-pequenos/?signedup=1">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="source" value="es/blog/es-malo-youtube-para-ninos-pequenos">
+                        <label class="visually-hidden" for="blog-signup-email-esmaloyoutubeparaninospe">Correo electrónico</label>
+                        <input class="blog-signup-input" type="email" name="email" id="blog-signup-email-esmaloyoutubeparaninospe" required placeholder="tu@email.com" autocomplete="email">
+                        <button type="submit" class="blog-signup-btn">Únete</button>
+                    </form>
+                </aside>
+
+<h2>Fuentes <span lang="en">(en inglés)</span></h2>
                 <ul class="blog-sources">
                     <li>Roseberry, S., Hirsh-Pasek, K., &amp; Golinkoff, R. M. (2014). "Skype Me! Socially Contingent Interactions Help Toddlers Learn Language." <em>Child Development</em>, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3962808/" target="_blank" rel="noopener">ncbi.nlm.nih.gov</a>.</li>
                     <li>Madigan, S., et al. (2022). Screen exposure and early childhood cognition — a review. <em>Frontiers in Psychology</em>, <a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2022.923370/full" target="_blank" rel="noopener">frontiersin.org</a>.</li>
@@ -347,6 +366,6 @@
 
     <script src="/jquery.min.js?v=5.1"></script>
     <script src="/bootstrap.bundle.min.js?v=5.1"></script>
-    <script defer src="/blog/helpful.js?v=1"></script>
+    <script defer src="/blog/helpful.js?v=2"></script>
 </body>
 </html>

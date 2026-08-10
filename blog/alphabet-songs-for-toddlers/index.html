@@ -31,7 +31,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
     <link href="/bootstrap.min.css?v=5.1" rel="stylesheet">
     <link href="/zaydio.css?v=10.5" rel="stylesheet">
-    <link href="/blog/blog.css?v=8" rel="stylesheet">
+    <link href="/blog/blog.css?v=9" rel="stylesheet">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -284,7 +284,26 @@
                     <p class="blog-helpful-count" hidden></p>
                 </div>
 
-                <h2>Sources</h2>
+                
+                <!-- MAILERLITE-MIGRATION: replace this Formsubmit block with MailerLite embed when list auth is ready -->
+                <aside class="blog-signup" aria-labelledby="blog-signup-heading">
+                    <h2 id="blog-signup-heading">One honest read a month.</h2>
+                    <p class="blog-signup-lead">New songs, and one research-backed answer for parents of little kids. No spam, unsubscribe anytime.</p>
+                    <p class="blog-signup-privacy">We only use your email for Zaydio updates. See our <a href="/privacy.html">Privacy Policy</a>.</p>
+                    <div class="blog-signup-success" hidden>Thanks for signing up! You&rsquo;re on the list.</div>
+                    <form class="blog-signup-form" action="https://formsubmit.co/zaydioandfriends@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="New Zaydio blog signup">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://www.zaydio.com/blog/alphabet-songs-for-toddlers/?signedup=1">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="source" value="blog/alphabet-songs-for-toddlers">
+                        <label class="visually-hidden" for="blog-signup-email-alphabetsongsfortoddlers">Email address</label>
+                        <input class="blog-signup-input" type="email" name="email" id="blog-signup-email-alphabetsongsfortoddlers" required placeholder="your@email.com" autocomplete="email">
+                        <button type="submit" class="blog-signup-btn">Sign me up</button>
+                    </form>
+                </aside>
+
+<h2>Sources</h2>
                 <ul class="blog-sources">
                     <li>"Basics: Alphabet Knowledge." <em>Reading Rockets</em>, <a href="https://www.readingrockets.org/reading-101/reading-and-writing-basics/alphabet-knowledge" target="_blank" rel="noopener">readingrockets.org</a>.</li>
                     <li>"Developing Early Literacy: Report of the National Early Literacy Panel." <em>National Institute of Child Health and Human Development</em>, <a href="https://www.nichd.nih.gov/sites/default/files/publications/pubs/documents/NELPReport09.pdf" target="_blank" rel="noopener">nichd.nih.gov</a>.</li>
@@ -349,6 +368,6 @@
 
     <script src="/jquery.min.js?v=5.1"></script>
     <script src="/bootstrap.bundle.min.js?v=5.1"></script>
-    <script defer src="/blog/helpful.js?v=1"></script>
+    <script defer src="/blog/helpful.js?v=2"></script>
 </body>
 </html>
