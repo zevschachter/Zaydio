@@ -31,6 +31,23 @@ body:has(#consent-banner) .blog-main {
   margin: 0;
 }
 
+.blog-rss-link {
+  margin: 1.25rem 0 0;
+  font-size: 0.85rem;
+  opacity: 0.65;
+}
+
+.blog-rss-link a {
+  color: var(--p-color);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.blog-rss-link a:hover {
+  opacity: 1;
+  color: var(--color-teal-dark);
+}
+
 .blog-post-list {
   list-style: none;
   padding: 0;

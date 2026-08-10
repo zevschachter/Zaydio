@@ -8,6 +8,7 @@ import {
 } from "./instagram.ts";
 import { fallbackAlbums, fetchZaydioAlbums, type ZaydioAlbum } from "./albums.ts";
 import { buildSitemapXml } from "./sitemap.ts";
+import { buildBlogFeedXml } from "./feed.ts";
 import { withSecurityHeaders } from "./security_headers.ts";
 import { fallbackVideos, fetchChannelVideos, type YouTubeVideo } from "./youtube.ts";
 import { handleHelpfulGet, handleHelpfulPost } from "./helpful.ts";
@@ -144,6 +145,24 @@ Deno.serve(async (req) => {
     return withSecurityHeaders(new Response(buildSitemapXml(lastmod), {
       headers: {
         "Content-Type": "application/xml",
+        "Cache-Control": "public, max-age=3600",
+      },
+    }));
+  }
+
+  if (url.pathname === "/blog/feed.xml") {
+    return withSecurityHeaders(new Response(buildBlogFeedXml("en"), {
+      headers: {
+        "Content-Type": "application/rss+xml; charset=utf-8",
+        "Cache-Control": "public, max-age=3600",
+      },
+    }));
+  }
+
+  if (url.pathname === "/es/blog/feed.xml") {
+    return withSecurityHeaders(new Response(buildBlogFeedXml("es"), {
+      headers: {
+        "Content-Type": "application/rss+xml; charset=utf-8",
         "Cache-Control": "public, max-age=3600",
       },
     }));
