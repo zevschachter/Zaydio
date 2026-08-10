@@ -26,7 +26,7 @@
   function showCount(root, count, lang) {
     var el = root.querySelector(".blog-helpful-count");
     if (!el) return;
-    if (count < COUNT_THRESHOLD) {
+    if (typeof count !== "number" || count < COUNT_THRESHOLD) {
       el.hidden = true;
       el.textContent = "";
       return;
@@ -38,29 +38,74 @@
         : count + " parents found this helpful";
   }
 
-  function hide(root) {
-    root.hidden = true;
+  function bindClick(root, btn, slug, lang, getCount) {
+    btn.addEventListener("click", function onClick() {
+      if (btn.disabled) return;
+      btn.disabled = true;
+      root.classList.add("is-popping");
+
+      fetch("/api/helpful", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "same-origin",
+        body: JSON.stringify({ slug: slug }),
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error("bad status");
+          return res.json();
+        })
+        .then(function (data) {
+          var next =
+            typeof data.count === "number" ? data.count : getCount() + 1;
+          try {
+            window.localStorage.setItem(storageKey(slug), "1");
+          } catch (_) {
+            /* ignore quota / private mode */
+          }
+          setThanks(root, lang);
+          showCount(root, next, lang);
+          window.setTimeout(function () {
+            root.classList.remove("is-popping");
+            root.classList.add("is-filled");
+          }, 280);
+        })
+        .catch(function () {
+          root.classList.remove("is-popping");
+          btn.disabled = false;
+        });
+    });
   }
 
   function initOne(root) {
     var lang = root.getAttribute("data-lang") === "es" ? "es" : "en";
     var slug = root.getAttribute("data-slug") || slugFromPath();
     if (!slug) {
-      hide(root);
+      root.hidden = true;
       return;
     }
 
     var btn = root.querySelector(".blog-helpful-btn");
     if (!btn) {
-      hide(root);
+      root.hidden = true;
       return;
     }
+
+    // Always show the control; storage outages must not hide it.
+    root.hidden = false;
 
     var already = false;
     try {
       already = window.localStorage.getItem(storageKey(slug)) === "1";
     } catch (_) {
       already = false;
+    }
+
+    var count = 0;
+    if (already) {
+      setThanks(root, lang);
     }
 
     fetch("/api/helpful?slug=" + encodeURIComponent(slug), {
@@ -72,53 +117,23 @@
         return res.json();
       })
       .then(function (data) {
-        var count = typeof data.count === "number" ? data.count : 0;
-        root.hidden = false;
+        count = typeof data.count === "number" ? data.count : 0;
         showCount(root, count, lang);
         if (already) {
           setThanks(root, lang);
           return;
         }
-
-        btn.addEventListener("click", function onClick() {
-          if (btn.disabled) return;
-          btn.disabled = true;
-          root.classList.add("is-popping");
-
-          fetch("/api/helpful", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            credentials: "same-origin",
-            body: JSON.stringify({ slug: slug }),
-          })
-            .then(function (res) {
-              if (!res.ok) throw new Error("bad status");
-              return res.json();
-            })
-            .then(function (data) {
-              var next = typeof data.count === "number" ? data.count : count + 1;
-              try {
-                window.localStorage.setItem(storageKey(slug), "1");
-              } catch (_) {
-                /* ignore quota / private mode */
-              }
-              setThanks(root, lang);
-              showCount(root, next, lang);
-              window.setTimeout(function () {
-                root.classList.remove("is-popping");
-                root.classList.add("is-filled");
-              }, 280);
-            })
-            .catch(function () {
-              hide(root);
-            });
+        bindClick(root, btn, slug, lang, function () {
+          return count;
         });
       })
       .catch(function () {
-        hide(root);
+        showCount(root, 0, lang);
+        if (already) return;
+        // Still allow clicks; POST may succeed once KV is linked.
+        bindClick(root, btn, slug, lang, function () {
+          return count;
+        });
       });
   }
 
