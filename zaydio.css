@@ -5173,3 +5173,102 @@ video.album-cover-img {
     text-align: center;
   }
 }
+
+/*---------------------------------------
+  HOMEPAGE SPANISH CALLOUT
+-----------------------------------------*/
+/* Shares the cream backdrop of the sections on either side so the callout
+   reads as one card rather than a section of its own. */
+.home-espanol-strip {
+  background-color: var(--section-bg-color);
+  padding: 0 20px 24px;
+}
+
+.home-blog-strip {
+  padding-bottom: 64px;
+}
+
+.home-espanol-strip + .events-section.section-bg {
+  padding-top: 64px;
+}
+
+.home-espanol-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--white-color);
+  border-radius: 16px;
+  padding: 24px 28px 26px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  border-top: 5px solid var(--color-teal);
+  text-align: center;
+}
+
+.home-espanol-card h2 {
+  font-family: var(--heading-font-family);
+  color: var(--color-navy);
+  font-size: 1.65rem;
+  margin-bottom: 10px;
+}
+
+.home-espanol-card p {
+  color: var(--p-color);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  margin: 0 auto 20px;
+  max-width: 34rem;
+}
+
+.home-espanol-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.home-espanol-btn {
+  display: inline-block;
+  font-family: var(--heading-font-family);
+  font-weight: var(--font-weight-bold);
+  font-size: 0.95rem;
+  padding: 12px 22px;
+  border-radius: var(--border-radius-large);
+  color: var(--white-color);
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-espanol-btn:hover {
+  transform: translateY(-2px);
+  color: var(--white-color);
+}
+
+.home-espanol-btn--blog {
+  background: var(--color-teal);
+  box-shadow: 0 4px 14px rgba(78, 205, 196, 0.35);
+}
+
+.home-espanol-btn--youtube {
+  background: var(--color-coral);
+  box-shadow: 0 4px 14px rgba(255, 107, 107, 0.35);
+}
+
+@media screen and (max-width: 575px) {
+  .home-espanol-card {
+    padding: 22px 20px 24px;
+  }
+
+  .home-espanol-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .home-espanol-btn {
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-espanol-btn:hover {
+    transform: none;
+  }
+}
