@@ -43,7 +43,9 @@
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
     });
-    loadScript("analytics.js?v=7.3");
+    // Root-absolute: a relative src resolves against the current directory and
+    // 404s on every nested page (/blog/<slug>/, /es/blog/<slug>/, /albums/*).
+    loadScript("/analytics.js?v=7.3");
   }
 
   function enableAnalytics() {

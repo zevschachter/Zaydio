@@ -7,16 +7,18 @@
 - [ ] Canonical uses https://www.zaydio.com (www)
 - [ ] og:image + 1200/630 size tags, twitter:card summary_large_image — prefer a custom 1200×630 per post (not shared `og-image.jpg`)
 - [ ] Image files named `zaydio-[subject]-[context].webp`; alt text describes the image (a11y = SEO)
-- [ ] "This helped" button present
+- [ ] Empty `<!-- BEGIN post-components -->` / `<!-- END post-components -->` markers placed at the end of the post body, above the signup strip
 - [ ] Blog signup strip present above Sources (Formsubmit for now — see MailerLite note below)
 - [ ] Sources section follows site convention
 - [ ] Answer-first first sentence under every body H2/H3 (FAQ already does this)
 - [ ] Internal anchors ~60% descriptive / 40% conversational; no duplicate anchor text on one page
 - [ ] `dateModified` updated when content changes; visible "Last updated" in byline
-- [ ] BlogPosting has `inLanguage`, `publisher` @id, `about` Thing(s); keep FAQPage content even though FAQ rich results are gone
+- [ ] BlogPosting has `inLanguage` and `publisher` @id; keep FAQPage content even though FAQ rich results are gone (`keywords` + `about` come from `blog_components.ts` — see Mesh)
 
 ## Mesh
 - [ ] Post added to blog_posts.ts — REQUIRED: this drives both the sitemap and RSS feeds. Missing this means the post is invisible to both.
+- [ ] Post added to blog_components.ts — REQUIRED: `keywords` (5–8 post-specific terms) and `about` (2+ schema.org Thing names), plus `altPath` + contextual `switchCopy` once the translation exists
+- [ ] `deno task sync:posts` run — this writes the "This helped" button, the EN↔ES switcher, the schema `keywords`/`about` fields, and the CSS/JS cache-bust versions into the post. Never hand-edit that block; `deno task test` fails if a post drifts.
 - [ ] Added to /blog/ and /es/blog/ indexes (static entry, newest first)
 - [ ] Added to sitemap (count incremented)
 - [ ] Homepage "From the Blog" strip updated to 3 most recent
