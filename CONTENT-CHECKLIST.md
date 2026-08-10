@@ -10,8 +10,9 @@
 - [ ] Sources section follows site convention
 
 ## Mesh
+- [ ] Post added to blog_posts.ts — REQUIRED: this drives both the sitemap and RSS feeds. Missing this means the post is invisible to both.
 - [ ] Added to /blog/ and /es/blog/ indexes (static entry, newest first)
-- [ ] Added to sitemap (count incremented) — via `blog_posts.ts` (also drives RSS)
+- [ ] Added to sitemap (count incremented)
 - [ ] Homepage "From the Blog" strip updated to 3 most recent
 - [ ] Reciprocal links added FROM related existing posts TO this one
 - [ ] Relevant album page "From the blog" section updated
