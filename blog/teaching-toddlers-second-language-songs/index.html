@@ -31,7 +31,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
     <link href="/bootstrap.min.css?v=5.1" rel="stylesheet">
     <link href="/zaydio.css?v=10.5" rel="stylesheet">
-    <link href="/blog/blog.css?v=5" rel="stylesheet">
+    <link href="/blog/blog.css?v=6" rel="stylesheet">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -250,6 +250,15 @@
                 <h3>Will Spanish songs alone make my child bilingual?</h3>
                 <p>No. Fluency requires real interaction over time. Songs build the foundation: sound familiarity, early vocabulary, and positive associations with the language.</p>
 
+                <!-- HELPFUL-BUTTON: paste above Sources on new EN posts -->
+                <div class="blog-helpful" hidden data-helpful data-lang="en" data-slug="blog/teaching-toddlers-second-language-songs">
+                    <button type="button" class="blog-helpful-btn" aria-label="This helped">
+                        <span class="blog-helpful-heart" aria-hidden="true">♥</span>
+                        <span class="blog-helpful-label">This helped</span>
+                    </button>
+                    <p class="blog-helpful-count" hidden></p>
+                </div>
+
                 <h2>Sources</h2>
                 <ul class="blog-sources">
                     <li>Kuhl, P. K., Tsao, F. M., &amp; Liu, H. M. (2003). "Foreign-language experience in infancy: Effects of short-term exposure and social interaction on phonetic learning." <em>Proceedings of the National Academy of Sciences</em>, <a href="https://www.pnas.org/doi/10.1073/pnas.1532872100" target="_blank" rel="noopener">pnas.org</a>.</li>
@@ -312,5 +321,6 @@
 
     <script src="/jquery.min.js?v=5.1"></script>
     <script src="/bootstrap.bundle.min.js?v=5.1"></script>
+    <script defer src="/blog/helpful.js?v=1"></script>
 </body>
 </html>

@@ -1,9 +1,10 @@
 {
   "tasks": {
-    "start": "deno run --allow-net --allow-read main.ts"
+    "start": "deno run --allow-net --allow-read --unstable-kv main.ts",
+    "test": "deno test --allow-net --allow-read --unstable-kv"
   },
   "compilerOptions": {
-    "lib": ["deno.window"]
+    "lib": ["deno.window", "deno.unstable"]
   },
   "lint": {
     "exclude": [

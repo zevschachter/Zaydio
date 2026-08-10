@@ -173,6 +173,75 @@ body:has(#consent-banner) .blog-main {
   line-height: 1.5;
 }
 
+/* "This helped" vote — above Sources */
+.blog-helpful {
+  text-align: center;
+  margin: 2rem 0 1.75rem;
+  padding: 1.1rem 1rem;
+}
+
+.blog-helpful[hidden] {
+  display: none !important;
+}
+
+.blog-helpful-btn {
+  appearance: none;
+  border: 2px solid rgba(78, 205, 196, 0.55);
+  background: var(--color-white);
+  color: var(--color-navy);
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.blog-helpful-btn:hover:not(:disabled) {
+  border-color: var(--color-teal);
+  background: var(--color-teal-light);
+}
+
+.blog-helpful-btn:disabled {
+  cursor: default;
+}
+
+.blog-helpful-heart {
+  color: var(--color-coral);
+  font-size: 1.15rem;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.blog-helpful.is-popping .blog-helpful-heart {
+  transform: scale(1.35);
+  color: var(--color-coral-dark, #E85555);
+}
+
+.blog-helpful.is-thanks .blog-helpful-btn,
+.blog-helpful.is-filled .blog-helpful-btn {
+  border-color: var(--color-teal);
+  background: rgba(78, 205, 196, 0.18);
+}
+
+.blog-helpful.is-thanks .blog-helpful-heart,
+.blog-helpful.is-filled .blog-helpful-heart {
+  color: var(--color-coral);
+  transform: scale(1.05);
+}
+
+.blog-helpful-count {
+  margin: 0.65rem 0 0;
+  font-size: 0.92rem;
+  color: var(--p-color);
+}
+
 .blog-sources {
   list-style: disc;
   padding-left: 1.25rem;
