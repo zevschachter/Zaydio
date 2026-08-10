@@ -195,6 +195,17 @@ Deno.serve(async (req) => {
     }));
   }
 
+  // Private stats dashboard (also available via static stats/index.html)
+  if (url.pathname === "/stats" || url.pathname === "/stats/") {
+    const file = await Deno.readFile("./stats/index.html");
+    return withSecurityHeaders(new Response(file, {
+      headers: {
+        "content-type": "text/html; charset=utf-8",
+        "Cache-Control": "no-cache, must-revalidate",
+      },
+    }));
+  }
+
   // Serve all other static files
   const response = await serveDir(req, {
     fsRoot: ".",

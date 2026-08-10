@@ -252,16 +252,24 @@ export async function handleHelpfulGet(
   req: Request,
   kv?: Deno.Kv,
 ): Promise<Response> {
-  const store = kv ?? await getHelpfulKv();
-  const url = new URL(req.url);
-  const slug = url.searchParams.get("slug") ?? "";
-  if (!isValidHelpfulSlug(slug)) {
-    return Response.json({ error: "Invalid slug" }, { status: 400 });
+  try {
+    const store = kv ?? await getHelpfulKv();
+    const url = new URL(req.url);
+    const slug = url.searchParams.get("slug") ?? "";
+    if (!isValidHelpfulSlug(slug)) {
+      return Response.json({ error: "Invalid slug" }, { status: 400 });
+    }
+    const count = await getHelpfulCount(store, slug);
+    return Response.json({ count }, {
+      headers: { "Cache-Control": "no-store" },
+    });
+  } catch (err) {
+    console.error("helpful GET failed:", err);
+    return Response.json(
+      { error: "Helpful storage unavailable" },
+      { status: 503 },
+    );
   }
-  const count = await getHelpfulCount(store, slug);
-  return Response.json({ count }, {
-    headers: { "Cache-Control": "no-store" },
-  });
 }
 
 export async function handleHelpfulPost(
@@ -269,7 +277,17 @@ export async function handleHelpfulPost(
   kv?: Deno.Kv,
   now = new Date(),
 ): Promise<Response> {
-  const store = kv ?? await getHelpfulKv();
+  let store: Deno.Kv;
+  try {
+    store = kv ?? await getHelpfulKv();
+  } catch (err) {
+    console.error("helpful POST openKv failed:", err);
+    return Response.json(
+      { error: "Helpful storage unavailable" },
+      { status: 503 },
+    );
+  }
+
   const ip = clientIpFromRequest(req);
   if (!allowHelpfulPost(ip)) {
     return Response.json({ error: "Rate limit exceeded" }, { status: 429 });
@@ -296,7 +314,8 @@ export async function handleHelpfulPost(
     return Response.json({ count }, {
       headers: { "Cache-Control": "no-store" },
     });
-  } catch {
+  } catch (err) {
+    console.error("helpful POST increment failed:", err);
     return Response.json({ error: "Could not save" }, { status: 500 });
   }
 }
