@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Zaydio · Helpful stats</title>
+  <link rel="icon" type="image/png" href="/ZAYDIOLOGO.png?v=3">
+  <style>
+    :root {
+      --teal: #4ECDC4;
+      --teal-dark: #38B2AC;
+      --navy: #1A1A2E;
+      --coral: #FF6B6B;
+      --bg: #f7faf9;
+      --card: #ffffff;
+      --line: #d9e5e3;
+      --muted: #5a6b72;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+      color: var(--navy);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, rgba(78, 205, 196, 0.22), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 0%, rgba(255, 217, 61, 0.18), transparent),
+        var(--bg);
+      min-height: 100vh;
+      line-height: 1.45;
+    }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3rem;
+    }
+    h1 {
+      font-family: "Baloo 2", Georgia, serif;
+      font-size: 1.75rem;
+      margin: 0 0 0.35rem;
+      letter-spacing: -0.02em;
+    }
+    .lede {
+      color: var(--muted);
+      margin: 0 0 1.5rem;
+      font-size: 0.95rem;
+    }
+    .auth-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+    input[type="password"] {
+      flex: 1 1 220px;
+      min-width: 180px;
+      padding: 0.65rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font: inherit;
+      background: var(--card);
+    }
+    button {
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      padding: 0.65rem 1.1rem;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--teal);
+      color: var(--navy);
+    }
+    button:hover { background: var(--teal-dark); color: #fff; }
+    button:disabled { opacity: 0.55; cursor: wait; }
+    .msg {
+      display: none;
+      margin: 0 0 1rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+    .msg.show { display: block; }
+    .msg.error {
+      background: #ffe8e8;
+      color: #8a1f1f;
+      border: 1px solid #f5c2c2;
+    }
+    .msg.info {
+      background: #e8faf9;
+      color: #1f4d49;
+      border: 1px solid #b9e8e3;
+    }
+    .totals {
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .totals.show { display: grid; }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+    }
+    .stat .label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-bottom: 0.2rem;
+    }
+    .stat .value {
+      font-family: "Baloo 2", Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+    .table-wrap {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: auto;
+    }
+    .table-wrap.show { display: block; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.7rem 0.85rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+    th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      background: #f3f8f7;
+    }
+    tr:last-child td { border-bottom: none; }
+    .slug {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .title { font-weight: 600; }
+    .total {
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .spark {
+      display: block;
+      width: 120px;
+      height: 28px;
+    }
+    .empty {
+      color: var(--muted);
+      padding: 1.25rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Helpful stats</h1>
+    <p class="lede">Private aggregate likes. Token stays in this tab’s sessionStorage only.</p>
+
+    <form class="auth-row" id="auth-form">
+      <input
+        id="token"
+        type="password"
+        name="token"
+        autocomplete="current-password"
+        placeholder="Stats token"
+        required
+      >
+      <button type="submit" id="load-btn">Load stats</button>
+    </form>
+
+    <p class="msg" id="msg" role="alert"></p>
+
+    <div class="totals" id="totals">
+      <div class="stat">
+        <span class="label">All time</span>
+        <span class="value" id="grand-total">0</span>
+      </div>
+      <div class="stat">
+        <span class="label">Last 7 days</span>
+        <span class="value" id="total-7">0</span>
+      </div>
+      <div class="stat">
+        <span class="label">Last 30 days</span>
+        <span class="value" id="total-30">0</span>
+      </div>
+    </div>
+
+    <div class="table-wrap" id="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Post</th>
+            <th>Total</th>
+            <th>Last 60 days</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var STORAGE_KEY = "zaydio-stats-token";
+      var form = document.getElementById("auth-form");
+      var tokenInput = document.getElementById("token");
+      var loadBtn = document.getElementById("load-btn");
+      var msg = document.getElementById("msg");
+      var totals = document.getElementById("totals");
+      var tableWrap = document.getElementById("table-wrap");
+      var tbody = document.getElementById("tbody");
+
+      try {
+        var saved = sessionStorage.getItem(STORAGE_KEY);
+        if (saved) tokenInput.value = saved;
+      } catch (_) { /* sessionStorage unavailable */ }
+
+      function showMsg(text, kind) {
+        msg.textContent = text;
+        msg.className = "msg show " + (kind || "info");
+      }
+
+      function clearMsg() {
+        msg.textContent = "";
+        msg.className = "msg";
+      }
+
+      function sumRecentDays(posts, n) {
+        var sum = 0;
+        for (var i = 0; i < posts.length; i++) {
+          var daily = posts[i].daily || [];
+          var start = Math.max(0, daily.length - n);
+          for (var j = start; j < daily.length; j++) {
+            sum += Number(daily[j].count) || 0;
+          }
+        }
+        return sum;
+      }
+
+      function sparklineSvg(daily) {
+        var w = 120;
+        var h = 28;
+        var pad = 2;
+        var counts = (daily || []).map(function (d) {
+          return Number(d.count) || 0;
+        });
+        var max = 0;
+        for (var i = 0; i < counts.length; i++) {
+          if (counts[i] > max) max = counts[i];
+        }
+        if (counts.length === 0) {
+          return '<svg class="spark" viewBox="0 0 ' + w + " " + h +
+            '" aria-hidden="true"></svg>';
+        }
+        var barW = (w - pad * 2) / counts.length;
+        var parts = [];
+        for (var j = 0; j < counts.length; j++) {
+          var c = counts[j];
+          var bh = max === 0 ? 0 : Math.max(c > 0 ? 2 : 0, (c / max) * (h - pad * 2));
+          var x = pad + j * barW;
+          var y = h - pad - bh;
+          var fill = c > 0 ? "#38B2AC" : "#d9e5e3";
+          parts.push(
+            '<rect x="' + x.toFixed(2) + '" y="' + y.toFixed(2) +
+            '" width="' + Math.max(0.5, barW * 0.7).toFixed(2) +
+            '" height="' + bh.toFixed(2) + '" fill="' + fill + '" rx="0.5"/>',
+          );
+        }
+        return '<svg class="spark" viewBox="0 0 ' + w + " " + h +
+          '" role="img" aria-label="Daily likes sparkline">' +
+          parts.join("") + "</svg>";
+      }
+
+      function render(data) {
+        var posts = Array.isArray(data.posts) ? data.posts : [];
+        document.getElementById("grand-total").textContent =
+          String(Number(data.grandTotal) || 0);
+        document.getElementById("total-7").textContent =
+          String(sumRecentDays(posts, 7));
+        document.getElementById("total-30").textContent =
+          String(sumRecentDays(posts, 30));
+        totals.classList.add("show");
+        tableWrap.classList.add("show");
+
+        if (posts.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="3" class="empty">No likes recorded yet.</td></tr>';
+          return;
+        }
+
+        var html = "";
+        for (var i = 0; i < posts.length; i++) {
+          var p = posts[i];
+          var title = p.title
+            ? '<div class="title"></div><div class="slug"></div>'
+            : '<div class="slug"></div>';
+          html += "<tr><td data-i=\"" + i + "\">" + title + "</td>" +
+            '<td class="total">' + (Number(p.total) || 0) + "</td>" +
+            "<td>" + sparklineSvg(p.daily) + "</td></tr>";
+        }
+        tbody.innerHTML = html;
+
+        var cells = tbody.querySelectorAll("td[data-i]");
+        for (var k = 0; k < cells.length; k++) {
+          var idx = Number(cells[k].getAttribute("data-i"));
+          var post = posts[idx];
+          var titleEl = cells[k].querySelector(".title");
+          var slugEl = cells[k].querySelector(".slug");
+          if (titleEl) titleEl.textContent = post.title;
+          if (slugEl) slugEl.textContent = post.slug;
+        }
+      }
+
+      async function loadStats(token) {
+        clearMsg();
+        loadBtn.disabled = true;
+        try {
+          var res = await fetch("/api/helpful/stats", {
+            headers: {
+              Authorization: "Bearer " + token,
+              Accept: "application/json",
+            },
+            cache: "no-store",
+          });
+          if (res.status === 401) {
+            totals.classList.remove("show");
+            tableWrap.classList.remove("show");
+            showMsg("Wrong token.", "error");
+            return;
+          }
+          if (!res.ok) {
+            totals.classList.remove("show");
+            tableWrap.classList.remove("show");
+            showMsg("Could not load stats (HTTP " + res.status + ").", "error");
+            return;
+          }
+          var data = await res.json();
+          try {
+            sessionStorage.setItem(STORAGE_KEY, token);
+          } catch (_) { /* ignore */ }
+          render(data);
+          showMsg("Updated.", "info");
+        } catch (_) {
+          totals.classList.remove("show");
+          tableWrap.classList.remove("show");
+          showMsg("Network error — check your connection and try again.", "error");
+        } finally {
+          loadBtn.disabled = false;
+        }
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var token = tokenInput.value.trim();
+        if (!token) {
+          showMsg("Enter the stats token.", "error");
+          return;
+        }
+        loadStats(token);
+      });
+
+      if (tokenInput.value.trim()) {
+        loadStats(tokenInput.value.trim());
+      }
+    })();
+  </script>
+</body>
+</html>

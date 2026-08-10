@@ -11,7 +11,11 @@ import { buildSitemapXml } from "./sitemap.ts";
 import { buildBlogFeedXml } from "./feed.ts";
 import { withSecurityHeaders } from "./security_headers.ts";
 import { fallbackVideos, fetchChannelVideos, type YouTubeVideo } from "./youtube.ts";
-import { handleHelpfulGet, handleHelpfulPost } from "./helpful.ts";
+import {
+  handleHelpfulGet,
+  handleHelpfulPost,
+  handleHelpfulStats,
+} from "./helpful.ts";
 
 const REEL_CACHE_TTL_MS = 60 * 60 * 1000;
 const ALBUM_CACHE_TTL_MS = 60 * 60 * 1000;
@@ -71,6 +75,18 @@ async function getYouTubeVideos() {
 
 Deno.serve(async (req) => {
   const url = new URL(req.url);
+
+  if (
+    url.pathname === "/api/helpful/stats" ||
+    url.pathname === "/api/helpful/stats/"
+  ) {
+    if (req.method === "GET") {
+      return withSecurityHeaders(await handleHelpfulStats(req));
+    }
+    return withSecurityHeaders(
+      new Response("Method Not Allowed", { status: 405 }),
+    );
+  }
 
   if (url.pathname === "/api/helpful") {
     if (req.method === "GET") {
