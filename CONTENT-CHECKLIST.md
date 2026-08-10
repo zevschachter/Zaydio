@@ -18,7 +18,7 @@
 ## Mesh
 - [ ] Post added to blog_posts.ts — REQUIRED: this drives both the sitemap and RSS feeds. Missing this means the post is invisible to both.
 - [ ] Post added to blog_components.ts — REQUIRED: `keywords` (5–8 post-specific terms) and `about` (2+ schema.org Thing names), plus `altPath` + contextual `switchCopy` once the translation exists
-- [ ] `deno task sync:posts` run — this writes the "This helped" button, the EN↔ES switcher, the schema `keywords`/`about` fields, and the CSS/JS cache-bust versions into the post. Never hand-edit that block; `deno task test` fails if a post drifts.
+- [ ] `deno task sync:posts` run — this writes the "This helped" button, the EN↔ES switcher, the schema `keywords`/`about` fields, and the CSS/JS cache-bust versions into the post (and refreshes the cache-bust versions on the /blog/ and /es/blog/ indexes). Never hand-edit that block; `deno task test` fails if a post or index drifts.
 - [ ] Added to /blog/ and /es/blog/ indexes (static entry, newest first)
 - [ ] Added to sitemap (count incremented)
 - [ ] Homepage "From the Blog" strip updated to 3 most recent

@@ -2,7 +2,7 @@ import { assertEquals, assertStringIncludes } from "https://deno.land/std@0.208.
 import { buildSitemapXml, SITEMAP_ENTRIES } from "./sitemap.ts";
 
 Deno.test("sitemap includes all SEO pages", () => {
-  assertEquals(SITEMAP_ENTRIES.length, 24);
+  assertEquals(SITEMAP_ENTRIES.length, 26);
 });
 
 Deno.test("buildSitemapXml renders valid urls", () => {
@@ -24,6 +24,8 @@ Deno.test("buildSitemapXml renders valid urls", () => {
   assertStringIncludes(xml, "https://www.zaydio.com/es/blog/ensenar-ingles-a-ninos-con-canciones/");
   assertStringIncludes(xml, "https://www.zaydio.com/es/blog/canciones-del-abecedario-para-ninos/");
   assertStringIncludes(xml, "https://www.zaydio.com/es/blog/los-sonidos-de-animales-cuentan-como-palabras/");
+  assertStringIncludes(xml, "https://www.zaydio.com/es/blog/canciones-para-dormir-ninos/");
   assertStringIncludes(xml, "https://www.zaydio.com/blog/songs-to-teach-toddlers-colors/");
+  assertStringIncludes(xml, "https://www.zaydio.com/es/blog/canciones-de-colores-para-ninos/");
   assertStringIncludes(xml, "<lastmod>2026-06-24</lastmod>");
 });

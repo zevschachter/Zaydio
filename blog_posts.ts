@@ -116,11 +116,27 @@ export const BLOG_POSTS: BlogPost[] = [
     datePublished: "2026-07-20",
   },
   {
+    lang: "es",
+    path: "/es/blog/canciones-para-dormir-ninos/",
+    title: "Canciones para Dormir Niños: Una Rutina Musical que Sí Funciona",
+    description:
+      "¿Batallas a la hora de dormir? Cómo usar nanas y canciones tranquilas para crear una rutina de calma que sí funciona — con base en la investigación del sueño.",
+    datePublished: "2026-07-20",
+  },
+  {
     lang: "en",
     path: "/blog/songs-to-teach-toddlers-colors/",
     title: "Songs to Teach Toddlers Colors: 7 Ways That Actually Work",
     description:
       "Trying to teach your toddler colors? Here are 7 simple, song-based activities you can do today — no printables, no prep, just music and play.",
+    datePublished: "2026-07-19",
+  },
+  {
+    lang: "es",
+    path: "/es/blog/canciones-de-colores-para-ninos/",
+    title: "Canciones de Colores para Niños: 7 Formas que Sí Funcionan",
+    description:
+      "¿Quieres enseñarle los colores a tu peque? Aquí van 7 actividades sencillas con canciones que puedes hacer hoy — sin imprimibles y sin preparación.",
     datePublished: "2026-07-19",
   },
 ];

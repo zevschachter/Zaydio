@@ -17,7 +17,7 @@ Deno.test("sitemap blog URLs match blog_posts registry", () => {
     .filter((loc) => loc.includes("/blog/") && !loc.endsWith("/blog/"));
   const registry = BLOG_POSTS.map((p) => `https://www.zaydio.com${p.path}`);
   assertEquals(new Set(sitemapBlog), new Set(registry));
-  assertEquals(SITEMAP_ENTRIES.length, 24);
+  assertEquals(SITEMAP_ENTRIES.length, 26);
 });
 
 Deno.test("buildBlogFeedXml EN is valid RSS 2.0", () => {

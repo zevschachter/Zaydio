@@ -14,9 +14,16 @@
 import { BLOG_POSTS, type BlogPost } from "./blog_posts.ts";
 
 /** Bumped whenever blog.css changes, so cached CSS can't hide a restyle. */
-export const BLOG_CSS_VERSION = "12";
+export const BLOG_CSS_VERSION = "13";
 /** Bumped whenever blog/helpful.js changes. */
 export const HELPFUL_JS_VERSION = "5";
+
+/**
+ * Blog index pages. They aren't posts — no components, no schema — but they do
+ * load blog.css, so the sync script keeps their cache-bust versions current
+ * along with the posts'.
+ */
+export const BLOG_INDEX_PAGES = ["/blog/", "/es/blog/"];
 
 /**
  * Marker comments delimiting the generated region inside each post.
@@ -169,17 +176,43 @@ export const POST_COMPONENTS: Record<string, PostComponents> = {
     about: ["Alphabet", "Early literacy"],
   },
   "/blog/bedtime-songs-for-toddlers/": {
-    altPath: null,
-    switchCopy: null,
+    altPath: "/es/blog/canciones-para-dormir-ninos/",
+    switchCopy: {
+      lead: "También en español",
+      anchor: "Canciones para dormir niños",
+    },
     keywords:
       "bedtime songs for toddlers, lullabies, toddler sleep routine, wind-down routine, calming music for kids, bedtime resistance",
     about: ["Sleep", "Bedtime routines"],
   },
+  "/es/blog/canciones-para-dormir-ninos/": {
+    altPath: "/blog/bedtime-songs-for-toddlers/",
+    switchCopy: {
+      lead: "Also in English",
+      anchor: "Build a musical bedtime wind-down that works",
+    },
+    keywords:
+      "canciones para dormir niños, nanas para bebés, rutina de sueño infantil, música tranquila para dormir, canciones de cuna, hora de dormir sin batallas",
+    about: ["Sleep", "Bedtime routines"],
+  },
   "/blog/songs-to-teach-toddlers-colors/": {
-    altPath: null,
-    switchCopy: null,
+    altPath: "/es/blog/canciones-de-colores-para-ninos/",
+    switchCopy: {
+      lead: "También en español",
+      anchor: "Canciones de colores para niños",
+    },
     keywords:
       "songs to teach colors, color recognition, toddler learning activities, color songs for kids, learning through play, music and early learning",
+    about: ["Language acquisition", "Teaching colors"],
+  },
+  "/es/blog/canciones-de-colores-para-ninos/": {
+    altPath: "/blog/songs-to-teach-toddlers-colors/",
+    switchCopy: {
+      lead: "Also in English",
+      anchor: "7 ways to teach toddlers colors with songs",
+    },
+    keywords:
+      "canciones de colores, enseñar colores a niños, reconocer colores, actividades para niños pequeños, aprender jugando, música y aprendizaje temprano",
     about: ["Language acquisition", "Teaching colors"],
   },
 };

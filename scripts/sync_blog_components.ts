@@ -15,6 +15,7 @@ import { BLOG_POSTS, type BlogPost } from "../blog_posts.ts";
 import {
   BEGIN_MARKER_PREFIX,
   BLOG_CSS_VERSION,
+  BLOG_INDEX_PAGES,
   END_MARKER,
   fileForPath,
   HELPFUL_JS_VERSION,
@@ -81,7 +82,7 @@ function withAbout(html: string, about: string[]): string {
   );
 }
 
-function withAssetVersions(html: string): string {
+export function withAssetVersions(html: string): string {
   return html
     .replace(
       /\/blog\/blog\.css\?v=[^"']+/g,
@@ -127,28 +128,37 @@ export function syncPostHtml(post: BlogPost, html: string): string {
 async function main() {
   const checkOnly = Deno.args.includes("--check");
   const stale: string[] = [];
+  const targets: Array<{ file: string; sync: (html: string) => string }> = [
+    ...BLOG_POSTS.map((post) => ({
+      file: fileForPath(post.path),
+      sync: (html: string) => syncPostHtml(post, html),
+    })),
+    ...BLOG_INDEX_PAGES.map((path) => ({
+      file: fileForPath(path),
+      sync: withAssetVersions,
+    })),
+  ];
 
-  for (const post of BLOG_POSTS) {
-    const file = fileForPath(post.path);
+  for (const { file, sync } of targets) {
     const html = await Deno.readTextFile(file);
-    const next = syncPostHtml(post, html);
+    const next = sync(html);
     if (next === html) continue;
     stale.push(file);
     if (!checkOnly) await Deno.writeTextFile(file, next);
   }
 
   if (stale.length === 0) {
-    console.log(`All ${BLOG_POSTS.length} posts are up to date.`);
+    console.log(`All ${targets.length} blog pages are up to date.`);
     return;
   }
 
   if (checkOnly) {
-    console.error("Posts out of date — run `deno task sync:posts`:");
+    console.error("Blog pages out of date — run `deno task sync:posts`:");
     for (const file of stale) console.error(`  ${file}`);
     Deno.exit(1);
   }
 
-  console.log(`Updated ${stale.length} of ${BLOG_POSTS.length} posts:`);
+  console.log(`Updated ${stale.length} of ${targets.length} blog pages:`);
   for (const file of stale) console.log(`  ${file}`);
 }
 

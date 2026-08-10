@@ -104,9 +104,11 @@ body:has(#consent-banner) .blog-main {
   opacity: 0.7;
 }
 
-/* Article layout */
+/* Article layout — block padding only, so the Bootstrap container keeps its
+   horizontal gutter and body text never sits flush against the viewport */
 .blog-article-wrap {
-  padding: 0.25rem 0 3rem;
+  padding-top: 0.25rem;
+  padding-bottom: 3rem;
 }
 
 .blog-article {
@@ -447,6 +449,12 @@ body:has(#consent-banner) .blog-main {
 }
 
 @media (max-width: 575px) {
+  /* Bootstrap's 12px gutter reads as "flush" for long-form text on a phone */
+  .blog-main .container {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+
   .blog-article {
     font-size: 1.05rem;
   }

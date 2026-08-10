@@ -7,6 +7,7 @@ import { BLOG_POSTS } from "./blog_posts.ts";
 import {
   BEGIN_MARKER,
   BLOG_CSS_VERSION,
+  BLOG_INDEX_PAGES,
   END_MARKER,
   fileForPath,
   HELPFUL_JS_VERSION,
@@ -249,10 +250,15 @@ Deno.test("posts load the current blog.css and helpful.js versions", () => {
   }
 });
 
+Deno.test("blog indexes load the current blog.css version", async () => {
+  for (const path of BLOG_INDEX_PAGES) {
+    const html = await Deno.readTextFile(fileForPath(path));
+    assertStringIncludes(html, `/blog/blog.css?v=${BLOG_CSS_VERSION}`);
+  }
+});
+
 Deno.test("posts without a translation are reported, never invented", () => {
-  const missing = postsMissingTranslation().map((p) => p.path);
-  assertEquals(missing, [
-    "/blog/bedtime-songs-for-toddlers/",
-    "/blog/songs-to-teach-toddlers-colors/",
-  ]);
+  // Every published post is currently paired; a new untranslated post shows up
+  // here until its counterpart lands, and this list is what the checklist reads.
+  assertEquals(postsMissingTranslation().map((p) => p.path), []);
 });
