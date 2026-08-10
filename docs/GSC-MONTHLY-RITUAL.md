@@ -21,7 +21,9 @@ Indexing or relevance problem.
 ## Also glance at
 - Sitemap status (`https://www.zaydio.com/sitemap.xml`)
 - EN vs ES coverage gaps
-- **“This helped” counts** on posts (better strategic signal than raw clicks)
+- **“This helped” counts** on posts (better strategic signal than raw clicks) — at
+  [/stats](https://www.zaydio.com/stats), which needs `ZAYDIO_STATS_TOKEN` set in
+  Deno Deploy ([docs/STATS-DASHBOARD.md](STATS-DASHBOARD.md))
 
 ## Skip
 - Keyword-rank theater for terms nobody searches
