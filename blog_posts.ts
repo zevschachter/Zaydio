@@ -17,7 +17,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "You Don't Have to Sing Well: Why Your Toddler Prefers Your Voice Anyway",
     description:
       "Babies don't grade on pitch. The research on why your imperfect, off-key singing is exactly what your toddler wants to hear — and what recordings can't replace.",
-    datePublished: "2026-08-17",
+    datePublished: "2026-08-10",
   },
   {
     lang: "es",
@@ -25,7 +25,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "¿Cantarle a mi bebé si canto mal? Por qué tu hijo prefiere tu voz de todos modos",
     description:
       "Los bebés no califican el tono. La investigación sobre por qué tu canto imperfecto y desafinado es exactamente lo que tu hijo quiere oír — y lo que las grabaciones no pueden reemplazar.",
-    datePublished: "2026-08-17",
+    datePublished: "2026-08-10",
   },
   {
     lang: "en",
