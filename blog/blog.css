@@ -195,6 +195,8 @@ body:has(#consent-banner) .blog-main {
   text-align: center;
   margin: 2rem 0 1.75rem;
   padding: 1.1rem 1rem;
+  /* Reserve space so count reveal / API hydrate doesn't shift layout (CLS) */
+  min-height: 5.5rem;
 }
 
 .blog-helpful[hidden] {
@@ -390,4 +392,11 @@ body:has(#consent-banner) .blog-main {
   body:has(#consent-banner) .blog-main {
     padding-bottom: calc(2.5rem + 9rem);
   }
+}
+
+.blog-updated {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.9em;
+  opacity: 0.8;
 }
