@@ -1,1 +1,7 @@
 zaydiologogdontgo.mp4
+
+# Local editor/agent tooling, not shared with the site
+.cursor/
+
+# macOS
+.DS_Store
