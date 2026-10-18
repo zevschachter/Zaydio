@@ -2785,15 +2785,55 @@ video:hover {
 #welcome .rainbow-wave .sticker-welcome {
   color: var(--color-white);
   -webkit-text-stroke: 0;
-  text-shadow: 0.05em 0.05em 0 #1B2A6B;
+  text-shadow: 0 0.05em 0.1em rgba(150, 60, 10, 0.35);
 }
 
 #welcome .rainbow-wave .sticker-brand {
-  /* Deep navy — no blue as dark in palette; #1B2A6B meets ≥4.5:1 on orange zone */
-  color: #1B2A6B;
-  -webkit-text-stroke: 0.06em #fff;
+  color: #2E86DE;
+  -webkit-text-stroke: 0.09em #fff;
   paint-order: stroke fill;
-  text-shadow: 0.04em 0.04em 0 rgba(0, 0, 0, 0.15);
+  text-shadow: 0 0.06em 0.12em rgba(150, 60, 10, 0.35);
+  /* Bounce + cool-color morph (matches .orange-music-zone 26s gradient) */
+  animation:
+    rainbowLetterWave 2.5s ease-in-out infinite,
+    stickerBrandColorMorph 26s ease-in-out infinite;
+}
+
+@keyframes stickerBrandColorMorph {
+  0%,
+  100% { color: #2E86DE; }
+  25% { color: #14A3B8; }
+  50% { color: #5B5BD6; }
+  75% { color: #8E44AD; }
+}
+
+/* Bounce stagger (was inline) + color wave (negative delays) */
+#welcome .rainbow-wave .sticker-brand:nth-child(12) { animation-delay: 0.55s, 0s; }
+#welcome .rainbow-wave .sticker-brand:nth-child(13) { animation-delay: 0.6s, -0.6s; }
+#welcome .rainbow-wave .sticker-brand:nth-child(14) { animation-delay: 0.65s, -1.2s; }
+#welcome .rainbow-wave .sticker-brand:nth-child(15) { animation-delay: 0.7s, -1.8s; }
+#welcome .rainbow-wave .sticker-brand:nth-child(16) { animation-delay: 0.75s, -2.4s; }
+#welcome .rainbow-wave .sticker-brand:nth-child(17) { animation-delay: 0.8s, -3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  #welcome .rainbow-wave .sticker-brand {
+    animation: none;
+  }
+
+  #welcome .rainbow-wave .sticker-brand:nth-child(12),
+  #welcome .rainbow-wave .sticker-brand:nth-child(15) {
+    color: #2E86DE; /* Z, D */
+  }
+
+  #welcome .rainbow-wave .sticker-brand:nth-child(13),
+  #welcome .rainbow-wave .sticker-brand:nth-child(16) {
+    color: #14A3B8; /* A, I */
+  }
+
+  #welcome .rainbow-wave .sticker-brand:nth-child(14),
+  #welcome .rainbow-wave .sticker-brand:nth-child(17) {
+    color: #8E44AD; /* Y, O */
+  }
 }
 
 /* Extra room so the rainbow glow is never clipped by section edges / sticky nav */
