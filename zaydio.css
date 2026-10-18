@@ -2742,6 +2742,60 @@ video:hover {
   30% { transform: translateY(0); }
 }
 
+/* Cartoon sticker title — readable yellow/white on sunny orange + forest video */
+#welcome .welcome-open__title {
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
+  text-shadow: none;
+}
+
+#welcome .welcome-open__title::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140%;
+  height: 180%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(26, 26, 46, 0.25) 0%,
+    rgba(26, 26, 46, 0.12) 40%,
+    transparent 72%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+@media screen and (min-width: 768px) {
+  #welcome .welcome-open__title::before {
+    left: 0;
+    transform: translate(0, -50%);
+    width: 120%;
+  }
+}
+
+#welcome .rainbow-wave .sticker-welcome,
+#welcome .rainbow-wave .sticker-brand {
+  /* Keep bounce; replace soft shadow with hard sticker offset */
+  text-shadow: none;
+}
+
+#welcome .rainbow-wave .sticker-welcome {
+  color: var(--color-white);
+  -webkit-text-stroke: 0.09em var(--color-navy); /* ~4px at 2.8rem */
+  paint-order: stroke fill;
+  text-shadow: 0.067em 0.067em 0 var(--color-navy); /* ~3px */
+}
+
+#welcome .rainbow-wave .sticker-brand {
+  color: var(--color-yellow); /* #FFD93D — ≥4.5:1 vs navy #1A1A2E */
+  -webkit-text-stroke: 0.156em var(--color-navy); /* ~7px at 2.8rem */
+  paint-order: stroke fill;
+  text-shadow: 0.11em 0.11em 0 var(--color-navy); /* ~5px */
+}
+
 /* Extra room so the rainbow glow is never clipped by section edges / sticky nav */
 .album-cover-glow {
   display: inline-block;
