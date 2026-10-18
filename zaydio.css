@@ -2778,22 +2778,22 @@ video:hover {
 
 #welcome .rainbow-wave .sticker-welcome,
 #welcome .rainbow-wave .sticker-brand {
-  /* Keep bounce; replace soft shadow with hard sticker offset */
+  /* Keep bounce; letter fills/shadows set below */
   text-shadow: none;
 }
 
 #welcome .rainbow-wave .sticker-welcome {
   color: var(--color-white);
-  -webkit-text-stroke: 0.09em var(--color-navy); /* ~4px at 2.8rem */
-  paint-order: stroke fill;
-  text-shadow: 0.067em 0.067em 0 var(--color-navy); /* ~3px */
+  -webkit-text-stroke: 0;
+  text-shadow: 0.05em 0.05em 0 #1B2A6B;
 }
 
 #welcome .rainbow-wave .sticker-brand {
-  color: var(--color-yellow); /* #FFD93D — ≥4.5:1 vs navy #1A1A2E */
-  -webkit-text-stroke: 0.156em var(--color-navy); /* ~7px at 2.8rem */
+  /* Deep navy — no blue as dark in palette; #1B2A6B meets ≥4.5:1 on orange zone */
+  color: #1B2A6B;
+  -webkit-text-stroke: 0.06em #fff;
   paint-order: stroke fill;
-  text-shadow: 0.11em 0.11em 0 var(--color-navy); /* ~5px */
+  text-shadow: 0.04em 0.04em 0 rgba(0, 0, 0, 0.15);
 }
 
 /* Extra room so the rainbow glow is never clipped by section edges / sticky nav */
