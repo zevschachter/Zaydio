@@ -2628,13 +2628,16 @@ video:hover {
   }
 
   #welcome .welcome-open__title {
-    font-size: clamp(1.6rem, 7vw, 2.2rem) !important;
     margin-bottom: 0.5rem !important;
   }
 
   #welcome .welcome-open__lede {
-    font-size: clamp(0.95rem, 3.6vw, 1.1rem) !important;
     margin-bottom: 0.85rem !important;
+  }
+
+  #welcome #streaming-links .welcome-stream-btn {
+    padding: 10px 16px !important;
+    font-size: 0.9rem !important;
   }
 
   #welcome .album-cover-glow {
@@ -2651,13 +2654,9 @@ video:hover {
     gap: 0.5rem !important;
   }
 
-  #welcome #streaming-links .btn {
-    padding: 10px 18px !important;
-    font-size: 0.9rem !important;
-  }
-
   #welcome .share-row {
     margin-top: 0.65rem !important;
+    justify-content: center;
   }
 }
 
@@ -2676,170 +2675,136 @@ video:hover {
   transition: transform 0.3s ease;
 }
 
-/* Streaming button hover effects */
-.album-announcement .btn:hover {
+/* Welcome streaming buttons — white pills (this section only) */
+#welcome #streaming-links .welcome-stream-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #fff !important;
+  border: 0 !important;
+  color: #3A1F14 !important;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+  padding: 12px 22px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(150, 60, 10, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#welcome #streaming-links .welcome-stream-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(150, 60, 10, 0.28) !important;
+  color: #3A1F14 !important;
+  background: #fff !important;
+}
+
+#welcome #streaming-links .welcome-stream-btn__icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* Other album-announcement buttons (browse albums, etc.) keep lift */
+.album-announcement .btn:not(.welcome-stream-btn):hover {
   transform: translateY(-3px) !important;
   box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
 }
 
-/* Floating music note animation */
+/* Floating music notes — white at ~0.35 opacity */
+.album-announcement__notes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: #fff;
+  opacity: 0.35;
+  z-index: 0;
+}
+
 @keyframes floatNote {
   0%, 100% { transform: translateY(0) rotate(var(--note-rotate, 0deg)); }
   50% { transform: translateY(-12px) rotate(var(--note-rotate, 0deg)); }
 }
 
-.album-announcement span[style*="position: absolute"] {
+.album-announcement__notes span {
   animation: floatNote 3s ease-in-out infinite;
 }
 
-.album-announcement span[style*="position: absolute"]:nth-child(2) {
-  animation-delay: 0.5s;
-}
+.album-announcement__notes span:nth-child(2) { animation-delay: 0.5s; }
+.album-announcement__notes span:nth-child(3) { animation-delay: 1s; }
+.album-announcement__notes span:nth-child(4) { animation-delay: 1.5s; }
+.album-announcement__notes span:nth-child(5) { animation-delay: 2s; }
 
-.album-announcement span[style*="position: absolute"]:nth-child(3) {
-  animation-delay: 1s;
-}
-
-.album-announcement span[style*="position: absolute"]:nth-child(4) {
-  animation-delay: 1.5s;
-}
-
-.album-announcement span[style*="position: absolute"]:nth-child(5) {
-  animation-delay: 2s;
-}
-
-/* Rainbow wave text animation */
-.rainbow-wave {
-  display: inline-block;
-}
-
-.rainbow-wave span {
-  display: inline-block;
-  font-weight: 900;
-  animation: rainbowLetterWave 2.5s ease-in-out infinite;
-  text-shadow: 1px 2px 4px rgba(0,0,0,0.3);
-}
-
-.rainbow-wave .rainbow-space {
-  width: 0.3em;
-  animation: none;
-}
-
-.rainbow-wave span:nth-child(1)  { color: #E8222E; }
-.rainbow-wave span:nth-child(2)  { color: #D4371E; }
-.rainbow-wave span:nth-child(3)  { color: #FFE033; }
-.rainbow-wave span:nth-child(4)  { color: #FFED6B; }
-.rainbow-wave span:nth-child(5)  { color: #FFF8A8; }
-.rainbow-wave span:nth-child(6)  { color: #2ECC71; }
-.rainbow-wave span:nth-child(7)  { color: #1DAA5C; }
-.rainbow-wave span:nth-child(8)  { color: #18A0B8; }
-.rainbow-wave span:nth-child(9)  { color: #0090D4; }
-.rainbow-wave span:nth-child(10) { color: #0077CC; }
-.rainbow-wave span:nth-child(11) { color: #0066FF; }
-.rainbow-wave span:nth-child(12) { color: #6B3FA0; }
-.rainbow-wave span:nth-child(13) { color: #9B30D6; }
-.rainbow-wave span:nth-child(14) { color: #E8225E; }
-.rainbow-wave span:nth-child(15) { color: #E8222E; }
-.rainbow-wave span:nth-child(16) { color: #FF9500; }
-.rainbow-wave span:nth-child(17) { color: #FFE033; }
-
-@keyframes rainbowLetterWave {
-  0%, 100% { transform: translateY(0); }
-  15% { transform: translateY(-8px); }
-  30% { transform: translateY(0); }
-}
-
-/* Cartoon sticker title — readable yellow/white on sunny orange + forest video */
+/* Welcome heading lockup — eyebrow + logo image */
 #welcome .welcome-open__title {
   position: relative;
-  isolation: isolate;
   z-index: 1;
-  text-shadow: none;
+  margin: 0 0 1rem;
+  text-align: center;
+  line-height: 1.15;
 }
 
-#welcome .welcome-open__title::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 140%;
-  height: 180%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(
-    ellipse at center,
-    rgba(26, 26, 46, 0.25) 0%,
-    rgba(26, 26, 46, 0.12) 40%,
-    transparent 72%
-  );
-  pointer-events: none;
-  z-index: -1;
+#welcome .welcome-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+#welcome .welcome-lockup__eyebrow {
+  display: block;
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(150, 60, 10, 0.35);
+}
+
+#welcome .welcome-lockup__logo {
+  display: block;
+  width: min(70vw, 420px);
+  height: auto;
+  filter: drop-shadow(0 6px 12px rgba(150, 60, 10, 0.35));
+  animation: welcomeLogoFloat 4s ease-in-out infinite;
+}
+
+@keyframes welcomeLogoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+#welcome .welcome-open__lede {
+  font-family: var(--body-font-family);
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.45;
+  /* Darkened from #5B2A1A so lede stays ≥4.5:1 on every orange-zone stop */
+  color: #3F1C12;
+  max-width: 34ch;
+  text-align: center;
+  text-shadow: none;
+  opacity: 1;
 }
 
 @media screen and (min-width: 768px) {
-  #welcome .welcome-open__title::before {
-    left: 0;
-    transform: translate(0, -50%);
-    width: 120%;
+  #welcome .welcome-lockup__eyebrow {
+    font-size: 1.5rem;
+  }
+
+  #welcome .welcome-open__copy .share-row {
+    justify-content: center;
   }
 }
 
-#welcome .rainbow-wave .sticker-welcome,
-#welcome .rainbow-wave .sticker-brand {
-  /* Keep bounce; letter fills/shadows set below */
-  text-shadow: none;
-}
-
-#welcome .rainbow-wave .sticker-welcome {
-  color: var(--color-white);
-  -webkit-text-stroke: 0;
-  text-shadow: 0 0.05em 0.1em rgba(150, 60, 10, 0.35);
-}
-
-#welcome .rainbow-wave .sticker-brand {
-  color: #2E86DE;
-  -webkit-text-stroke: 0.09em #fff;
-  paint-order: stroke fill;
-  text-shadow: 0 0.06em 0.12em rgba(150, 60, 10, 0.35);
-  /* Bounce + cool-color morph (matches .orange-music-zone 26s gradient) */
-  animation:
-    rainbowLetterWave 2.5s ease-in-out infinite,
-    stickerBrandColorMorph 26s ease-in-out infinite;
-}
-
-@keyframes stickerBrandColorMorph {
-  0%,
-  100% { color: #2E86DE; }
-  25% { color: #14A3B8; }
-  50% { color: #5B5BD6; }
-  75% { color: #8E44AD; }
-}
-
-/* Bounce stagger (was inline) + color wave (negative delays) */
-#welcome .rainbow-wave .sticker-brand:nth-child(12) { animation-delay: 0.55s, 0s; }
-#welcome .rainbow-wave .sticker-brand:nth-child(13) { animation-delay: 0.6s, -0.6s; }
-#welcome .rainbow-wave .sticker-brand:nth-child(14) { animation-delay: 0.65s, -1.2s; }
-#welcome .rainbow-wave .sticker-brand:nth-child(15) { animation-delay: 0.7s, -1.8s; }
-#welcome .rainbow-wave .sticker-brand:nth-child(16) { animation-delay: 0.75s, -2.4s; }
-#welcome .rainbow-wave .sticker-brand:nth-child(17) { animation-delay: 0.8s, -3s; }
-
 @media (prefers-reduced-motion: reduce) {
-  #welcome .rainbow-wave .sticker-brand {
+  #welcome .welcome-lockup__logo {
     animation: none;
   }
 
-  #welcome .rainbow-wave .sticker-brand:nth-child(12),
-  #welcome .rainbow-wave .sticker-brand:nth-child(15) {
-    color: #2E86DE; /* Z, D */
-  }
-
-  #welcome .rainbow-wave .sticker-brand:nth-child(13),
-  #welcome .rainbow-wave .sticker-brand:nth-child(16) {
-    color: #14A3B8; /* A, I */
-  }
-
-  #welcome .rainbow-wave .sticker-brand:nth-child(14),
-  #welcome .rainbow-wave .sticker-brand:nth-child(17) {
-    color: #8E44AD; /* Y, O */
+  .album-announcement__notes span {
+    animation: none;
   }
 }
 
