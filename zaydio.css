@@ -58,6 +58,8 @@ https://zaydio.com
 
   --wave-divider-height:          clamp(88px, 11vw, 120px);
   --wave-divider-height-mobile:   clamp(72px, 10vw, 96px);
+  /* Absolute/sticky homepage nav clearance (logo + padding) */
+  --nav-height:                   88px;
 
   --font-weight-normal:           400;
   --font-weight-medium:           500;
@@ -1051,8 +1053,9 @@ strong {
   position: relative;
   padding-top: 100px;
   padding-bottom: 100px;
-  height: 100vh;
+  /* Grow with content on short phone viewports instead of clipping under the nav */
   min-height: 670px;
+  min-height: 100svh;
   margin-bottom: -90px;
 }
 
@@ -1711,8 +1714,11 @@ strong {
     position: relative;
     top: 0;
     margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 82px;
+    /* Keep wave overlap with the next section */
+    margin-bottom: -90px;
+    /* Bootstrap .align-items-center uses !important — override so h1 clears the nav */
+    align-items: flex-start !important;
+    padding-top: calc(var(--nav-height) + 24px);
   }
 
   .hero-section svg {
@@ -2439,6 +2445,7 @@ video:hover {
 .share-copy {
   background-color: rgba(255,255,255,0.2);
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .share-copy:hover {

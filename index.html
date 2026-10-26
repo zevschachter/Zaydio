@@ -46,15 +46,28 @@
 
         <link href="bootstrap-icons.css?v=5.1" rel="stylesheet">
 
-        <link href="zaydio.css?v=11.2" rel="stylesheet">
+        <link href="zaydio.css?v=11.3" rel="stylesheet">
 
         <!-- Open on welcome (under splash); honor hash / reload / back-forward -->
         <script>
             history.scrollRestoration = 'manual';
-            window.addEventListener('DOMContentLoaded', function () {
+            (function () {
                 var nav = performance.getEntriesByType('navigation')[0];
                 var isBackOrReload = nav && (nav.type === 'back_forward' || nav.type === 'reload');
-                if (!location.hash && !isBackOrReload) {
+                if (location.hash || isBackOrReload) return;
+
+                var userScrolled = false;
+                var startY = window.scrollY || 0;
+                function onUserScroll() {
+                    if (Math.abs((window.scrollY || 0) - startY) > 8) {
+                        userScrolled = true;
+                        window.removeEventListener('scroll', onUserScroll, { passive: true });
+                    }
+                }
+                window.addEventListener('scroll', onUserScroll, { passive: true });
+
+                function scrollToWelcome() {
+                    if (userScrolled) return;
                     var el = document.getElementById('welcome');
                     if (!el) return;
                     var root = document.documentElement;
@@ -62,8 +75,16 @@
                     root.style.scrollBehavior = 'auto';
                     el.scrollIntoView({ behavior: 'instant', block: 'start' });
                     root.style.scrollBehavior = prev;
+                    startY = window.scrollY || 0;
                 }
-            });
+
+                window.addEventListener('DOMContentLoaded', scrollToWelcome);
+                /* Re-run after images/fonts so iOS Safari lands correctly; skip if user already scrolled */
+                window.addEventListener('load', function () {
+                    if (userScrolled) return;
+                    scrollToWelcome();
+                });
+            })();
         </script>
 
         <!-- Structured Data for Google Rich Results -->
